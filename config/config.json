@@ -9,10 +9,19 @@
           "manifest": "./src/webparts/imageCarousel/ImageCarouselWebPart.manifest.json"
         }
       ]
+    },
+    "forms-and-templates-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/formsAndTemplates/FormsAndTemplatesWebPart.js",
+          "manifest": "./src/webparts/formsAndTemplates/FormsAndTemplatesWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js"
+    "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js",
+    "FormsAndTemplatesWebPartStrings": "lib/webparts/formsAndTemplates/loc/{locale}.js"
   }
 }
