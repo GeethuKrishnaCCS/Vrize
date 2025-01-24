@@ -175,7 +175,7 @@ export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCa
       groupFields: [
         PropertyPaneToggle('currentSite', { label: `Source of images`, onText: `Current Site`, offText: `Other Site`, offAriaLabel: `Other Site`, onAriaLabel: `Current Site`, checked: true }),
         PropertyPaneTextField('siteUrl', { onGetErrorMessage: (value) => this.getErrorMessage(value), underlined: true, placeholder: `${this.properties.currentSite ? this.context.pageContext.web.absoluteUrl : 'Enter Site Url'}`, disabled: this.properties.currentSite }),
-        PropertyPaneDropdown('listName', { options: this.libsOptions, label: `Select Library`, disabled: this.libsOptions.length == 0, selectedKey: this.properties.listName })
+        PropertyPaneDropdown('listName', { options: this.libsOptions, label: `Select Library`, disabled: this.libsOptions.length === 0, selectedKey: this.properties.listName })
       ]
     };
 

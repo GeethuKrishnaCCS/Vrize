@@ -49,7 +49,7 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
 
     try {
       // Get the max number of records to be fetched
-      // let maxRec: number = this.props.layout == CAROUSEL ? Constants.CaroselMax : this.props.layout == LIST ? Constants.ListMax : Constants.LightboxMax;
+      // let maxRec: number = this.props.layout === CAROUSEL ? Constants.CaroselMax : this.props.layout === LIST ? Constants.ListMax : Constants.LightboxMax;
       // const apiUrl = `${this.props.webUrl}/_api/web/lists/getByTitle('${this.props.listName}')/items`;
       // const filterQuery = `?$filter=Enable eq 1&$expand=File&$top=${this.props.imagesCount > 0 ? this.props.imagesCount : maxRec}&$select=RedirectLink,Caption,Description,File/Name,File/ServerRelativeUrl`;
       // // Make the request to SharePoint
@@ -87,7 +87,7 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
                 {
                   this.props.webUrl && this.props.listName ?
 
-                    this.props.layout == CAROUSEL ?
+                    this.props.layout === CAROUSEL ?
                       <React.Suspense fallback={<div>Loading...</div>}>
                         <Carousel duration={this.props.duration}
                           images={this.state.imageInfo}

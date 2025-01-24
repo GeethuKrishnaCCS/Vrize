@@ -19,6 +19,12 @@ export class BaseService {
     public getCurrentUser() {
         return this.sp.web.currentUser();
     }
+    public getListItems(url: string): Promise<any> {
+        return this.sp.web.getList(url).items();
+    }
+    public addListItem(url: string, data: any): Promise<any> {
+        return this.sp.web.getList(url).items.add(data);
+    }
     public getImageItems(url: string, selectquery: string): Promise<any> {
         return this.sp.web.getList(url).items.select(selectquery)();
     }

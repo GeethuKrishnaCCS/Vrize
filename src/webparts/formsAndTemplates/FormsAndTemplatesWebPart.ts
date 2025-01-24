@@ -12,24 +12,21 @@ import * as strings from 'FormsAndTemplatesWebPartStrings';
 import FormsAndTemplates from './components/FormsAndTemplates';
 import { IFormsAndTemplatesProps } from './components/IFormsAndTemplatesProps';
 
-export interface IFormsAndTemplatesWebPartProps {
-  description: string;
-}
 
-export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFormsAndTemplatesWebPartProps> {
 
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFormsAndTemplatesProps> {
+
 
   public render(): void {
     const element: React.ReactElement<IFormsAndTemplatesProps> = React.createElement(
       FormsAndTemplates,
       {
         description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        context: this.context,
+        siteUrl: this.context.pageContext.web.serverRelativeUrl,
+        listName: this.properties.listName,
+        laURL: this.properties.laURL
+
       }
     );
 
@@ -38,7 +35,7 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+      // this._environmentMessage = message;
     });
   }
 
@@ -76,7 +73,7 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
       return;
     }
 
-    this._isDarkTheme = !!currentTheme.isInverted;
+    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -108,8 +105,11 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('listName', {
+                  label: "List Name"
+                }),
+                PropertyPaneTextField('laURL', {
+                  label: "LogicApp URL"
                 })
               ]
             }

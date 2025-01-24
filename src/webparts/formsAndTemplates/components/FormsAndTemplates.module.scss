@@ -1,34 +1,40 @@
 @import '~@fluentui/react/dist/sass/References.scss';
 
 .formsAndTemplates {
-  overflow: hidden;
-  padding: 1em;
-  color: "[theme:bodyText, default: #323130]";
-  color: var(--bodyText);
-  &.teams {
-    font-family: $ms-font-family-fallbacks;
+  .divrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
   }
-}
 
-.welcome {
-  text-align: center;
-}
+  .h1 {
+    color: whitesmoke;
+  }
 
-.welcomeImage {
-  width: 100%;
-  max-width: 420px;
-}
+  .card {
+    background: navy;
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    width: 20%;
+    height: 35%;
+    color: whitesmoke;
+    padding: 1em;
+    text-wrap: wrap;
+  }
 
-.links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+  .cardfooter {
+    margin-top: 36px;
+    text-align: right;
+    display: flex;
+    justify-content: right;
+    gap: 1em;
+  }
 
-    &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
-    }
+  .description {
+    color: whitesmoke;
+    overflow-y: auto;
+    max-height: 5em;
+    min-height: 5em;
   }
 }
