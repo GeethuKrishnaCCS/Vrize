@@ -52,7 +52,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
       });
       /* fetch forms */
 
-      const groupName = "EngineersOrCheckManagersGrp"; // Replace with your group name
+      const groupName = this.props.groupName; // Replace with your group name
       const isMember = await this.isUserMemberOfGroup(groupName);
       console.log(`Is user a member of the group "${groupName}":`, isMember);
       if (isMember === true) {
