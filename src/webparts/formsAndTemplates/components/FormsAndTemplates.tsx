@@ -85,6 +85,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
             });
           }
         }
+        this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
       }
 
       console.log(formDetails);
@@ -236,13 +237,14 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
                     <div className={styles.submitStatus}>{form.Status}</div>}
                   {form.Status === "Pending" &&
                     <div className={styles.pendingStatus}>{form.Status}</div>}
-                  <div>{form.Created}</div>
+                  <div className={styles.date}>{form.Created}</div>
                   {form.EditEnable === true &&
-                    <div><PrimaryButton
-                      // className={styles.btnprimary}
-                      text="Edit"
-                      onClick={() => this.onEditClick(form.Link)}
-                    /></div>}
+                    <div className={styles.button}>
+                      <PrimaryButton
+                        className={styles.btnprimary}
+                        text="Edit"
+                        onClick={() => this.onEditClick(form.Link)}
+                      /></div>}
                 </div>
               </div>
             );
