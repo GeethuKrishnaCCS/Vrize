@@ -23,7 +23,8 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
       },
       modaloverlay: { isOpen: false, modalText: "" },
       ownerEmail: "",
-      status: "Pending"
+      status: "Pending",
+      isAdmin: false
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -50,9 +51,32 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         modaloverlay: { isOpen: true, modalText: "Loading..." }
       });
       /* fetch forms */
-      await this.getFormsAndTemplates();
+
+      const groupName = "EngineersOrCheckManagersGrp"; // Replace with your group name
+      const isMember = await this.isUserMemberOfGroup(groupName);
+      console.log(`Is user a member of the group "${groupName}":`, isMember);
+      if (isMember === true) {
+        this.setState({ isAdmin: true });
+        await this.getFormsAndTemplates();
+      }
+      else {
+        this.setState({ isAdmin: false });
+        await this.getFormsAndTemplates();
+      }
     }
 
+  }
+  private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
+    try {
+      const users = await this.service.getGroupUsers(this.props.context, groupName);
+      console.log(users);
+      const currentUser = await this.service.getCurrentUser();
+      const userIsMember = users.some((user: any) => user.mail === currentUser.Email);
+      return userIsMember;
+    } catch (error) {
+      console.error(`Error checking group membership: ${error}`);
+      return false;
+    }
   }
   public async getFormsAndTemplates() {
     const formDetails: any[] = [];
@@ -223,7 +247,8 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     const AddFormIcon: IIconProps = { iconName: 'Add' };
     return (
       <section className={`${styles.formsAndTemplates}`}>
-        <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>
+        {this.state.isAdmin === true &&
+          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
         {<div className={styles.divrow}>
           {/*  Iterate over each item to generate the carousel */}
           {this.state.formDetails.map((form: any, index: any) => {
