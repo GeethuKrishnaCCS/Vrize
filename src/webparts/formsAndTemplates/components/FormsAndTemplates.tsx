@@ -23,7 +23,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
       },
       modaloverlay: { isOpen: false, modalText: "" },
       ownerEmail: "",
-      status: ""
+      status: "Pending"
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -60,25 +60,34 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     const existingItems = await this.service.getListItems(queryurl);
     console.log(existingItems);
     if (existingItems.length !== 0) {
-      existingItems.forEach(async (item: any) => {
-        this.setState({ status: "" });
+      for (let i = 0; i < existingItems.length; i++) {
+        const item = existingItems[i];
+        let editEnable = false;
+        this.setState({ status: "Pending" });
         const formLink = item.FormLink;
         const urlParams = new URLSearchParams(formLink.split('?')[1]);
         const formId = urlParams.get('id');
         console.log(formId);
         if (formId !== null) {
-          await this.checkFormStatus(item, formId);
-
-          formDetails.push({
-            Title: item.Title,
-            Description: item.Description,
-            Link: item.FormLink,
-            Created: moment(item.Created).format("DD/MM/YYYY"),
-            Status: this.state.status
-          });
-
+          if (item.FormOwner === this.state.currentUser.email) {
+            editEnable = true;
+          }
+          const statuscheck = await this.checkFormStatus(item, formId);
+          const checked = [await statuscheck];
+          if (checked) {
+            formDetails.push({
+              Title: item.Title,
+              Description: item.Description,
+              Link: item.FormLink,
+              Created: moment(item.Created).format("DD MMMM YYYY"),
+              Status: this.state.status,
+              EditEnable: editEnable
+            });
+          }
         }
-      });
+      }
+
+      console.log(formDetails);
       this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
     }
     else {
@@ -98,17 +107,23 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
       headers: requestHeaders,
       body: body
     };
-    const response = await this.props.context.httpClient.post(postURL, HttpClient.configurations.v1, postOptions);
-    const responseJSON = await response.json();
-    if (response.ok) {
-      console.log(responseJSON);
-      if (responseJSON.isSubmitted === true) {
-        this.setState({ status: "Submitted" })
-      }
-      else {
-        this.setState({ status: "Pending" })
+    if (item.OwnerGUID !== null) {
+      const response = await this.props.context.httpClient.post(postURL, HttpClient.configurations.v1, postOptions);
+      const responseJSON = await response.json();
+      if (response.ok) {
+        console.log(responseJSON);
+        if (responseJSON.isSubmitted === true) {
+          this.setState({ status: "Submitted" })
+        }
+        else {
+          this.setState({ status: "Pending" })
+        }
       }
     }
+    else {
+      this.setState({ status: "Pending" })
+    }
+
   }
   public onModalClose = () => {
     this.setState({ openAddFormModal: false });
@@ -149,7 +164,10 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     this.setState({ openAddFormModal: false, formName: "", formDescription: "", formLink: "", ownerEmail: "" });
     this.getFormsAndTemplates()
   }
-
+  public onEditClick = (formlink: string) => {
+    const editlink = formlink.replace("ResponsePage", "DesignPageV2");
+    window.open(editlink, '_blank', 'noopener,noreferrer');
+  }
   public render(): React.ReactElement<IFormsAndTemplatesProps> {
     const theme = getTheme();
     const contentStyles = mergeStyleSets({
@@ -214,13 +232,17 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
                   <h1 className={styles.h1}>{form.Title}</h1></Link>
                 <div className={styles.description}>{form.Description}</div>
                 <div className={styles.cardfooter}>
-                  <div>{form.Status}</div>
+                  {form.Status === "Submitted" &&
+                    <div className={styles.submitStatus}>{form.Status}</div>}
+                  {form.Status === "Pending" &&
+                    <div className={styles.pendingStatus}>{form.Status}</div>}
                   <div>{form.Created}</div>
-                  {/* <div><PrimaryButton
-                    // className={styles.btnprimary}
-                    text="Edit"
-                  // onClick={this.onSubmitClick}
-                  /></div> */}
+                  {form.EditEnable === true &&
+                    <div><PrimaryButton
+                      // className={styles.btnprimary}
+                      text="Edit"
+                      onClick={() => this.onEditClick(form.Link)}
+                    /></div>}
                 </div>
               </div>
             );

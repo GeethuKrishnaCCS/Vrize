@@ -16,7 +16,7 @@
     padding: 40px;
     border-radius: 10px;
     position: relative;
-    width: 20%;
+    width: 25%;
     height: 35%;
     color: whitesmoke;
     padding: 1em;
@@ -27,7 +27,7 @@
     margin-top: 36px;
     text-align: right;
     display: flex;
-    justify-content: right;
+    justify-content: center;
     gap: 1em;
   }
 
@@ -36,5 +36,25 @@
     overflow-y: auto;
     max-height: 5em;
     min-height: 5em;
+  }
+
+  .pendingStatus {
+    border: 3px solid rgb(218, 144, 7);
+    border-radius: 1em;
+    padding: 8px;
+    text-align: center;
+    color: rgb(218, 144, 7);
+  }
+
+  .submitStatus {
+    border: 3px solid rgb(70, 207, 7);
+    border-radius: 1em;
+    padding: 8px;
+    text-align: center;
+    color: rgb(70, 207, 7);
+  }
+
+  .date {
+    padding-top: 10px;
   }
 }
