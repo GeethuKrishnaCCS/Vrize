@@ -17,11 +17,21 @@
           "manifest": "./src/webparts/formsAndTemplates/FormsAndTemplatesWebPart.manifest.json"
         }
       ]
+    },
+    "birthday-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/birthday/BirthdayWebPart.js",
+          "manifest": "./src/webparts/birthday/BirthdayWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
     "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js",
-    "FormsAndTemplatesWebPartStrings": "lib/webparts/formsAndTemplates/loc/{locale}.js"
+    "FormsAndTemplatesWebPartStrings": "lib/webparts/formsAndTemplates/loc/{locale}.js",
+    "BirthdayWebPartStrings": "lib/webparts/birthday/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
   }
 }
