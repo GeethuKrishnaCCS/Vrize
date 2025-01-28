@@ -7,6 +7,7 @@ export interface IFormsAndTemplatesProps {
   listName: string;
   laURL: string;
   groupName: string;
+  WebpartTitle: string;
 }
 export interface IFormsAndTemplatesState {
   formDetails: any[];

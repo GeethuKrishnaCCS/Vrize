@@ -247,6 +247,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     const AddFormIcon: IIconProps = { iconName: 'Add' };
     return (
       <section className={`${styles.formsAndTemplates}`}>
+        <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
         {this.state.isAdmin === true &&
           <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
         {<div className={styles.divrow}>

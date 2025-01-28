@@ -24,7 +24,7 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
         return (
             <div className={styles.carousel}>
                 <SizeMe>{({ size }: SizeMeProps) =>
-                    <div className={this.props.galleryType === "WelcomeGallery" ? styles.slideshowContainer : styles.smallslideshowContainer}>
+                    <div className={styles.slideshowContainer}>
                         {/*  Iterate over each item to generate the carousel */}
                         {this.props.images?.info?.slice(0, this.props.imagesCount).map((image: any, index: any) => {
                             return (

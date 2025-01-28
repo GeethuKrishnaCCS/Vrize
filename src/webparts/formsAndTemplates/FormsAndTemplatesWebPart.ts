@@ -26,7 +26,8 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
         siteUrl: this.context.pageContext.web.serverRelativeUrl,
         listName: this.properties.listName,
         laURL: this.properties.laURL,
-        groupName: this.properties.groupName
+        groupName: this.properties.groupName,
+        WebpartTitle: this.properties.WebpartTitle
 
       }
     );
@@ -114,6 +115,9 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
                 }),
                 PropertyPaneTextField('groupName', {
                   label: "Group Name"
+                }),
+                PropertyPaneTextField('WebpartTitle', {
+                  label: "Webpart Title"
                 })
               ]
             }

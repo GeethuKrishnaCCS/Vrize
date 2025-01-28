@@ -24,7 +24,8 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
         description: this.properties.description,
         context: this.context,
         siteUrl: this.context.pageContext.web.serverRelativeUrl,
-        listName: this.properties.listName
+        listName: this.properties.listName,
+        WebpartTitle: this.properties.WebpartTitle
       }
     );
 
@@ -103,6 +104,9 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
             {
               groupName: strings.BasicGroupName,
               groupFields: [
+                PropertyPaneTextField('WebpartTitle', {
+                  label: "Webpart Title"
+                }),
                 PropertyPaneTextField('listName', {
                   label: "List Name"
                 })

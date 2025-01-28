@@ -25,61 +25,61 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     const user = await this.service.getCurrentUser();
     if (user) {
 
-      const loginName = await this.service.getUser(user.Id);
-      if (loginName) {
-        const result = await this.service.gettingUserProfiles(loginName.LoginName)
-        if (result) {
-          console.log("designation", result);
-        }
-      }
+      // const loginName = await this.service.getUser(user.Id);
+      // if (loginName) {
+      //   const result = await this.service.gettingUserProfiles(loginName.LoginName)
+      //   if (result) {
+      //     console.log("designation", result);
+      //   }
+      // }
 
-      // this.setState({
-      //   currentUser: {
-      //     id: user.Id,
-      //     email: user.Email,
-      //     title: user.Title
-      //   },
-      //   modaloverlay: { isOpen: true, modalText: "Loading..." }
-      // });
-      // await this.getEmployeeDatas();
+      this.setState({
+        currentUser: {
+          id: user.Id,
+          email: user.Email,
+          title: user.Title
+        },
+        modaloverlay: { isOpen: true, modalText: "Loading..." }
+      });
+      await this.getEmployeeDatas();
     }
   }
-  // private async getEmployeeDatas() {
-  //   const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
-  //   const employeeData = await this.service.getListItems(queryurl);
-  //   if (employeeData) {
-  //     console.log('listItem: ', employeeData);
-  //     this.setState({ employeeData: employeeData });
+  private async getEmployeeDatas() {
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
+    const employeeData = await this.service.getListItems(queryurl);
+    if (employeeData) {
+      console.log('listItem: ', employeeData);
+      this.setState({ employeeData: employeeData });
 
-  //     const greetings: any[] = [];
-  //     const currentDate = new Date();
-  //     const todayDate = currentDate.toLocaleDateString('en-GB');
+      const greetings: any[] = [];
+      const currentDate = new Date();
+      const todayDate = currentDate.toLocaleDateString('en-GB');
 
-  //     const greetingsPromises = employeeData.map(async (item: any) => {
-  //       const dateOfBirth = new Date(item.DateOfBirth);
-  //       const formattedDate = dateOfBirth.toLocaleDateString('en-GB');
+      const greetingsPromises = employeeData.map(async (item: any) => {
+        const dateOfBirth = new Date(item.DateOfBirth);
+        const formattedDate = dateOfBirth.toLocaleDateString('en-GB');
 
-  //       const employeeInfo = await this.service.getUser(item.Employee.ID);
+        const employeeInfo = await this.service.getUser(item.Employee.ID);
 
-  //       if (formattedDate === todayDate) {
-  //         greetings.push({ ...item, type: 'Birthday', employeeInfo });
-  //       }
+        if (formattedDate === todayDate) {
+          greetings.push({ ...item, type: 'Birthday', employeeInfo });
+        }
 
-  //     });
+      });
 
-  //     await Promise.all(greetingsPromises);
+      await Promise.all(greetingsPromises);
 
-  //     this.setState({
-  //       birthdaygreetings: greetings
-  //     })
-  //   }
-  // }
+      this.setState({
+        birthdaygreetings: greetings
+      })
+    }
+  }
   public render(): React.ReactElement<IBirthdayProps> {
 
 
     return (
       <section className={`${styles.birthday}`}>
-
+        <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
       </section>
     );
   }

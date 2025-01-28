@@ -81,6 +81,7 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
     return (
       <div className={styles.imageCarousel}>
         <div className={styles.container}>
+          <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
           <div className={`ms-Grid`}>
             <div className={`ms-Grid-row`}>
               <div className={`ms-Grid-col ms-sm12`}>
@@ -95,7 +96,6 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
                           isAutoRotate={this.props.isAutorotate}
                           height={this.props.height}
                           width={this.props.width}
-                          galleryType={this.props.gallery}
                           showCaptions={true}></Carousel>
                       </React.Suspense>
                       :

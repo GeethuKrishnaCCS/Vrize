@@ -5,6 +5,7 @@ export interface IBirthdayProps {
   context: WebPartContext;
   siteUrl: string;
   listName: string;
+  WebpartTitle: string;
 }
 export interface IBirthdayState {
   currentUser: IUser;

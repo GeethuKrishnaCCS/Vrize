@@ -13,8 +13,8 @@ export interface IImageCarouselProps {
   imagesCount: number;
   width: number;
   height: number;
-  gallery: string;
   propertyPane: IPropertyPaneAccessor;
+  WebpartTitle: string;
 }
 export interface IImageCarouselState {
   imageCount?: number;
