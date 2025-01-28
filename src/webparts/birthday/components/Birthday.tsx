@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from './Birthday.module.scss';
 import type { IBirthdayProps, IBirthdayState } from './IBirthdayProps';
 import { BaseService } from '../../../shared/services/BaseService';
+import StackStyle from './StackStyle';
 
 export default class Birthday extends React.Component<IBirthdayProps, IBirthdayState, {}> {
   private service: BaseService;/* To call the service file */
@@ -14,8 +15,8 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
         title: ""
       },
       modaloverlay: { isOpen: false, modalText: "" },
-      employeeData: [],
-      birthdaygreetings: []
+      employeesBirthday: [],
+      Reload: false
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -76,7 +77,7 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
       greetings.push(EmployeeDetails);
       console.log('greetings: ', greetings);
       this.setState({
-        birthdaygreetings: greetings
+        employeesBirthday: greetings
       })
     }
   }
@@ -85,7 +86,12 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
 
     return (
       <section className={`${styles.birthday}`}>
-        <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+        <StackStyle
+          employeesBirthday={this.state.employeesBirthday}
+          Reload={this.state.Reload}
+          context={this.props.context}
+          description={this.props.description} /> :
+
       </section>
     );
   }

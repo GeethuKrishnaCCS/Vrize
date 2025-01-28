@@ -10,8 +10,8 @@ export interface IBirthdayProps {
 export interface IBirthdayState {
   currentUser: IUser;
   modaloverlay: { isOpen: boolean, modalText: string };
-  employeeData: any[];
-  birthdaygreetings: any[];
+  employeesBirthday: any[];
+  Reload: boolean;
 }
 
 export interface IUser {
