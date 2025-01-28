@@ -24,17 +24,6 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
   public async componentDidMount() {
     const user = await this.service.getCurrentUser();
     if (user) {
-      const loginName = await this.service.getUser(user.Id);
-      if (loginName) {
-        const userProfile = await this.service.gettingUserProfiles(loginName.LoginName);
-        if (userProfile) {
-          console.log("User Profile:", userProfile);
-          // Access individual properties
-          console.log("Image URL:", userProfile.imageUrl);
-          console.log("Designation:", userProfile.designation);
-          console.log("Full Name:", userProfile.fullName);
-        }
-      }
       this.setState({
         currentUser: {
           id: user.Id,
@@ -48,31 +37,44 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
   }
   private async getEmployeeDatas() {
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
-    const selectquery = "Title,Birthday,Employee/ID,Employee/Title,Employee/EMail";
+    const selectquery = "Birthday,Employee/ID,Employee/Title,Employee/EMail";
     const expandquery = "Employee";
     const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
     if (employeeData) {
-      console.log('listItem: ', employeeData);
-      this.setState({ employeeData: employeeData });
-
+      const EmployeeDetails: any[] = [];
       const greetings: any[] = [];
       const currentDate = new Date();
-      const todayDate = currentDate.toLocaleDateString('en-GB');
-
-      const greetingsPromises = employeeData.map(async (item: any) => {
-        const dateOfBirth = new Date(item.DateOfBirth);
-        const formattedDate = dateOfBirth.toLocaleDateString('en-GB');
-
+      const day = String(currentDate.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
+      const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
+      const formattedTodayDate = `${day}-${month}`;
+      console.log('formattedTodayDate: ', formattedTodayDate);
+      for (let i = 0; i < employeeData.length; i++) {
+        const item = employeeData[i];
+        const dateOfBirth = new Date(item.Birthday);
+        const day = String(dateOfBirth.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
+        const month = String(dateOfBirth.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
+        const formattedBirthDate = `${day}-${month}`;
+        console.log('formattedBirthDate: ', formattedBirthDate);
         const employeeInfo = await this.service.getUser(item.Employee.ID);
-
-        if (formattedDate === todayDate) {
-          greetings.push({ ...item, type: 'Birthday', employeeInfo });
+        if (employeeInfo) {
+          const userProfile = await this.service.gettingUserProfiles(employeeInfo.LoginName);
+          if (userProfile) {
+            if (formattedBirthDate === formattedTodayDate) {
+              EmployeeDetails.push({
+                ImageURL: userProfile.imageUrl,
+                Designation: userProfile.designation,
+                FullName: userProfile.fullName,
+                EmployeeID: item.Employee.ID,
+                EmployeeEmail: item.Employee.EMail,
+                Birthday: item.Birthday,
+              });
+            }
+          }
         }
 
-      });
-
-      await Promise.all(greetingsPromises);
-
+      }
+      greetings.push(EmployeeDetails);
+      console.log('greetings: ', greetings);
       this.setState({
         birthdaygreetings: greetings
       })
