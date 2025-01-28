@@ -25,9 +25,11 @@ export class BaseService {
     public addListItem(url: string, data: any): Promise<any> {
         return this.sp.web.getList(url).items.add(data);
     }
+    // Image Carousel Service
     public getImageItems(url: string, selectquery: string): Promise<any> {
         return this.sp.web.getList(url).items.select(selectquery)();
     }
+    // Forms and Templates Service
     public async getGroupUsers(context: any, groupName: string): Promise<any> {
         const filterQuery = `displayName eq '${groupName}'`;
         const client = await context.msGraphClientFactory.getClient("3");
@@ -47,6 +49,16 @@ export class BaseService {
 
 
     }
-
+    // Birthday Service
+    public getItemsFilter(queryurl: string, filter: string): Promise<any> {
+        return this.sp.web.getList(queryurl).items.filter(filter)()
+    }
+    public async getUser(userId: number): Promise<any> {
+        return this.sp.web.getUserById(userId)();
+    }
+    public gettingUserProfiles(loginName: string): Promise<any> {
+        //user profile items for manager email
+        return this.sp.profiles.getUserProfilePropertyFor(loginName, "Title")
+    }
 
 }

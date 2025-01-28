@@ -1,7 +1,20 @@
+import { WebPartContext } from "@microsoft/sp-webpart-base";
+
 export interface IBirthdayProps {
   description: string;
-  isDarkTheme: boolean;
-  environmentMessage: string;
-  hasTeamsContext: boolean;
-  userDisplayName: string;
+  context: WebPartContext;
+  siteUrl: string;
+  listName: string;
+}
+export interface IBirthdayState {
+  currentUser: IUser;
+  modaloverlay: { isOpen: boolean, modalText: string };
+  employeeData: any[];
+  birthdaygreetings: any[];
+}
+
+export interface IUser {
+  id: any;
+  email: string;
+  title: string;
 }

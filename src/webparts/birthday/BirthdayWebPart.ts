@@ -12,24 +12,19 @@ import * as strings from 'BirthdayWebPartStrings';
 import Birthday from './components/Birthday';
 import { IBirthdayProps } from './components/IBirthdayProps';
 
-export interface IBirthdayWebPartProps {
-  description: string;
-}
 
-export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayWebPartProps> {
 
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProps> {
+
 
   public render(): void {
     const element: React.ReactElement<IBirthdayProps> = React.createElement(
       Birthday,
       {
         description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        context: this.context,
+        siteUrl: this.context.pageContext.web.serverRelativeUrl,
+        listName: this.properties.listName
       }
     );
 
@@ -38,7 +33,7 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayWebP
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+      // this._environmentMessage = message;
     });
   }
 
@@ -76,7 +71,7 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayWebP
       return;
     }
 
-    this._isDarkTheme = !!currentTheme.isInverted;
+    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -108,8 +103,8 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayWebP
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('listName', {
+                  label: "List Name"
                 })
               ]
             }
