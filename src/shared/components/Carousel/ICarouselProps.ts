@@ -7,5 +7,6 @@ export interface ICarouselProps {
     showCaptions: boolean;  // Flag to show the captions
     images?: IImageDetails; // Images details
     height: number;         // Height of the carousel
-    width: number;          // Width of the carousel
+    width: number;
+    galleryType: string;         // Width of the carousel
 }

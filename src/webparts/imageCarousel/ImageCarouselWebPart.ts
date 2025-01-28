@@ -30,6 +30,7 @@ export interface IImageCarouselWebPartProps {
   siteUrl: string;
   height: number;
   width: number;
+  gallery: string;
 }
 export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCarouselWebPartProps> {
   public libsOptions: IPropertyPaneDropdownOption[] = [];
@@ -53,7 +54,8 @@ export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCa
         imagesCount: this.properties.imagesCount,
         propertyPane: this.context.propertyPane,
         width: this.properties.width,
-        height: this.properties.height
+        height: this.properties.height,
+        gallery: this.properties.gallery
       }
     );
 
@@ -253,6 +255,13 @@ export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCa
                 }),
                 PropertyPaneTextField('height', {
                   label: 'Height'
+                }),
+                PropertyPaneDropdown('gallery', {
+                  options: [
+                    { key: "ImageGallery", text: "ImageGallery" },
+                    { key: "WelcomeGallery", text: "WelcomeGallery" },
+                  ],
+                  label: `Select Gallery`
                 })
               ]
             },

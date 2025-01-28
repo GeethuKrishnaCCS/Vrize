@@ -95,6 +95,7 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
                           isAutoRotate={this.props.isAutorotate}
                           height={this.props.height}
                           width={this.props.width}
+                          galleryType={this.props.gallery}
                           showCaptions={true}></Carousel>
                       </React.Suspense>
                       :
