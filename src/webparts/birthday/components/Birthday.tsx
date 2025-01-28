@@ -24,15 +24,17 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
   public async componentDidMount() {
     const user = await this.service.getCurrentUser();
     if (user) {
-
-      // const loginName = await this.service.getUser(user.Id);
-      // if (loginName) {
-      //   const result = await this.service.gettingUserProfiles(loginName.LoginName)
-      //   if (result) {
-      //     console.log("designation", result);
-      //   }
-      // }
-
+      const loginName = await this.service.getUser(user.Id);
+      if (loginName) {
+        const userProfile = await this.service.gettingUserProfiles(loginName.LoginName);
+        if (userProfile) {
+          console.log("User Profile:", userProfile);
+          // Access individual properties
+          console.log("Image URL:", userProfile.imageUrl);
+          console.log("Designation:", userProfile.designation);
+          console.log("Full Name:", userProfile.fullName);
+        }
+      }
       this.setState({
         currentUser: {
           id: user.Id,
@@ -46,7 +48,9 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
   }
   private async getEmployeeDatas() {
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
-    const employeeData = await this.service.getListItems(queryurl);
+    const selectquery = "Title,Birthday,Employee/ID,Employee/Title,Employee/EMail";
+    const expandquery = "Employee";
+    const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
     if (employeeData) {
       console.log('listItem: ', employeeData);
       this.setState({ employeeData: employeeData });

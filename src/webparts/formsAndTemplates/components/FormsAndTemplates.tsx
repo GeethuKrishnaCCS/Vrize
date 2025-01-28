@@ -6,7 +6,7 @@ import { ActionButton, FontWeights, IIconProps, IconButton, Link, Modal, Primary
 import * as moment from 'moment';
 import ModalOverlay from '../../../shared/controls/Overlay/Overlay';
 import { HttpClient, IHttpClientOptions } from '@microsoft/sp-http';
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 export default class FormsAndTemplates extends React.Component<IFormsAndTemplatesProps, IFormsAndTemplatesState, {}> {
   private service: BaseService;/* To call the service file */
   constructor(props: IFormsAndTemplatesProps) {
@@ -113,11 +113,11 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         }
         this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
       }
-      let sorted_formDetails = _.orderBy(formDetails, (o: any) => {
-        return o.ID;
-      }, ['desc']);
-      console.log(sorted_formDetails);
-      this.setState({ formDetails: sorted_formDetails, modaloverlay: { isOpen: false, modalText: "" } });
+      // let sorted_formDetails = _.orderBy(formDetails, (o: any) => {
+      //   return o.ID;
+      // }, ['desc']);
+      // console.log(sorted_formDetails);
+      this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
     }
     else {
       this.setState({ modaloverlay: { isOpen: false, modalText: "No Forms Found" } });
@@ -273,7 +273,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
                     <div className={styles.button}>
                       <PrimaryButton
                         className={styles.btnprimary}
-                        text="Edit"
+                        text="Edit Form"
                         onClick={() => this.onEditClick(form.Link)}
                       /></div>}
                 </div>

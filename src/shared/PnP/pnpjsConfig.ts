@@ -12,6 +12,7 @@ import "@pnp/sp/folders";
 import "@pnp/sp/content-types";
 import "@pnp/sp/site-users/web";
 import "@pnp/sp/site-groups";
+import "@pnp/sp/profiles";
 let _sp: SPFI;
 
 export const getSP = (context?: WebPartContext): SPFI => {

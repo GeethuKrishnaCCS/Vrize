@@ -20,7 +20,7 @@ export class BaseService {
         return this.sp.web.currentUser();
     }
     public getListItems(url: string): Promise<any> {
-        return this.sp.web.getList(url).items();
+        return this.sp.web.getList(url).items.orderBy("ID", false)();
     }
     public addListItem(url: string, data: any): Promise<any> {
         return this.sp.web.getList(url).items.add(data);
@@ -56,9 +56,32 @@ export class BaseService {
     public async getUser(userId: number): Promise<any> {
         return this.sp.web.getUserById(userId)();
     }
-    public gettingUserProfiles(loginName: string): Promise<any> {
-        //user profile items for manager email
-        return this.sp.profiles.getUserProfilePropertyFor(loginName, "Title")
+    public async gettingUserProfiles(loginName: string): Promise<any> {
+        try {
+            if (!this.sp.profiles) {
+                throw new Error("Profiles object is not initialized");
+            }
+
+            const [imageUrl, designation, fullName] = await Promise.all([
+                this.sp.profiles.getUserProfilePropertyFor(loginName, "PictureURL"), // User Image
+                this.sp.profiles.getUserProfilePropertyFor(loginName, "Title"), // Designation/Job Title
+                this.sp.profiles.getUserProfilePropertyFor(loginName, "PreferredName"), // Full Name
+            ]);
+
+            return {
+                imageUrl,
+                designation,
+                fullName,
+            };
+        } catch (error) {
+            console.error("Error fetching user profiles:", error);
+            throw error;
+        }
+    }
+    public getItemsSelectExpand(queryurl: string, select: string, expand: string): Promise<any> {
+        return this.sp.web.getList(queryurl).items
+            .select(select)
+            .expand(expand)()
     }
 
 }

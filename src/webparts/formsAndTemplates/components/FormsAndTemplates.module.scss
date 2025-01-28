@@ -26,7 +26,6 @@
   .cardfooter {
     margin-top: 36px;
     text-align: right;
-    display: flex;
     justify-content: space-between;
     gap: 1em;
   }
@@ -46,6 +45,10 @@
     color: rgb(218, 144, 7);
     float: inline-start;
     font-weight: bold;
+    margin: 6px;
+    padding: 3px;
+    font-size: 12px;
+    float: left;
   }
 
   .submitStatus {
@@ -54,17 +57,23 @@
     padding: 4px;
     text-align: center;
     color: rgb(70, 207, 7);
-    float: inline-start;
     font-weight: bold;
+    margin: 6px;
+    padding: 3px;
+    font-size: 12px;
+    float: left;
   }
 
   .date {
     padding-top: 10px;
     color: rgb(147, 145, 145);
+    font-size: 10px;
+    float: left;
   }
 
   .button {
     padding-top: 4px;
+    float: right;
   }
 
   .btnprimary {
@@ -83,7 +92,7 @@
   }
 
   .pagetitle {
-    font-size: 36px;
+    font-size: 20px;
     color: black;
     text-align: center;
     font-weight: 600;
