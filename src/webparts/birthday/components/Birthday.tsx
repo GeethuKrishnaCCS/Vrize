@@ -43,7 +43,6 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
     if (employeeData) {
       const EmployeeDetails: any[] = [];
-      const greetings: any[] = [];
       const currentDate = new Date();
       const day = String(currentDate.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
       const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
@@ -74,10 +73,9 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
         }
 
       }
-      greetings.push(EmployeeDetails);
-      console.log('greetings: ', greetings);
+      console.log('greetings: ', EmployeeDetails);
       this.setState({
-        employeesBirthday: greetings
+        employeesBirthday: EmployeeDetails
       })
     }
   }
@@ -90,7 +88,7 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
           employeesBirthday={this.state.employeesBirthday}
           Reload={this.state.Reload}
           context={this.props.context}
-          description={this.props.description} /> :
+          WebpartTitle={this.props.WebpartTitle} /> :
 
       </section>
     );

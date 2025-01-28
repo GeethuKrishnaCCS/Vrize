@@ -136,7 +136,7 @@ export default class StackStyle extends React.Component<
       <div className={styles.StackStyle}>
         <div className={styles.StackStyleContainer}>
           <div className={styles.heading}>
-            <div className={styles.title}>{this.props.description}</div>
+            <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
           </div>
 
 
@@ -148,20 +148,25 @@ export default class StackStyle extends React.Component<
                 ariaLabel={"Back"} />
             </div>
             <div className={styles.BirthdayCard}>
-              {this.state.RenderedEmployees.map((Post, key) => {
+              {this.state.RenderedEmployees.map((emp, key) => {
                 i = i + 1;
                 return (
-                  <div className={styles.BirthdayContainer}>
-                    <div className={styles.ImgContainer}>
-                      <img src={Post.Thumbnail.replace("_layouts/15/getpreview.ashx?path=", "")} className={styles.Image} alt="" />
+                  <div className={styles.card}>
+                    <div className={styles.date}>
+                      {"On " + moment(new Date()).format("DD/MM/YYYY")}
                     </div>
-                    <div className={styles.BirthdayBody}>
-                      <div className={styles.TitleContainer}>
-                        <a className={styles.TitleStyling} href={Post.Url}>
-                          {Post.Title}</a>
-                      </div>
+                    <img className={styles.imgWidth}
+                      src={emp.ImageURL ?? ''}
+                      alt="Image" />
+                    <div className={styles.name}>
+                      {emp.FullName}
                     </div>
+                    <div className={styles.designation}>
+                      {emp.Designation}
+                    </div>
+
                   </div>
+
                 );
               })}
             </div>

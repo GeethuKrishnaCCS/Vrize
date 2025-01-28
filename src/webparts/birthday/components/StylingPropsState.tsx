@@ -13,5 +13,5 @@ export interface StylingProps {
     employeesBirthday: any[];
     Reload: boolean;
     context: WebPartContext;
-    description: string;
+    WebpartTitle: string;
 }
