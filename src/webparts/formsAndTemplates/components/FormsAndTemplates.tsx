@@ -6,6 +6,7 @@ import { ActionButton, FontWeights, IIconProps, IconButton, Link, Modal, Primary
 import * as moment from 'moment';
 import ModalOverlay from '../../../shared/controls/Overlay/Overlay';
 import { HttpClient, IHttpClientOptions } from '@microsoft/sp-http';
+import * as _ from 'lodash';
 export default class FormsAndTemplates extends React.Component<IFormsAndTemplatesProps, IFormsAndTemplatesState, {}> {
   private service: BaseService;/* To call the service file */
   constructor(props: IFormsAndTemplatesProps) {
@@ -100,6 +101,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
           const checked = [await statuscheck];
           if (checked) {
             formDetails.push({
+              ID: item.ID,
               Title: item.Title,
               Description: item.Description,
               Link: item.FormLink,
@@ -111,9 +113,11 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         }
         this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
       }
-
-      console.log(formDetails);
-      this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
+      let sorted_formDetails = _.orderBy(formDetails, (o: any) => {
+        return o.ID;
+      }, ['desc']);
+      console.log(sorted_formDetails);
+      this.setState({ formDetails: sorted_formDetails, modaloverlay: { isOpen: false, modalText: "" } });
     }
     else {
       this.setState({ modaloverlay: { isOpen: false, modalText: "No Forms Found" } });
@@ -151,7 +155,8 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
 
   }
   public onModalClose = () => {
-    this.setState({ openAddFormModal: false });
+    this.setState({ openAddFormModal: false, formName: "", formDescription: "", formLink: "", ownerEmail: "" });
+
   }
   public onAddForm = () => {
     this.setState({ openAddFormModal: true });
