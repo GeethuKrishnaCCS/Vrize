@@ -84,11 +84,11 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
 
     return (
       <section className={`${styles.birthday}`}>
-        <StackStyle
+        {this.state.employeesBirthday.length > 0 && <StackStyle
           employeesBirthday={this.state.employeesBirthday}
           Reload={this.state.Reload}
           context={this.props.context}
-          WebpartTitle={this.props.WebpartTitle} /> :
+          WebpartTitle={this.props.WebpartTitle} />}
 
       </section>
     );

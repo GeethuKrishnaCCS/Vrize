@@ -19,7 +19,7 @@ export default class StackStyle extends React.Component<
       Employees: [],
       RenderedEmployees: [],
       UpdateCount: 0,
-      Next: 5,
+      Next: 3,
       Count: 1,
       Reload: true
     };
@@ -31,14 +31,14 @@ export default class StackStyle extends React.Component<
     const array: any[] = [];
     let count = 0;
     const min = 0;
-    const max = min + 5;
+    const max = min + 3;
     this.props.employeesBirthday.map(Post => {
       count = count + 1;
       if (count > min && count < max) {
         array.push(Post);
       }
     });
-    this.setState({ RenderedEmployees: array, Next: 5, Count: 1, UpdateCount: 0 });
+    this.setState({ RenderedEmployees: array, Next: 3, Count: 1, UpdateCount: 0 });
   }
 
   public formatDateTime(dateTime: any) {
@@ -71,7 +71,7 @@ export default class StackStyle extends React.Component<
           array.push(Post);
         }
       });
-      this.setState({ RenderedEmployees: array, Next: 5, Count: 1, UpdateCount: this.state.UpdateCount + 1 });
+      this.setState({ RenderedEmployees: array, Next: 3, Count: 1, UpdateCount: this.state.UpdateCount + 1 });
       return true;
     }
   }
@@ -86,7 +86,7 @@ export default class StackStyle extends React.Component<
         array.push(Post);
       }
     });
-    const newVal = this.state.Next + 5;
+    const newVal = this.state.Next + 3;
     this.setState({ RenderedEmployees: array, Next: newVal, Count: this.state.Count + 1 });
   }
 
@@ -101,11 +101,11 @@ export default class StackStyle extends React.Component<
         array.push(Post);
       }
     });
-    const newVal = this.state.Next - 5;
+    const newVal = this.state.Next - 3;
     this.setState({ RenderedEmployees: array, Next: newVal, Count: this.state.Count - 1 });
   }
   public renderdots() {
-    const dotCount = Math.ceil(this.props.employeesBirthday.length / 5);
+    const dotCount = Math.ceil(this.props.employeesBirthday.length / 3);
     const dots = [];
 
     for (let i = 0; i < dotCount; i++) {
@@ -143,7 +143,7 @@ export default class StackStyle extends React.Component<
           <div className={styles.BirthdaySlider}>
             <div className={styles.Prevbtn}>
               <IconButton iconProps={backicon}
-                onClick={() => this.Back(this.props.employeesBirthday)} disabled={this.state.Next === 5}
+                onClick={() => this.Back(this.props.employeesBirthday)} disabled={this.state.Next === 3}
                 className={styles.NavigationLeftButtonStyling}
                 ariaLabel={"Back"} />
             </div>
