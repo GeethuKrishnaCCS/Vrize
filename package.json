@@ -22,11 +22,12 @@
     "@microsoft/sp-webpart-base": "1.19.0",
     "@pnp/logging": "^4.6.0",
     "@pnp/sp": "^4.6.0",
-    "moment": "^2.30.1",
     "@pnp/spfx-controls-react": "^3.19.0",
-    "react-simple-toasts": "^6.0.0",
+    "@pnp/spfx-property-controls": "^3.19.0",
+    "moment": "^2.30.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-simple-toasts": "^6.0.0",
     "react-sizeme": "^3.0.2",
     "spfxhelper": "^4.1.0",
     "tslib": "2.3.1"
@@ -45,7 +46,7 @@
     "eslint": "8.7.0",
     "eslint-plugin-react-hooks": "4.3.0",
     "gulp": "4.0.2",
-    "typescript": "4.7.4",
-    "spfx-fast-serve-helpers": "~1.19.0"
+    "spfx-fast-serve-helpers": "~1.19.0",
+    "typescript": "4.7.4"
   }
 }

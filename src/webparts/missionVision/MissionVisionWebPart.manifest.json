@@ -3,26 +3,122 @@
   "id": "aa99a2b1-311f-41cd-b541-75d64d7545e4",
   "alias": "MissionVisionWebPart",
   "componentType": "WebPart",
-
   // The "*" signifies that the version should be taken from the package.json
   "version": "*",
   "manifestVersion": 2,
-
   // If true, the component can only be installed on sites where Custom Script is allowed.
   // Components that allow authors to embed arbitrary script code should set this to true.
   // https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f
   "requiresCustomScript": false,
-  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "supportedHosts": [
+    "SharePointWebPart",
+    "TeamsPersonalApp",
+    "TeamsTab",
+    "SharePointFullPage"
+  ],
   "supportsThemeVariants": true,
-
-  "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
-    "group": { "default": "Advanced" },
-    "title": { "default": "MissionVision" },
-    "description": { "default": "MissionVision description" },
-    "officeFabricIconFontName": "Page",
-    "properties": {
-      "description": "MissionVision"
+  "supportsFullBleed": true,
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
+      "group": {
+        "default": "Advanced"
+      },
+      "title": {
+        "default": "MissionVision"
+      },
+      "description": {
+        "default": "MissionVision description"
+      },
+      "officeFabricIconFontName": "Page",
+      "properties": {
+        "description": "MissionVision",
+        "storyConfig": {
+          "title": "Our Journey",
+          "paragraphs": [
+            "VRIZE began like many startups, fueled by a passionate team, late-night brainstorming sessions, and a shared vision for innovation. As the saying goes, every journey of a thousand miles begins with that initial step. Our first order came during the challenging times of the 2020 pandemic, a pivotal moment that ignited our growth and set the foundation for what was to \n\ncome.",
+            "Since then, VRIZE has rapidly evolved into a robust team of over 450+ professionals, all dedicated to transforming the digital engineering landscape. Our collaborative spirit and commitment to excellence have allowed us to tackle complex challenges and deliver innovative solutions that meet our clients' ever-changing needs.",
+            "With more than a century of combined enterprise experience among our executives, we deeply understand the vital solutions necessary for business success. If you're ready to embark on a seamless digital engineering journey, our experts are not just ready, but eager to guide you every step of the way, ensuring that your enterprise thrives in this digital age."
+          ],
+          "image": {
+            "src": "https://cdn.prod.website-files.com/5fdcd9ffc26d8060c8b6be80/668ea481ffe877d974196614_our%20story%202.png",
+            "alt": "VRIZE team members gathered together"
+          }
+        },
+        "missionConfig": {
+          "title": "Mission",
+          "subtitle": "Making Digital Engineering Frictionless.",
+          "text": "The mission of Digital Engineering Frictionless is to revolutionize the landscape of digital technology by eliminating barriers and streamlining processes. We are dedicated to creating a seamless and efficient environment where innovation thrives.",
+          "image": {
+            "url": "https://example.com/team-member.jpg",
+            "alt": "Team member"
+          }
+        },
+        "visionConfig": {
+          "title": "Vision",
+          "image": {
+            "url": "https://cdn.prod.website-files.com/5fdcd9ffc26d8060c8b6be80/668ea31615a1ee50a8fa1701_our%20core%20values-p-500.png",
+            "alt": "Team member"
+          },
+          "visionMetrics": [
+            {
+              "icon": "",
+              "label": "<strong>$100 Million</strong> Revenue in <br />2027",
+            },
+            {
+              "icon": "",
+              "label": "<strong>$500 TACC</strong>",
+            },
+            {
+              "icon": "<span>🤝</span>",
+              "label": "5 Clients with <strong>$10 Million/year</strong>",
+            },
+            {
+              "icon": "<span>📈</span>",
+              "label": "Recognized and Awarded by <strong>5000+ Gartner/Forrester</strong>",
+            },
+            {
+              "icon": "<span>🎯</span>",
+              "label": "Strategic <strong>Data Science Path</strong> till 2025+",
+            }
+          ]
+        },
+        "coreValuesConfig": {
+          "title": "Our Core Values",
+          "text": "Composed of a diverse group of experts, our team is dedicated to achieving exceptional results. We are fueled by a commitment to excellence and empathy, firmly believing that every challenge can be overcome and every aspiration can be realized. <br/><br/> Values that drive us",
+          "image": {
+              "url": "https://cdn.prod.website-files.com/5fdcd9ffc26d8060c8b6be80/668ea31615a1ee50a8fa1701_our%20core%20values-p-500.png",
+              "alt": "Team member"
+          },
+          "values": [
+              {
+                  "letter": "S",
+                  "title": "Swiftness",
+                  "description": "Acting with speed and agility to deliver efficient work. Emphasizing efficiency and promoting quick problem-solving and execution."
+              },
+              {
+                  "letter": "C",
+                  "title": "Customer centricity",
+                  "description": "Meeting customer needs and preferences, prioritizing their satisfaction and building relationships to drive success and growth."
+              },
+              {
+                  "letter": "O",
+                  "title": "Ownership",
+                  "description": "Taking personal responsibility and accountability for the outcomes of our work. Demonstrating mindset, initiative and a commitment to delivering results."
+              },
+              {
+                  "letter": "R",
+                  "title": "Respect",
+                  "description": "Treating everyone with dignity, empathy, and consideration. Cultivating an inclusive and collaborative environment that values diverse perspectives."
+              },
+              {
+                  "letter": "E",
+                  "title": "Ethical",
+                  "description": "Upholding the highest standards of honesty, integrity, and fairness in all aspects of decision-making. Adhering to ethical principles."
+              }
+          ]
+      }
+      }
     }
-  }]
+  ]
 }
