@@ -31,6 +31,7 @@ export interface IImageCarouselWebPartProps {
   height: number;
   width: number;
   WebpartTitle: string;
+  ColumnSection: string;
 }
 export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCarouselWebPartProps> {
   public libsOptions: IPropertyPaneDropdownOption[] = [];
@@ -55,7 +56,8 @@ export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCa
         propertyPane: this.context.propertyPane,
         width: this.properties.width,
         height: this.properties.height,
-        WebpartTitle: this.properties.WebpartTitle
+        WebpartTitle: this.properties.WebpartTitle,
+        ColumnSection: this.properties.ColumnSection
       }
     );
 
@@ -258,6 +260,13 @@ export default class ImageCarouselWebPart extends BaseClientSideWebPart<IImageCa
                 }),
                 PropertyPaneTextField('WebpartTitle', {
                   label: 'Webpart Title'
+                }),
+                PropertyPaneDropdown('ColumnSection', {
+                  label: 'Select Column Section',
+                  options: [
+                    { key: 'FullColumn', text: 'FullColumn' },
+                    { key: 'ThreeColumn', text: 'ThreeColumn' }
+                  ]
                 })
               ]
             },

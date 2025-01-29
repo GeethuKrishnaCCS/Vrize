@@ -8,4 +8,5 @@ export interface ICarouselProps {
     images?: IImageDetails; // Images details
     height: number;         // Height of the carousel
     width: number;         // Width of the carousel
+    columnSection: string;  // Column section
 }
