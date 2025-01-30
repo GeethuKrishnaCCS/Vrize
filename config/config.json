@@ -25,6 +25,14 @@
           "manifest": "./src/webparts/birthday/BirthdayWebPart.manifest.json"
         }
       ]
+    },
+    "rewards-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/rewards/RewardsWebPart.js",
+          "manifest": "./src/webparts/rewards/RewardsWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -32,6 +40,7 @@
     "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js",
     "FormsAndTemplatesWebPartStrings": "lib/webparts/formsAndTemplates/loc/{locale}.js",
     "BirthdayWebPartStrings": "lib/webparts/birthday/loc/{locale}.js",
-    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js"
   }
 }

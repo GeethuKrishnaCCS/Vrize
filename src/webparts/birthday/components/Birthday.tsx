@@ -23,10 +23,20 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
       name: "",
       designation: "",
       dateOfBirth: null,
-      selectedFile: null
+      selectedFile: null,
+      isAdmin: false
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
+    this.getEmployeeDatas = this.getEmployeeDatas.bind(this);
+    this.onModalClose = this.onModalClose.bind(this);
+    this.onAddForm = this.onAddForm.bind(this);
+    this.onNameChange = this.onNameChange.bind(this);
+    this.onDesignationChange = this.onDesignationChange.bind(this);
+    this.dateOfBirthChange = this.dateOfBirthChange.bind(this);
+    this.onFormatDate = this.onFormatDate.bind(this);
+    this.uploadImage = this.uploadImage.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
 
   }
   public async componentDidMount() {
@@ -40,12 +50,35 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
         },
         modaloverlay: { isOpen: true, modalText: "Loading..." }
       });
-      await this.getEmployeeDatas();
+      const groupName = this.props.groupName; // Replace with your group name
+      const isMember = await this.isUserMemberOfGroup(groupName);
+      console.log(`Is user a member of the group "${groupName}":`, isMember);
+      if (isMember === true) {
+        this.setState({ isAdmin: true });
+        await this.getEmployeeDatas();
+      }
+      else {
+        this.setState({ isAdmin: false });
+        await this.getEmployeeDatas();
+      }
+
+    }
+  }
+  private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
+    try {
+      const users = await this.service.getGroupUsers(this.props.context, groupName);
+      console.log(users);
+      const currentUser = await this.service.getCurrentUser();
+      const userIsMember = users.some((user: any) => user.mail === currentUser.Email);
+      return userIsMember;
+    } catch (error) {
+      console.error(`Error checking group membership: ${error}`);
+      return false;
     }
   }
   private async getEmployeeDatas() {
     let imageurl: any;
-    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.birthdayListName;
     const selectquery = "*,Birthday,Employee/ID,Employee/Title,Employee/EMail";
     const expandquery = "Employee";
     const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
@@ -63,61 +96,53 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
         const month = String(dateOfBirth.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
         const formattedBirthDate = `${day}-${month}`;
         console.log('formattedBirthDate: ', formattedBirthDate);
-        // const employeeInfo = await this.service.getUser(item.Employee.ID);
-        // if (employeeInfo) {
-        //   const userProfile = await this.service.gettingUserProfiles(employeeInfo.LoginName);
-        //   if (userProfile) {
-        //     if (formattedBirthDate === formattedTodayDate) {
-        //       EmployeeDetails.push({
-        //         ImageURL: userProfile.imageUrl,
-        //         Designation: userProfile.designation,
-        //         FullName: userProfile.fullName,
-        //         EmployeeID: item.Employee.ID,
-        //         EmployeeEmail: item.Employee.EMail,
-        //         Birthday: item.Birthday,
-        //       });
-        //     }
-        //   }
-        // }
         if (item.ImageLink === null) {
-          const employeeInfo = await this.service.getUser(item.Employee.ID);
-          if (employeeInfo) {
-            const userProfile = await this.service.gettingUserProfiles(employeeInfo.LoginName);
-            if (userProfile) {
-              imageurl = userProfile.imageUrl;
+          const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
+          const selectquery = "*,FileRef,FileLeafRef"
+          const imagedoc = await this.service.getImageItems(queryURL, selectquery);
+          console.log(imagedoc);
+          for (let i = 0; i < imagedoc.length; i++) {
+            const image = imagedoc[i];
+            if (image.DefaultType === "Default") {
+              imageurl = image.FileRef;
             }
           }
-          else {
-            imageurl = item.ImageLink.Url
-          }
-
-          if (formattedBirthDate === formattedTodayDate) {
-            EmployeeDetails.push({
-              ImageURL: imageurl,
-              Designation: item.Designation,
-              FullName: item.EmployeeName,
-              Birthday: item.Birthday,
-            });
-          }
         }
-        console.log('greetings: ', EmployeeDetails);
-        this.setState({
-          employeesBirthday: EmployeeDetails
-        })
+        else {
+          imageurl = item.ImageLink.Url
+        }
+
+        if (formattedBirthDate === formattedTodayDate) {
+          EmployeeDetails.push({
+            ImageURL: imageurl,
+            Designation: item.Designation,
+            FullName: item.EmployeeName,
+            Birthday: item.Birthday,
+          });
+        }
       }
+      console.log('greetings: ', EmployeeDetails);
+      this.setState({
+        employeesBirthday: EmployeeDetails
+      })
     }
+
   }
   public onModalClose = () => {
-    this.setState({ openAddFormModal: false, name: "", designation: "" });
+    this.setState({ openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null });
 
   }
   public onAddForm = () => {
     this.setState({ openAddFormModal: true });
   }
   public onNameChange = (event: any, name: string) => {
-    if (name.trim() !== "") {
+    if (name.trim() === "") {
+      this.setState({ name: "" });
+    }
+    else {
       this.setState({ name: name });
     }
+
   }
   public onDesignationChange = (event: any, designation: string) => {
     if (designation.trim() !== "") {
@@ -147,32 +172,32 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
       Birthday: this.state.dateOfBirth
 
     };
-    const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
+    const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.birthdayListName;
     const addbdayemp = await this.service.addListItem(queryListurl, formDetails);
     const createdListItemId = addbdayemp.ID; // Assuming the response contains the created item ID
     console.log('createdItemId: ', createdListItemId);
     if (this.state.selectedFile !== null) {
       const empName = this.state.name.replace(/[^a-zA-Z0-9 ]/g, '');
       const fileName = empName + this.state.selectedFile.name.substring(this.state.selectedFile.name.lastIndexOf('.'));
-      const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/BirthdayGallery`, fileName, this.state.selectedFile);
+      const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/` + this.props.birthdayLibraryName, fileName, this.state.selectedFile);
       const gettingfileItem = await this.service.getFileContent(fileResponse.ServerRelativeUrl);
       console.log('gettingfileItem: ', gettingfileItem);
       const createdLibItemId = gettingfileItem.ID
       const updateEmpID = {
         EmployeeId: createdListItemId
       };
-      const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
+      const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.birthdayLibraryName;
       const updatebdayemp = await this.service.updateItem(queryLiburl, updateEmpID, createdLibItemId);
       if (updatebdayemp) {
         const updateLink = {
-          SourceDocument: {
+          ImageLink: {
             Description: fileName,
-            Url: gettingfileItem.ServerRelativeUrl // Assuming the response contains the ServerRelativeUrl property
+            Url: fileResponse.ServerRelativeUrl // Assuming the response contains the ServerRelativeUrl property
           }
         }
         const updatelinkemp = await this.service.updateItem(queryListurl, updateLink, createdListItemId);
         if (updatelinkemp) {
-
+          this.setState({ openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null, Reload: true });
         }
       }
     }
@@ -231,7 +256,8 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     const AddFormIcon: IIconProps = { iconName: 'Add' };
     return (
       <section className={`${styles.birthday}`}>
-        <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>
+        {this.state.isAdmin === true &&
+          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
 
         {this.state.employeesBirthday.length > 0 && <StackStyle
           employeesBirthday={this.state.employeesBirthday}

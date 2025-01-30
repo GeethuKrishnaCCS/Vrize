@@ -1,6 +1,6 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 
-export interface IBirthdayProps {
+export interface IRewardsProps {
   description: string;
   context: WebPartContext;
   siteUrl: string;
@@ -10,7 +10,8 @@ export interface IBirthdayProps {
   birthdayLibraryName: string;
   defaultLibraryName: string;
 }
-export interface IBirthdayState {
+
+export interface IRewardsState {
   currentUser: IUser;
   modaloverlay: { isOpen: boolean, modalText: string };
   employeesBirthday: any[];

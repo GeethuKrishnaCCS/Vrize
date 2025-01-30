@@ -31,7 +31,10 @@
       },
       "officeFabricIconFontName": "Page",
       "properties": {
-        "WebpartTitle": "Birthday"
+        "WebpartTitle": "Birthday",
+        "birthdayListName": "Birthday",
+        "birthdayLibraryName": "BirthdayGallery",
+        "defaultLibraryName": "DefaultGallery"
       }
     }
   ]

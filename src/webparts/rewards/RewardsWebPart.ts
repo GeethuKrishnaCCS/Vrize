@@ -8,27 +8,28 @@ import {
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
-import * as strings from 'BirthdayWebPartStrings';
-import Birthday from './components/Birthday';
-import { IBirthdayProps } from './components/IBirthdayProps';
+import * as strings from 'RewardsWebPartStrings';
+import Rewards from './components/Rewards';
+import { IRewardsProps } from './components/IRewardsProps';
 
+export interface IRewardsWebPartProps {
+  description: string;
+}
 
+export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsWebPartProps> {
 
-export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProps> {
-
+  private _isDarkTheme: boolean = false;
+  private _environmentMessage: string = '';
 
   public render(): void {
-    const element: React.ReactElement<IBirthdayProps> = React.createElement(
-      Birthday,
+    const element: React.ReactElement<IRewardsProps> = React.createElement(
+      Rewards,
       {
         description: this.properties.description,
-        context: this.context,
-        siteUrl: this.context.pageContext.web.serverRelativeUrl,
-        WebpartTitle: this.properties.WebpartTitle,
-        birthdayListName: this.properties.birthdayListName,
-        birthdayLibraryName: this.properties.birthdayLibraryName,
-        defaultLibraryName: this.properties.defaultLibraryName,
-        groupName: this.properties.groupName
+        isDarkTheme: this._isDarkTheme,
+        environmentMessage: this._environmentMessage,
+        hasTeamsContext: !!this.context.sdks.microsoftTeams,
+        userDisplayName: this.context.pageContext.user.displayName
       }
     );
 
@@ -37,7 +38,7 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      // this._environmentMessage = message;
+      this._environmentMessage = message;
     });
   }
 
@@ -75,7 +76,7 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
+    this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -107,20 +108,8 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('WebpartTitle', {
-                  label: "Webpart Title"
-                }),
-                PropertyPaneTextField('groupName', {
-                  label: "groupName"
-                }),
-                PropertyPaneTextField('birthdayListName', {
-                  label: "Birthday List Name"
-                }),
-                PropertyPaneTextField('birthdayLibraryName', {
-                  label: "Birthday Library Name"
-                }),
-                PropertyPaneTextField('defaultLibraryName', {
-                  label: "Default Library Name"
+                PropertyPaneTextField('description', {
+                  label: strings.DescriptionFieldLabel
                 })
               ]
             }
