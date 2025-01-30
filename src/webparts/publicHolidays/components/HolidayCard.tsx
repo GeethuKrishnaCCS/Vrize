@@ -17,6 +17,7 @@ export const HolidayCard = ({ Date: dateStr, Title, filteredListUrl }: HolidayCa
     return (
         <div className={styles.card}>
             <div className={styles.cardContent}>
+                <h1>{'Upcoming Holidays'}</h1>
                 <div className={styles.dateSection}>
                     <div className={styles.day}>
                         {date.getDate()}
