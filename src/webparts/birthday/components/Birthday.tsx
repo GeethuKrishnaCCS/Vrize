@@ -3,7 +3,7 @@ import styles from './Birthday.module.scss';
 import type { IBirthdayProps, IBirthdayState } from './IBirthdayProps';
 import { BaseService } from '../../../shared/services/BaseService';
 import StackStyle from './StackStyle';
-import { ActionButton, DatePicker, FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
+import { DatePicker, FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
 import * as moment from 'moment';
 
 export default class Birthday extends React.Component<IBirthdayProps, IBirthdayState, {}> {
@@ -256,8 +256,12 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     const AddFormIcon: IIconProps = { iconName: 'Add' };
     return (
       <section className={`${styles.birthday}`}>
+        <div className={styles.heading}>
+          <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+        </div>
         {this.state.isAdmin === true &&
-          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
+          <div className={styles.buttonAdd}>
+            <PrimaryButton iconProps={AddFormIcon} onClick={this.onAddForm} className={styles.addform}>Add Form </PrimaryButton></div>}
 
         {this.state.employeesBirthday.length > 0 && <StackStyle
           employeesBirthday={this.state.employeesBirthday}
