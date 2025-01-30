@@ -1,34 +1,207 @@
 @import '~@fluentui/react/dist/sass/References.scss';
 
 .rewards {
-  overflow: hidden;
-  padding: 1em;
-  color: "[theme:bodyText, default: #323130]";
-  color: var(--bodyText);
-  &.teams {
-    font-family: $ms-font-family-fallbacks;
-  }
-}
+  .StackStyle {
+    .StackStyleContainer {
+      width: 100%;
+      min-height: 420px;
+    }
 
-.welcome {
-  text-align: center;
-}
+    .heading {
+      // display: flex;
+      margin-bottom: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.welcomeImage {
-  width: 100%;
-  max-width: 420px;
-}
+    .pagetitle {
+      font-size: 20px;
+      color: black;
+      text-align: center;
+      font-weight: 600;
+    }
 
-.links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+    .title {
+      font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
+      font-size: 48px;
+      font-weight: 500;
+      font-size: 48px;
+      line-height: 72px;
+      text-align: center;
+      // color: #000000;
+      color: #fff;
+      margin-bottom: 28px;
 
-    &:hover {
+      @media screen and (max-width: 768px) {
+        font-size: 30px;
+        line-height: 31px;
+        margin-bottom: 0px;
+      }
+
+    }
+
+    .seeall {
+      text-align: right;
+      margin-right: 1em;
+      font-size: 17px;
+    }
+
+    .link {
+      color: #1d5447;
       text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
+    }
+
+    .BirthdaySlider {
+      width: 100%;
+      position: relative;
+      display: flex;
+
+    }
+
+    .Prevbtn {
+      width: 48px;
+      position: relative;
+      left: 0;
+      top: 80px;
+    }
+
+    .Nextbtn {
+      width: 48px;
+      position: relative;
+      right: 0;
+      top: 80px;
+    }
+
+    .card {
+      background: "[theme:bodyText, default: #323130]";
+      border-radius: 10px;
+      position: relative;
+      width: 25%;
+      height: 50%;
+      text-wrap: wrap;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: auto;
+      background-color: #1e1e2e;
+      border: 2px solid rgb(93, 91, 91);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      color: #ffffff;
+      gap: 10px;
+      margin-right: 10px;
+    }
+
+    .date {
+      padding-top: 10px;
+      color: rgb(147, 145, 145);
+      font-size: 10px;
+      text-align: center;
+    }
+
+    .imgWidth {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 2px solid rgb(93, 91, 91);
+      object-fit: cover;
+
+    }
+
+    .name {
+      font-size: 18px;
+      color: #ffffff;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .designation {
+      font-size: 12px;
+      color: rgb(147, 145, 145);
+      text-align: center;
+    }
+
+    .uploadarea {
+      margin-top: 3em;
+    }
+
+    .BirthdayCard {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+
+      @media screen and (max-width: 768px) {
+        display: block;
+        gap: 2em;
+      }
+    }
+
+
+
+    .NavigationLeftButtonStyling {
+      float: left;
+      padding: 20px;
+      border: none;
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      background: rgba(20, 20, 20, 0.65);
+      color: #ffffff;
+    }
+
+    .NavigationRightButtonStyling {
+      float: right;
+      padding: 20px;
+      border: none;
+      cursor: pointer;
+      width: 48px;
+      height: 48px;
+      background: rgba(20, 20, 20, 0.65);
+      color: #ffffff;
+    }
+
+
+    button:disabled {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .NavDot {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      margin-top: 32px;
+
+      .Dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background: #fff;
+        border: inset 1px solid rgba(109, 110, 113, 1);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .InnerDot {
+          background: #fff;
+          width: 12px;
+          height: 12px;
+          border-radius: 100%;
+        }
+
+        &.active {
+          border: inset 1px solid rgba(0, 113, 206, 1);
+
+          .InnerDot {
+            background: rgba(0, 113, 206, 1);
+          }
+        }
+      }
     }
   }
 }
