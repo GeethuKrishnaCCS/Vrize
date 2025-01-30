@@ -25,6 +25,9 @@ export class BaseService {
     public addListItem(url: string, data: any): Promise<any> {
         return this.sp.web.getList(url).items.add(data);
     }
+    public updateItem(url: string, data: any, id: number): Promise<any> {
+        return this.sp.web.getList(url).items.getById(id).update(data);
+    }
     // Image Carousel Service
     public getImageItems(url: string, selectquery: string): Promise<any> {
         return this.sp.web.getList(url).items.select(selectquery)();
@@ -52,6 +55,13 @@ export class BaseService {
     // Birthday Service
     public getItemsFilter(queryurl: string, filter: string): Promise<any> {
         return this.sp.web.getList(queryurl).items.filter(filter)()
+    }
+    public async uploadDocument(libraryName: string, Filename: any, filedata: any): Promise<any> {
+        const response = await this.sp.web.getFolderByServerRelativePath(libraryName).files.addUsingPath(Filename, filedata, { Overwrite: true });
+        return response
+    }
+    public async getFileContent(fileUrl: string): Promise<any> {
+        return this.sp.web.getFileByServerRelativePath(fileUrl).getItem();
     }
     public async getUser(userId: number): Promise<any> {
         return this.sp.web.getUserById(userId)();

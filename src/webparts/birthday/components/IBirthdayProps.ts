@@ -12,6 +12,11 @@ export interface IBirthdayState {
   modaloverlay: { isOpen: boolean, modalText: string };
   employeesBirthday: any[];
   Reload: boolean;
+  openAddFormModal: boolean;
+  name: string;
+  designation: string;
+  dateOfBirth: any;
+  selectedFile: any;
 }
 
 export interface IUser {
