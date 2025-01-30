@@ -2,7 +2,7 @@ import * as React from "react";
 import { StylingState, StylingProps } from "./StylingPropsState";
 import * as moment from "moment";
 import { IIconProps, IconButton, mergeStyles } from "@fluentui/react";
-import styles from './Birthday.module.scss';
+import styles from './Rewards.module.scss';
 export const iconClass = mergeStyles({
   fontSize: 15,
   height: 15,

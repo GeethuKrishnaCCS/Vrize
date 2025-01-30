@@ -1,0 +1,88 @@
+.section {
+    padding: 4rem 1rem;
+    background: #f8f9fa;
+  }
+  
+  .container {
+    max-width: 72rem;
+    margin: 0 auto;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .title {
+    font-size: 3.25rem;
+    font-weight: 700;
+    color: #111827;
+  }
+  
+  .text {
+    font-size: 1.125rem;
+    color: #4B5563;
+  }
+  
+  .valuesList {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+  }
+  
+  .valueItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  .letter {
+    font-size: 4.875rem;
+    font-weight: 100;
+    color: #dc2626;
+    font-family: revert-layer;
+  }
+  
+  .valueContent {
+    flex: 1;
+  }
+  
+  .valueTitle {
+    min-height: 3rem;
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  .valueDescription {
+    color: #4B5563;
+    margin-top: 0.25rem;
+  }
+  
+  .imageWrapper {
+    width: 100%;
+    height: 24rem;
+    // background: #dc2626;
+    border-radius: 9999px;
+    overflow: hidden;
+  }
+  
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }

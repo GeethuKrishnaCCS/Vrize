@@ -8,29 +8,32 @@ import {
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
-import * as strings from 'RewardsWebPartStrings';
-import Rewards from './components/Rewards';
-import { IRewardsProps } from './components/IRewardsProps';
+import * as strings from 'PublicHolidaysWebPartStrings';
+import PublicHolidays from './components/PublicHolidays';
+import { IPublicHolidaysProps } from './components/IPublicHolidaysProps';
 
-export interface IRewardsWebPartProps {
+export interface IPublicHolidaysWebPartProps {
   description: string;
+  listName: string;
 }
 
-export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps> {
+export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublicHolidaysWebPartProps> {
 
+  private _isDarkTheme: boolean = false;
+  private _environmentMessage: string = '';
 
   public render(): void {
-    const element: React.ReactElement<IRewardsProps> = React.createElement(
-      Rewards,
+    const element: React.ReactElement<IPublicHolidaysProps> = React.createElement(
+      PublicHolidays,
       {
         description: this.properties.description,
+        isDarkTheme: this._isDarkTheme,
+        environmentMessage: this._environmentMessage,
+        hasTeamsContext: !!this.context.sdks.microsoftTeams,
+        userDisplayName: this.context.pageContext.user.displayName,
         context: this.context,
-        siteUrl: this.context.pageContext.web.serverRelativeUrl,
-        WebpartTitle: this.properties.WebpartTitle,
-        birthdayListName: this.properties.birthdayListName,
-        birthdayLibraryName: this.properties.birthdayLibraryName,
-        defaultLibraryName: this.properties.defaultLibraryName,
-        groupName: this.properties.groupName
+        listName: this.properties.listName,
+        limitDate: undefined
       }
     );
 
@@ -39,7 +42,7 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      // this._environmentMessage = message;
+      this._environmentMessage = message;
     });
   }
 
@@ -77,7 +80,7 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
+    this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -109,20 +112,11 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('WebpartTitle', {
-                  label: "Webpart Title"
+                PropertyPaneTextField('description', {
+                  label: strings.DescriptionFieldLabel
                 }),
-                PropertyPaneTextField('groupName', {
-                  label: "groupName"
-                }),
-                PropertyPaneTextField('rewardsListName', {
-                  label: "Rewards List Name"
-                }),
-                PropertyPaneTextField('rewardsLibraryName', {
-                  label: "Rewards Library Name"
-                }),
-                PropertyPaneTextField('defaultLibraryName', {
-                  label: "Default Library Name"
+                PropertyPaneTextField('listName', {
+                  label: 'Holiday List Title'
                 })
               ]
             }

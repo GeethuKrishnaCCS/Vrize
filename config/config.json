@@ -33,6 +33,22 @@
           "manifest": "./src/webparts/rewards/RewardsWebPart.manifest.json"
         }
       ]
+    },
+    "mission-vision-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/missionVision/MissionVisionWebPart.js",
+          "manifest": "./src/webparts/missionVision/MissionVisionWebPart.manifest.json"
+        }
+      ]
+    },
+    "public-holidays-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/publicHolidays/PublicHolidaysWebPart.js",
+          "manifest": "./src/webparts/publicHolidays/PublicHolidaysWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -41,6 +57,10 @@
     "FormsAndTemplatesWebPartStrings": "lib/webparts/formsAndTemplates/loc/{locale}.js",
     "BirthdayWebPartStrings": "lib/webparts/birthday/loc/{locale}.js",
     "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
-    "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js"
+    "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "MissionVisionWebPartStrings": "lib/webparts/missionVision/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
+    "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js"
   }
 }
