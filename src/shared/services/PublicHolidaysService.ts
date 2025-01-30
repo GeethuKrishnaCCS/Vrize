@@ -26,20 +26,25 @@ export class PublicHolidaysService {
 
     public async getUpcomingPublicHolidaysByTitle(
         listName: string,
-        limitToDate: Date,
         currentLocation: string,
+        limitToDate?: Date,
         rowCount?: number
     ): Promise<IPublicHoliday[]> {
         let publicHolidays: IPublicHoliday[] = [];
 
         try {
-            const formattedlimitDate = limitToDate.toISOString();
             const today = new Date().toDateString();
+            let filterQuery = `Date ge '${today}' and OfficeLocation eq '${currentLocation}'`;
 
+            // Only add "Date lt" filter if limitToDate is provided
+            if (limitToDate) {
+                const formattedLimitDate = limitToDate.toISOString();
+                filterQuery += ` and Date lt '${formattedLimitDate}'`;
+            }
             publicHolidays = await this.sp.web.lists
                 .getByTitle(listName)
                 .items
-                .filter(`Date ge '${today}' and Date lt '${formattedlimitDate}' and OfficeLocation eq '${currentLocation}'`)
+                .filter(filterQuery)
                 .top(rowCount || 100)
                 ();
         }

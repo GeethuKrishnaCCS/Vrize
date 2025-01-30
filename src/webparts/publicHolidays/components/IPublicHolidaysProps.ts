@@ -7,4 +7,6 @@ export interface IPublicHolidaysProps {
   hasTeamsContext: boolean;
   userDisplayName: string;
   context: WebPartContext
+  limitDate: Date | undefined;
+  listName: string;
 }

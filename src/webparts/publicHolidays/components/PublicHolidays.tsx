@@ -44,13 +44,13 @@ export default class PublicHolidays extends React.Component<IPublicHolidaysProps
 
   fetchHolidays = async (countryCode: string): Promise<void> => {
     try {
-      const limitToDate: Date = new Date("05-05-2025");
+      const limitToDate: Date | undefined = this.props.limitDate ? new Date(this.props.limitDate) : undefined;
 
-      const listName = 'Public Holidays';
+      const listName = this.props.listName;
       const holidays2: IPublicHoliday[] = await this._Service.getUpcomingPublicHolidaysByTitle(
         listName,
-        limitToDate,
         countryCode,
+        limitToDate,
         5
       );
 
@@ -79,7 +79,7 @@ export default class PublicHolidays extends React.Component<IPublicHolidaysProps
     if (loading) {
       return (
         <div className={styles.loading}>
-          <div className={styles.spinner}></div>
+          <div className={styles.spinner} />
         </div>
       );
     }

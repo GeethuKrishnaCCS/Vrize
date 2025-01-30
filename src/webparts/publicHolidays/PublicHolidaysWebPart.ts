@@ -14,6 +14,7 @@ import { IPublicHolidaysProps } from './components/IPublicHolidaysProps';
 
 export interface IPublicHolidaysWebPartProps {
   description: string;
+  listName: string;
 }
 
 export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublicHolidaysWebPartProps> {
@@ -30,7 +31,9 @@ export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublic
         environmentMessage: this._environmentMessage,
         hasTeamsContext: !!this.context.sdks.microsoftTeams,
         userDisplayName: this.context.pageContext.user.displayName,
-        context: this.context
+        context: this.context,
+        listName: this.properties.listName,
+        limitDate: undefined
       }
     );
 
@@ -111,6 +114,9 @@ export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublic
               groupFields: [
                 PropertyPaneTextField('description', {
                   label: strings.DescriptionFieldLabel
+                }),
+                PropertyPaneTextField('listName', {
+                  label: 'Holiday List Title'
                 })
               ]
             }
