@@ -34,7 +34,8 @@
         "WebpartTitle": "Birthday",
         "birthdayListName": "Birthday",
         "birthdayLibraryName": "BirthdayGallery",
-        "defaultLibraryName": "DefaultGallery"
+        "defaultLibraryName": "DefaultGallery",
+        "groupName": "VrizeAdmin"
       }
     }
   ]

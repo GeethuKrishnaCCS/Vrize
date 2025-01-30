@@ -16,20 +16,21 @@ export interface IRewardsWebPartProps {
   description: string;
 }
 
-export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsWebPartProps> {
+export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps> {
 
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
 
   public render(): void {
     const element: React.ReactElement<IRewardsProps> = React.createElement(
       Rewards,
       {
         description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        context: this.context,
+        siteUrl: this.context.pageContext.web.serverRelativeUrl,
+        WebpartTitle: this.properties.WebpartTitle,
+        birthdayListName: this.properties.birthdayListName,
+        birthdayLibraryName: this.properties.birthdayLibraryName,
+        defaultLibraryName: this.properties.defaultLibraryName,
+        groupName: this.properties.groupName
       }
     );
 
@@ -38,7 +39,7 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsWebPar
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+      // this._environmentMessage = message;
     });
   }
 
@@ -76,7 +77,7 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsWebPar
       return;
     }
 
-    this._isDarkTheme = !!currentTheme.isInverted;
+    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -108,8 +109,20 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsWebPar
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('WebpartTitle', {
+                  label: "Webpart Title"
+                }),
+                PropertyPaneTextField('groupName', {
+                  label: "groupName"
+                }),
+                PropertyPaneTextField('rewardsListName', {
+                  label: "Rewards List Name"
+                }),
+                PropertyPaneTextField('rewardsLibraryName', {
+                  label: "Rewards Library Name"
+                }),
+                PropertyPaneTextField('defaultLibraryName', {
+                  label: "Default Library Name"
                 })
               ]
             }
