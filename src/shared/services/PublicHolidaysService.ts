@@ -46,6 +46,7 @@ export class PublicHolidaysService {
                 .items
                 .filter(filterQuery)
                 .top(rowCount || 100)
+                .orderBy('Date', true)
                 ();
         }
         catch (error) {

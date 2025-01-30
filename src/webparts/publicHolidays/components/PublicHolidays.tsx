@@ -54,9 +54,10 @@ export default class PublicHolidays extends React.Component<IPublicHolidaysProps
         5
       );
 
-      const futureHolidays: IPublicHoliday[] = holidays2.filter(
-        (holiday: IPublicHoliday) => new Date(holiday.Date) > new Date()
-      );
+      const futureHolidays: IPublicHoliday[] = holidays2
+      // .filter(
+      //   (holiday: IPublicHoliday) => new Date(holiday.Date) >= new Date()
+      // );
       const listUrl = `${this.props.context.pageContext.site.absoluteUrl}/lists/${listName}/AllItems.aspx?FilterField1=OfficeLocation&FilterValue1=${countryCode}`;
 
       this.setState({
@@ -78,9 +79,12 @@ export default class PublicHolidays extends React.Component<IPublicHolidaysProps
 
     if (loading) {
       return (
-        <div className={styles.loading}>
-          <div className={styles.spinner} />
-        </div>
+        <section className={`${styles.publicHolidays} ${hasTeamsContext ? styles.teams : ''}`}>
+
+          <div className={styles.loading}>
+            <div className={styles.spinner} />
+          </div>
+        </section>
       );
     }
 
