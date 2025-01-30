@@ -2,7 +2,7 @@ import * as React from "react";
 import { StylingState, StylingProps } from "./StylingPropsState";
 import * as moment from "moment";
 import { IIconProps, IconButton, mergeStyles } from "@fluentui/react";
-import styles from './Birthday.module.scss';
+import styles from "./Birthday.module.scss";
 export const iconClass = mergeStyles({
   fontSize: 15,
   height: 15,
@@ -155,9 +155,11 @@ export default class StackStyle extends React.Component<
                     <div className={styles.date}>
                       {"On " + moment(new Date()).format("DD/MM/YYYY")}
                     </div>
-                    <img className={styles.imgWidth}
-                      src={emp.ImageURL ?? ''}
-                      alt="Image" />
+                    <div className={styles.imggrid}>
+                      <img className={styles.imgWidth}
+                        src={emp.ImageURL ?? ''}
+                        alt="Image" />
+                    </div>
                     <div className={styles.name}>
                       {emp.FullName}
                     </div>
