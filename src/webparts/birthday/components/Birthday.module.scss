@@ -16,8 +16,8 @@
 
     .pagetitle {
       font-size: 20px;
-      color: whitesmoke;
-      text-align: center;
+      color: red;
+      text-align: left;
       font-weight: 600;
     }
 
@@ -73,7 +73,8 @@
     }
 
     .card {
-      background: "[theme:bodyText, default: #323130]";
+      // background: "[theme:bodyText, default: #323130]";
+      background-color: rgb(255 255 255 / 12%);
       border-radius: 10px;
       position: relative;
       width: 25%;
@@ -81,16 +82,15 @@
       flex-direction: column;
       align-items: center;
       height: auto;
-      border: 2px solid rgb(93, 91, 91);
+      border: 2px solid #3E3D3D;
       padding: 20px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
       text-align: center;
       color: #ffffff;
       gap: 24px;
-      margin-right: 10px;
-      background-color: hsla(0, 0%, 100%, .6) !important;
       -webkit-backdrop-filter: blur(50px);
       backdrop-filter: blur(50px);
+      min-width: 180px;
     }
 
     .date {
@@ -100,11 +100,29 @@
       text-align: center;
     }
 
+    .images {
+      position: relative;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
+    }
+
+    .innerring {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+    }
+
+    .outerring {
+      position: absolute;
+    }
+
     .imgWidth {
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
       border-radius: 50%;
-      border: 2px solid rgb(93, 91, 91);
       object-fit: cover;
 
     }
