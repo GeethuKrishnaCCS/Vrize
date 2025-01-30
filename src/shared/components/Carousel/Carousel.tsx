@@ -37,7 +37,7 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
                                     {image.redirectLink && image.redirectLink != '#' ? (
                                         <Link href={image.redirectLink} target='_blank' rel='noopener noreferrer'>
                                             <img
-                                                className={styles.imgWidth}
+                                                className={this.props.columnSection === "FullColumn" ? styles.imgWidth : styles.sectionimgWidth}
                                                 src={image.path ?? ''}
                                                 width={this.state.width}
                                                 height={this.state.height}

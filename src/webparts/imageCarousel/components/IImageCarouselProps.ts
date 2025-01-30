@@ -14,6 +14,8 @@ export interface IImageCarouselProps {
   width: number;
   height: number;
   propertyPane: IPropertyPaneAccessor;
+  WebpartTitle: string;
+  ColumnSection: string;
 }
 export interface IImageCarouselState {
   imageCount?: number;

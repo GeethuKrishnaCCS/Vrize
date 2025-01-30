@@ -4,9 +4,14 @@
     // @include ms-Grid-row;
     // @include ms-Grid-col;
     // @include ms-sm12;
+    height: 200px;
+    overflow: hidden;
+
 
     .mySlides {
-        display: none
+        display: none;
+        width: 100%;
+        height: 100%;
     }
 
     img {
@@ -15,6 +20,8 @@
 
     .show {
         display: block;
+        width: 100%;
+        height: 100%
     }
 
     .hide {
@@ -23,14 +30,23 @@
 
     /* Slideshow container */
     .slideshowContainer {
-        max-width: 1000px;
+        max-width: 100%;
         position: relative;
         margin: auto;
-        height: 10em;
+        height: 100%;
     }
+
+
 
     .imgWidth {
         width: 100%;
+        height: 100%;
+    }
+
+    .sectionimgWidth {
+        width: 100%;
+        object-fit: contain;
+        height: 100%;
     }
 
     /* Next & previous buttons */
@@ -42,7 +58,7 @@
         width: auto;
         padding: 16px;
         margin-top: -22px;
-        color: white;
+        color: rgb(189, 183, 183);
         font-weight: bold;
         font-size: 18px;
         transition: 0.6s ease;
@@ -79,9 +95,8 @@
 
     /* Number text (1/3 etc) */
     .numbertext {
-        color: #f2f2f2;
+        color: grey;
         font-size: 12px;
-        padding: 8px 12px;
         position: absolute;
         top: 0;
     }

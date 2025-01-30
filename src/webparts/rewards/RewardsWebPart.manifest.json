@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-web-part-manifest.schema.json",
-  "id": "d7b7e106-77f9-4338-af34-42481f431d4d",
-  "alias": "FormsAndTemplatesWebPart",
+  "id": "0d200e56-2e14-4752-9d61-ba8284f47873",
+  "alias": "RewardsWebPart",
   "componentType": "WebPart",
   // The "*" signifies that the version should be taken from the package.json
   "version": "*",
@@ -24,14 +24,20 @@
         "default": "Advanced"
       },
       "title": {
-        "default": "FormsAndTemplates"
+        "default": "Rewards"
       },
       "description": {
-        "default": "FormsAndTemplates description"
+        "default": "Rewards description"
       },
       "officeFabricIconFontName": "Page",
       "properties": {
-        "WebpartTitle": "FormsAndTemplates"
+        "properties": {
+          "WebpartTitle": "Rewards",
+          "birthdayListName": "RewardsAndRecognition",
+          "birthdayLibraryName": "RewardsAndRecognitionGallery",
+          "defaultLibraryName": "DefaultGallery",
+          "groupName": "VrizeAdmin"
+        }
       }
     }
   ]

@@ -6,6 +6,7 @@ import { ActionButton, FontWeights, IIconProps, IconButton, Link, Modal, Primary
 import * as moment from 'moment';
 import ModalOverlay from '../../../shared/controls/Overlay/Overlay';
 import { HttpClient, IHttpClientOptions } from '@microsoft/sp-http';
+// import * as _ from 'lodash';
 export default class FormsAndTemplates extends React.Component<IFormsAndTemplatesProps, IFormsAndTemplatesState, {}> {
   private service: BaseService;/* To call the service file */
   constructor(props: IFormsAndTemplatesProps) {
@@ -23,7 +24,8 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
       },
       modaloverlay: { isOpen: false, modalText: "" },
       ownerEmail: "",
-      status: "Pending"
+      status: "Pending",
+      isAdmin: false
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -50,9 +52,32 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         modaloverlay: { isOpen: true, modalText: "Loading..." }
       });
       /* fetch forms */
-      await this.getFormsAndTemplates();
+
+      const groupName = this.props.groupName; // Replace with your group name
+      const isMember = await this.isUserMemberOfGroup(groupName);
+      console.log(`Is user a member of the group "${groupName}":`, isMember);
+      if (isMember === true) {
+        this.setState({ isAdmin: true });
+        await this.getFormsAndTemplates();
+      }
+      else {
+        this.setState({ isAdmin: false });
+        await this.getFormsAndTemplates();
+      }
     }
 
+  }
+  private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
+    try {
+      const users = await this.service.getGroupUsers(this.props.context, groupName);
+      console.log(users);
+      const currentUser = await this.service.getCurrentUser();
+      const userIsMember = users.some((user: any) => user.mail === currentUser.Email);
+      return userIsMember;
+    } catch (error) {
+      console.error(`Error checking group membership: ${error}`);
+      return false;
+    }
   }
   public async getFormsAndTemplates() {
     const formDetails: any[] = [];
@@ -76,6 +101,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
           const checked = [await statuscheck];
           if (checked) {
             formDetails.push({
+              ID: item.ID,
               Title: item.Title,
               Description: item.Description,
               Link: item.FormLink,
@@ -85,9 +111,12 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
             });
           }
         }
+        this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
       }
-
-      console.log(formDetails);
+      // let sorted_formDetails = _.orderBy(formDetails, (o: any) => {
+      //   return o.ID;
+      // }, ['desc']);
+      // console.log(sorted_formDetails);
       this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
     }
     else {
@@ -126,7 +155,8 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
 
   }
   public onModalClose = () => {
-    this.setState({ openAddFormModal: false });
+    this.setState({ openAddFormModal: false, formName: "", formDescription: "", formLink: "", ownerEmail: "" });
+
   }
   public onAddForm = () => {
     this.setState({ openAddFormModal: true });
@@ -222,7 +252,9 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     const AddFormIcon: IIconProps = { iconName: 'Add' };
     return (
       <section className={`${styles.formsAndTemplates}`}>
-        <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>
+        <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+        {this.state.isAdmin === true &&
+          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
         {<div className={styles.divrow}>
           {/*  Iterate over each item to generate the carousel */}
           {this.state.formDetails.map((form: any, index: any) => {
@@ -236,13 +268,14 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
                     <div className={styles.submitStatus}>{form.Status}</div>}
                   {form.Status === "Pending" &&
                     <div className={styles.pendingStatus}>{form.Status}</div>}
-                  <div>{form.Created}</div>
+                  <div className={styles.date}>{form.Created}</div>
                   {form.EditEnable === true &&
-                    <div><PrimaryButton
-                      // className={styles.btnprimary}
-                      text="Edit"
-                      onClick={() => this.onEditClick(form.Link)}
-                    /></div>}
+                    <div className={styles.button}>
+                      <PrimaryButton
+                        className={styles.btnprimary}
+                        text="Edit Form"
+                        onClick={() => this.onEditClick(form.Link)}
+                      /></div>}
                 </div>
               </div>
             );

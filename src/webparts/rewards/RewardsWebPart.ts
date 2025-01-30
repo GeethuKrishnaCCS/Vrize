@@ -8,27 +8,29 @@ import {
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
-import * as strings from 'FormsAndTemplatesWebPartStrings';
-import FormsAndTemplates from './components/FormsAndTemplates';
-import { IFormsAndTemplatesProps } from './components/IFormsAndTemplatesProps';
+import * as strings from 'RewardsWebPartStrings';
+import Rewards from './components/Rewards';
+import { IRewardsProps } from './components/IRewardsProps';
 
+export interface IRewardsWebPartProps {
+  description: string;
+}
 
-
-export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFormsAndTemplatesProps> {
+export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps> {
 
 
   public render(): void {
-    const element: React.ReactElement<IFormsAndTemplatesProps> = React.createElement(
-      FormsAndTemplates,
+    const element: React.ReactElement<IRewardsProps> = React.createElement(
+      Rewards,
       {
         description: this.properties.description,
         context: this.context,
         siteUrl: this.context.pageContext.web.serverRelativeUrl,
-        listName: this.properties.listName,
-        laURL: this.properties.laURL,
-        groupName: this.properties.groupName,
-        WebpartTitle: this.properties.WebpartTitle
-
+        WebpartTitle: this.properties.WebpartTitle,
+        birthdayListName: this.properties.birthdayListName,
+        birthdayLibraryName: this.properties.birthdayLibraryName,
+        defaultLibraryName: this.properties.defaultLibraryName,
+        groupName: this.properties.groupName
       }
     );
 
@@ -107,17 +109,20 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('listName', {
-                  label: "List Name"
-                }),
-                PropertyPaneTextField('laURL', {
-                  label: "LogicApp URL"
-                }),
-                PropertyPaneTextField('groupName', {
-                  label: "Group Name"
-                }),
                 PropertyPaneTextField('WebpartTitle', {
                   label: "Webpart Title"
+                }),
+                PropertyPaneTextField('groupName', {
+                  label: "groupName"
+                }),
+                PropertyPaneTextField('rewardsListName', {
+                  label: "Rewards List Name"
+                }),
+                PropertyPaneTextField('rewardsLibraryName', {
+                  label: "Rewards Library Name"
+                }),
+                PropertyPaneTextField('defaultLibraryName', {
+                  label: "Default Library Name"
                 })
               ]
             }

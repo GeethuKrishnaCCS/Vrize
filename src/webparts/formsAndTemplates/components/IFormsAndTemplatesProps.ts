@@ -6,6 +6,8 @@ export interface IFormsAndTemplatesProps {
   siteUrl: string;
   listName: string;
   laURL: string;
+  groupName: string;
+  WebpartTitle: string;
 }
 export interface IFormsAndTemplatesState {
   formDetails: any[];
@@ -17,6 +19,7 @@ export interface IFormsAndTemplatesState {
   modaloverlay: { isOpen: boolean, modalText: string };
   ownerEmail: string;
   status: string;
+  isAdmin: boolean;
 }
 
 export interface IUser {
