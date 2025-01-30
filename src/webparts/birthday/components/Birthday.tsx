@@ -23,7 +23,8 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
       name: "",
       designation: "",
       dateOfBirth: null,
-      selectedFile: null
+      selectedFile: null,
+      isAdmin: false
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -49,7 +50,30 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
         },
         modaloverlay: { isOpen: true, modalText: "Loading..." }
       });
-      await this.getEmployeeDatas();
+      const groupName = this.props.groupName; // Replace with your group name
+      const isMember = await this.isUserMemberOfGroup(groupName);
+      console.log(`Is user a member of the group "${groupName}":`, isMember);
+      if (isMember === true) {
+        this.setState({ isAdmin: true });
+        await this.getEmployeeDatas();
+      }
+      else {
+        this.setState({ isAdmin: false });
+        await this.getEmployeeDatas();
+      }
+
+    }
+  }
+  private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
+    try {
+      const users = await this.service.getGroupUsers(this.props.context, groupName);
+      console.log(users);
+      const currentUser = await this.service.getCurrentUser();
+      const userIsMember = users.some((user: any) => user.mail === currentUser.Email);
+      return userIsMember;
+    } catch (error) {
+      console.error(`Error checking group membership: ${error}`);
+      return false;
     }
   }
   private async getEmployeeDatas() {
@@ -232,7 +256,8 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     const AddFormIcon: IIconProps = { iconName: 'Add' };
     return (
       <section className={`${styles.birthday}`}>
-        <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>
+        {this.state.isAdmin === true &&
+          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
 
         {this.state.employeesBirthday.length > 0 && <StackStyle
           employeesBirthday={this.state.employeesBirthday}
