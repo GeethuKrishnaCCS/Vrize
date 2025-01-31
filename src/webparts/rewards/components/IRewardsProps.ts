@@ -6,8 +6,8 @@ export interface IRewardsProps {
   siteUrl: string;
   WebpartTitle: string;
   groupName: string;
-  birthdayListName: string;
-  birthdayLibraryName: string;
+  rewardsListName: string;
+  rewardsLibraryName: string;
   defaultLibraryName: string;
 }
 
@@ -22,6 +22,7 @@ export interface IRewardsState {
   dateOfBirth: any;
   selectedFile: any;
   isAdmin: boolean;
+  year: string;
 }
 
 export interface IUser {

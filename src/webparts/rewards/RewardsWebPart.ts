@@ -27,8 +27,8 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
         context: this.context,
         siteUrl: this.context.pageContext.web.serverRelativeUrl,
         WebpartTitle: this.properties.WebpartTitle,
-        birthdayListName: this.properties.birthdayListName,
-        birthdayLibraryName: this.properties.birthdayLibraryName,
+        rewardsListName: this.properties.rewardsListName,
+        rewardsLibraryName: this.properties.rewardsLibraryName,
         defaultLibraryName: this.properties.defaultLibraryName,
         groupName: this.properties.groupName
       }

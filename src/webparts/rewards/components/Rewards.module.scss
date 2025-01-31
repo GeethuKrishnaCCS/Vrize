@@ -1,25 +1,35 @@
 @import '~@fluentui/react/dist/sass/References.scss';
 
 .rewards {
+  .heading {
+    // display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .buttonAdd {
+    padding: 2em;
+  }
+
+  .addform {
+    color: "[theme:bodyText, default: #323130]";
+    background-color: whitesmoke;
+  }
+
+  .pagetitle {
+    font-size: 20px;
+    color: red;
+    text-align: left;
+    font-weight: 600;
+  }
+
   .StackStyle {
     .StackStyleContainer {
       width: 100%;
       min-height: 420px;
     }
 
-    .heading {
-      // display: flex;
-      margin-bottom: 10px;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .pagetitle {
-      font-size: 20px;
-      color: black;
-      text-align: center;
-      font-weight: 600;
-    }
 
     .title {
       font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));

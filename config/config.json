@@ -58,9 +58,8 @@
     "BirthdayWebPartStrings": "lib/webparts/birthday/loc/{locale}.js",
     "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
     "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js",
-    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
     "MissionVisionWebPartStrings": "lib/webparts/missionVision/loc/{locale}.js",
-    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
-    "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js"
+    "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }
 }
