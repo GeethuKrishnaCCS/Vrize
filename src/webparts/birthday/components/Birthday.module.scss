@@ -12,7 +12,7 @@
   .buttonAdd {
     padding: 0;
 
-    button{
+    button {
       border-radius: 8px;
       padding: 10px 15px;
       margin: 0 !important;
@@ -21,11 +21,11 @@
       border: none;
       cursor: pointer;
 
-      span{
+      span {
         display: flex;
         align-items: center;
       }
-      
+
     }
   }
 
@@ -127,6 +127,7 @@
       -webkit-backdrop-filter: blur(50px);
       backdrop-filter: blur(50px);
       min-width: 100px;
+      max-width: 100px;
     }
 
     .date {
@@ -155,7 +156,7 @@
       position: absolute;
     }
 
-    .dots{
+    .dots {
       position: absolute;
     }
 
@@ -167,10 +168,10 @@
 
     }
 
-    .imggrid{
+    .imggrid {
       width: 150px;
       height: 150px;
-      display: flex ;
+      display: flex;
       align-items: center;
       justify-content: center;
     }
@@ -193,7 +194,7 @@
       margin-top: 3em;
     }
 
-    .details{
+    .details {
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -279,22 +280,24 @@
 
 }
 
-.modalbody{
+.modalbody {
   background-color: #242424;
 
-  .modalheader{
+  .modalheader {
     background-color: #2D2D2D;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    button{
+    button {
       border-radius: 8px;
-      &:hover{
+
+      &:hover {
         background-color: #242424;
       }
-      i{
+
+      i {
         color: #fff;
         font-size: 20px;
       }
@@ -302,46 +305,46 @@
 
   }
 
-  .modalcontent{
+  .modalcontent {
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 24px;
 
 
-    label{
+    label {
       color: #fff;
     }
 
-    input{
+    input {
 
       border-radius: 8px;
     }
 
-    .datepicker{
-      .fieldGroup-215{
+    .datepicker {
+      .fieldGroup-215 {
         background-color: #161616;
         color: #fff;
       }
 
     }
 
-    .uploadarea{
-      input{
+    .uploadarea {
+      input {
         color: #ffffff;
       }
     }
-  
+
   }
 
-  .modalfooter{
+  .modalfooter {
     background-color: #2D2D2D;
     padding: 20px;
     display: flex;
     justify-content: flex-end;
     gap: 20px;
 
-    button{
+    button {
       border-radius: 8px;
       padding: 10px 20px;
       margin: 0 !important;
@@ -350,7 +353,7 @@
       border: none;
       cursor: pointer;
 
-      &:hover{
+      &:hover {
         background-color: #161616;
         color: #fff;
       }

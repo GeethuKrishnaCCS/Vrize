@@ -117,10 +117,11 @@
       gap: 24px;
       -webkit-backdrop-filter: blur(50px);
       backdrop-filter: blur(50px);
-      min-width: 320px;
+      min-width: 270px;
+      max-width: 270px;
     }
 
-    .cardContent{
+    .cardContent {
       display: flex;
       align-items: center;
       gap: 24px;
