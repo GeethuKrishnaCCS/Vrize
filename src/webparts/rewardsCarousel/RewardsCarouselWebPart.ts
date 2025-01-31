@@ -3,33 +3,45 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   type IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneChoiceGroup,
+  PropertyPaneSlider,
+  PropertyPaneToggle,
+  IPropertyPaneGroup
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'RewardsCarouselWebPartStrings';
 import RewardsCarousel from './components/RewardsCarousel';
-import { IRewardsCarouselProps } from './components/IRewardsCarouselProps';
+import { Constants, IRewardsCarouselProps } from './components/IRewardsCarouselProps';
 
 export interface IRewardsCarouselWebPartProps {
   description: string;
 }
 
-export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewardsCarouselWebPartProps> {
+export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewardsCarouselProps> {
 
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+  // private _isDarkTheme: boolean = false;
+  // private _environmentMessage: string = '';
 
   public render(): void {
     const element: React.ReactElement<IRewardsCarouselProps> = React.createElement(
       RewardsCarousel,
       {
         description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        context: this.context,
+        siteUrl: this.context.pageContext.web.serverRelativeUrl,
+        isAutorotate: this.properties.isAutorotate,
+        duration: this.properties.duration * 1000,
+        width: this.properties.width,
+        height: this.properties.height,
+        WebpartTitle: this.properties.WebpartTitle,
+        rewardsListName: this.properties.rewardsListName,
+        rewardsLibraryName: this.properties.rewardsLibraryName,
+        defaultLibraryName: this.properties.defaultLibraryName,
+        groupName: this.properties.groupName,
+        ColumnSection: this.properties.ColumnSection
       }
     );
 
@@ -38,7 +50,7 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+      // this._environmentMessage = message;
     });
   }
 
@@ -76,7 +88,7 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
       return;
     }
 
-    this._isDarkTheme = !!currentTheme.isInverted;
+    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -96,7 +108,21 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
+  /**
+       * Returns the property pane controls for the carousel
+       */
+  protected get getCarouselConfigurationControls(): IPropertyPaneGroup {
 
+    let grp: IPropertyPaneGroup = {
+      groupName: `Configure Auto-rotate`,
+      groupFields: [
+        PropertyPaneToggle('isAutorotate', { label: `Select Autorotation`, offText: 'Off', onText: 'On' }),
+        PropertyPaneSlider('duration', { max: 10, min: 2, label: `Select the duration for autorotation (in sec)`, disabled: !this.properties.isAutorotate }),
+        PropertyPaneSlider('imagesCount', { max: Constants.CaroselMax, min: -1, label: `Select the maximum number of images to be displayed` })
+      ]
+    };
+    return grp;
+  }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -122,12 +148,30 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
                 }),
                 PropertyPaneTextField('defaultLibraryName', {
                   label: "Default Library Name"
+                }),
+                PropertyPaneChoiceGroup('layout', {
+                  options: [
+                    { key: 'carousel', text: 'Carousel', imageSrc: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAATFJREFUWAljYBgFAxwCjMbGxv8H0g1MA2k5yG4WmAPOnj3LCGPTg4aF/ICHwKgDRkNgcIeAmZmZCa2zJNYQ8PT0ZAfm00t///49DXSEPrmOAJqxDpTfTUxMenGZgeEABwcHjtevXx8CatBlZGT0OnXq1EVcmgmJAwu3IKCajv///xcBHdGCTT2GAz5//vwcqMEMZPmZM2e2Y9NEihjQjCqg+g1AM6uBjshG14vhADExMQmgopNADduAGvzRNZDCb2hoYAKasRKoJwCIU4GOmYquH8MB27dv/6mkpGQHDIHzQEdsoCQNbN68+QDQwlCgWVHA6JiDbjmYD0okIIxN0tzc3AKbODXEYPZihACy4SdPnjyBzKcFG68DaGEhupmjDhgNgQEPgdFmOXq2HOWPvBAAANZ5W4HFvWNLAAAAAElFTkSuQmCC`, selectedImageSrc: `data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAATFJREFUWAljYBgFAxwCjMbGxv8H0g1MA2k5yG4WmAPOnj3LCGPTg4aF/ICHwKgDRkNgcIeAmZmZCa2zJNYQ8PT0ZAfm00t///49DXSEPrmOAJqxDpTfTUxMenGZgeEABwcHjtevXx8CatBlZGT0OnXq1EVcmgmJAwu3IKCajv///xcBHdGCTT2GAz5//vwcqMEMZPmZM2e2Y9NEihjQjCqg+g1AM6uBjshG14vhADExMQmgopNADduAGvzRNZDCb2hoYAKasRKoJwCIU4GOmYquH8MB27dv/6mkpGQHDIHzQEdsoCQNbN68+QDQwlCgWVHA6JiDbjmYD0okIIxN0tzc3AKbODXEYPZihACy4SdPnjyBzKcFG68DaGEhupmjDhgNgQEPgdFmOXq2HOWPvBAAANZ5W4HFvWNLAAAAAElFTkSuQmCC` },
+                  ]
+                }),
+                PropertyPaneTextField('width', {
+                  label: 'Width'
+                }),
+                PropertyPaneTextField('height', {
+                  label: 'Height'
+                }),
+                PropertyPaneTextField('WebpartTitle', {
+                  label: 'Webpart Title'
                 })
               ]
-            }
+            },
+            this.getCarouselConfigurationControls
+
           ]
         }
       ]
-    };
+    }
+
+
   }
 }

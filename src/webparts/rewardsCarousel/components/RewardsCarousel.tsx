@@ -1,42 +1,77 @@
 import * as React from 'react';
 import styles from './RewardsCarousel.module.scss';
-import type { IRewardsCarouselProps } from './IRewardsCarouselProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import type { IRewardsCarouselProps, IRewardsCarouselState } from './IRewardsCarouselProps';
+import { BaseService } from '../../../shared/services/BaseService';
+import { Carousel } from './Carousel';
 
-export default class RewardsCarousel extends React.Component<IRewardsCarouselProps, {}> {
+export default class RewardsCarousel extends React.Component<IRewardsCarouselProps, IRewardsCarouselState, {}> {
+  private service: BaseService;/* To call the service file */
+  constructor(props: IRewardsCarouselProps) {
+    super(props);
+    this.state = {
+      employeesReward: [],
+    }
+    const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
+    this.service = new BaseService(this.props.context, siteURL);
+    this.getEmployeeDatas = this.getEmployeeDatas.bind(this);
+  }
+  public async componentDidMount() {
+    await this.getEmployeeDatas();
+  }
+  private async getEmployeeDatas() {
+    let imageurl: any;
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
+    const selectquery = "*";
+    const employeeData = await this.service.getItemsSelect(queryurl, selectquery);
+    if (employeeData) {
+      const EmployeeDetails: any[] = [];
+      for (let i = 0; i < employeeData.length; i++) {
+        const item = employeeData[i];
+        if (item.ImageLink === null) {
+          const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
+          const selectquery = "*,FileRef,FileLeafRef"
+          const imagedoc = await this.service.getImageItems(queryURL, selectquery);
+          console.log(imagedoc);
+          for (let i = 0; i < imagedoc.length; i++) {
+            const image = imagedoc[i];
+            if (image.DefaultType === "Default") {
+              imageurl = image.FileRef;
+            }
+          }
+        }
+        else {
+          imageurl = item.ImageLink.Url
+        }
+        EmployeeDetails.push({
+          ImageURL: imageurl,
+          Designation: item.Designation,
+          FullName: item.EmployeeName,
+          Year: item.Year,
+        });
+
+      }
+      console.log('greetings: ', EmployeeDetails);
+      this.setState({
+        employeesReward: EmployeeDetails
+      })
+    }
+  }
   public render(): React.ReactElement<IRewardsCarouselProps> {
-    const {
-      description,
-      isDarkTheme,
-      environmentMessage,
-      hasTeamsContext,
-      userDisplayName
-    } = this.props;
+
 
     return (
-      <section className={`${styles.rewardsCarousel} ${hasTeamsContext ? styles.teams : ''}`}>
-        <div className={styles.welcome}>
-          <img alt="" src={isDarkTheme ? require('../assets/welcome-dark.png') : require('../assets/welcome-light.png')} className={styles.welcomeImage} />
-          <h2>Well done, {escape(userDisplayName)}!</h2>
-          <div>{environmentMessage}</div>
-          <div>Web part property value: <strong>{escape(description)}</strong></div>
+      <section className={`${styles.rewardsCarousel}`}>
+        <div className={styles.heading}>
+          <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
         </div>
-        <div>
-          <h3>Welcome to SharePoint Framework!</h3>
-          <p>
-            The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It&#39;s the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-          </p>
-          <h4>Learn more about SPFx development:</h4>
-          <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
-          </ul>
-        </div>
+        <Carousel duration={this.props.duration}
+          employeesReward={this.state.employeesReward}
+          employeesRewardCount={Number(this.state.employeesReward.length)}
+          isAutoRotate={this.props.isAutorotate}
+          height={this.props.height}
+          width={this.props.width}
+          columnSection={this.props.ColumnSection}
+          showCaptions={true}></Carousel>
       </section>
     );
   }
