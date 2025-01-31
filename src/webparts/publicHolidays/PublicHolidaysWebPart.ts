@@ -40,7 +40,7 @@ export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublic
     ReactDom.render(element, this.domElement);
   }
 
-  protected onInit(): Promise<void> {
+  protected onInit(): Promise<void>{
     return this._getEnvironmentMessage().then(message => {
       this._environmentMessage = message;
     });
