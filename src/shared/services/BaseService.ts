@@ -30,7 +30,7 @@ export class BaseService {
     }
     public getItemsSelect(queryurl: string, select: string): Promise<any> {
         return this.sp.web.getList(queryurl).items
-            .select(select)()
+            .select(select).orderBy("ID", false)();
     }
     // Image Carousel Service
     public getImageItems(url: string, selectquery: string): Promise<any> {

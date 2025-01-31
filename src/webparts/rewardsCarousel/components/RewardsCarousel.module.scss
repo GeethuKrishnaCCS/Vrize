@@ -1,0 +1,17 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.rewardsCarousel {
+  .heading {
+    // display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pagetitle {
+    font-size: 20px;
+    color: whitesmoke;
+    text-align: left;
+    font-weight: 600;
+  }
+}

@@ -49,6 +49,14 @@
           "manifest": "./src/webparts/publicHolidays/PublicHolidaysWebPart.manifest.json"
         }
       ]
+    },
+    "rewards-carousel-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/rewardsCarousel/RewardsCarouselWebPart.js",
+          "manifest": "./src/webparts/rewardsCarousel/RewardsCarouselWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -60,6 +68,7 @@
     "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js",
     "MissionVisionWebPartStrings": "lib/webparts/missionVision/loc/{locale}.js",
     "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js",
-    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
+    "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js"
   }
 }
