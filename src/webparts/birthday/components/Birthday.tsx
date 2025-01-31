@@ -182,7 +182,10 @@ export default class Birthday extends React.Component<
     }
   };
   public onDesignationChange = (event: any, designation: string) => {
-    if (designation.trim() !== "") {
+    if (designation.trim() === "") {
+      this.setState({ designation: "" });
+    }
+    else {
       this.setState({ designation: designation });
     }
   };
@@ -203,6 +206,7 @@ export default class Birthday extends React.Component<
     }
   }
   public onSubmitForm = async () => {
+    this.setState({ modaloverlay: { isOpen: true, modalText: "Data Saving..." } });
     const formDetails = {
       EmployeeName: this.state.name,
       Designation: this.state.designation,
@@ -261,14 +265,8 @@ export default class Birthday extends React.Component<
           createdListItemId
         );
         if (updatelinkemp) {
-          this.setState({
-            openAddFormModal: false,
-            name: "",
-            designation: "",
-            dateOfBirth: null,
-            selectedFile: null,
-            Reload: true,
-          });
+          await this.getEmployeeDatas();
+          this.setState({ modaloverlay: { isOpen: false, modalText: "" }, openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null, Reload: true });
         }
       }
     }
@@ -358,15 +356,15 @@ export default class Birthday extends React.Component<
         </div>
        
 
-        {this.state.employeesBirthday.length > 0 && (
-          <StackStyle
-            employeesBirthday={this.state.employeesBirthday}
-            Reload={this.state.Reload}
-            context={this.props.context}
-            WebpartTitle={this.props.WebpartTitle}
-          />
-        )}
-        <div style={{ padding: "18px" }}>
+        {this.state.employeesBirthday.length > 0 && <StackStyle
+          employeesBirthday={this.state.employeesBirthday}
+          Reload={this.state.Reload}
+          context={this.props.context}
+          WebpartTitle={this.props.WebpartTitle} />}
+        {this.state.employeesBirthday.length === 0 && <div className={styles.nobirthday}>
+          No Birthdays
+        </div>}
+        <div style={{ padding: "18px" }} >
           <Modal
             isOpen={this.state.openAddFormModal}
             isModeless={false}

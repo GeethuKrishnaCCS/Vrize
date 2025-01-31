@@ -16,7 +16,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
         title: ""
       },
       modaloverlay: { isOpen: false, modalText: "" },
-      employeesBirthday: [],
+      employeesReward: [],
       Reload: false,
       openAddFormModal: false,
       name: "",
@@ -110,7 +110,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       }
       console.log('greetings: ', EmployeeDetails);
       this.setState({
-        employeesBirthday: EmployeeDetails
+        employeesReward: EmployeeDetails
       })
     }
 
@@ -133,6 +133,9 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   }
   public onDesignationChange = (event: any, designation: string) => {
     if (designation.trim() !== "") {
+      this.setState({ designation: "" });
+    }
+    else {
       this.setState({ designation: designation });
     }
   }
@@ -149,10 +152,11 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
     }
   }
   public onSubmitForm = async () => {
+    this.setState({ modaloverlay: { isOpen: true, modalText: "Data Saving..." } });
     const formDetails = {
       EmployeeName: this.state.name,
       Designation: this.state.designation,
-      Birthday: this.state.dateOfBirth
+      Year: this.state.year
     };
     const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
     const addbdayemp = await this.service.addListItem(queryListurl, formDetails);
@@ -166,7 +170,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       console.log('gettingfileItem: ', gettingfileItem);
       const createdLibItemId = gettingfileItem.ID
       const updateEmpID = {
-        EmployeeId: createdListItemId
+        RewardsId: createdListItemId
       };
       const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.rewardsLibraryName;
       const updatebdayemp = await this.service.updateItem(queryLiburl, updateEmpID, createdLibItemId);
@@ -179,7 +183,8 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
         }
         const updatelinkemp = await this.service.updateItem(queryListurl, updateLink, createdListItemId);
         if (updatelinkemp) {
-          this.setState({ openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null, Reload: true });
+          await this.getEmployeeDatas();
+          this.setState({ modaloverlay: { isOpen: false, modalText: "" }, openAddFormModal: false, name: "", designation: "", selectedFile: null, Reload: true });
         }
       }
     }
@@ -247,8 +252,8 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
             <PrimaryButton iconProps={AddFormIcon} onClick={this.onAddForm} className={styles.addform}>Add Form </PrimaryButton>
           </div>}
 
-        {this.state.employeesBirthday.length > 0 && <StackStyle
-          employeesBirthday={this.state.employeesBirthday}
+        {this.state.employeesReward.length > 0 && <StackStyle
+          employeesReward={this.state.employeesReward}
           Reload={this.state.Reload}
           context={this.props.context}
           WebpartTitle={this.props.WebpartTitle} />}

@@ -162,23 +162,35 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     this.setState({ openAddFormModal: true });
   }
   public onFormNameChange = (event: any, name: string) => {
-    if (name.trim() !== "") {
+    if (name.trim() === "") {
+      this.setState({ formName: "" });
+    }
+    else {
       this.setState({ formName: name });
     }
   }
   public onFormDescriptionChange = (event: any, description: string) => {
-    if (description.trim() !== "") {
+    if (description.trim() === "") {
+      this.setState({ formDescription: "" });
+    }
+    else {
       this.setState({ formDescription: description });
     }
   }
   public onOwnerEmailChange = (event: any, email: string) => {
-    if (email.trim() !== "") {
+    if (email.trim() === "") {
+      this.setState({ ownerEmail: "" });
+    }
+    else {
       this.setState({ ownerEmail: email });
     }
   }
 
   public onFormLinkChange = (event: any, link: string) => {
-    if (link.trim() !== "") {
+    if (link.trim() === "") {
+      this.setState({ formLink: "" });
+    }
+    else {
       this.setState({ formLink: link });
     }
   }

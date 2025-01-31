@@ -14,7 +14,7 @@ export interface IRewardsProps {
 export interface IRewardsState {
   currentUser: IUser;
   modaloverlay: { isOpen: boolean, modalText: string };
-  employeesBirthday: any[];
+  employeesReward: any[];
   Reload: boolean;
   openAddFormModal: boolean;
   name: string;

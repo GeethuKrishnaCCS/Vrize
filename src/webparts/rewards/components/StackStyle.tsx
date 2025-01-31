@@ -32,7 +32,7 @@ export default class StackStyle extends React.Component<
     let count = 0;
     const min = 0;
     const max = min + 3;
-    this.props.employeesBirthday.map(Post => {
+    this.props.employeesReward.map(Post => {
       count = count + 1;
       if (count > min && count < max) {
         array.push(Post);
@@ -53,9 +53,9 @@ export default class StackStyle extends React.Component<
     let count = 0;
     const min = 0;
     const max = min + 4;
-    if (prevProps.employeesBirthday !== this.props.employeesBirthday) {
+    if (prevProps.employeesReward !== this.props.employeesReward) {
 
-      this.props.employeesBirthday.map(Post => {
+      this.props.employeesReward.map(Post => {
         count = count + 1;
         if (count > min && count < max) {
           array.push(Post);
@@ -64,8 +64,8 @@ export default class StackStyle extends React.Component<
       this.setState({ RenderedEmployees: array, Next: 4, Count: 1, UpdateCount: 0 });
       return true;
     }
-    else if (this.props.employeesBirthday.length > 0 && this.props.employeesBirthday.length > this.state.RenderedEmployees.length && this.state.UpdateCount < 4) {
-      this.props.employeesBirthday.map(Post => {
+    else if (this.props.employeesReward.length > 0 && this.props.employeesReward.length > this.state.RenderedEmployees.length && this.state.UpdateCount < 4) {
+      this.props.employeesReward.map(Post => {
         count = count + 1;
         if (count > min && count < max) {
           array.push(Post);
@@ -105,7 +105,7 @@ export default class StackStyle extends React.Component<
     this.setState({ RenderedEmployees: array, Next: newVal, Count: this.state.Count - 1 });
   }
   public renderdots() {
-    const dotCount = Math.ceil(this.props.employeesBirthday.length / 3);
+    const dotCount = Math.ceil(this.props.employeesReward.length / 3);
     const dots = [];
 
     for (let i = 0; i < dotCount; i++) {
@@ -138,20 +138,20 @@ export default class StackStyle extends React.Component<
 
 
 
-          <div className={styles.BirthdaySlider}>
+          <div className={styles.RewardSlider}>
             <div className={styles.Prevbtn}>
               <IconButton iconProps={backicon}
-                onClick={() => this.Back(this.props.employeesBirthday)} disabled={this.state.Next === 3}
+                onClick={() => this.Back(this.props.employeesReward)} disabled={this.state.Next === 3}
                 className={styles.NavigationLeftButtonStyling}
                 ariaLabel={"Back"} />
             </div>
-            <div className={styles.BirthdayCard}>
+            <div className={styles.RewardCard}>
               {this.state.RenderedEmployees.map((emp, key) => {
                 i = i + 1;
                 return (
                   <div className={styles.card}>
                     <div className={styles.date}>
-                      {"On " + moment(new Date()).format("DD/MM/YYYY")}
+                      {emp.Year}
                     </div>
                     <img className={styles.imgWidth}
                       src={emp.ImageURL ?? ''}
@@ -170,8 +170,8 @@ export default class StackStyle extends React.Component<
             </div>
             <div className={styles.Nextbtn}>
               <IconButton iconProps={nexticon}
-                onClick={() => this.Next(this.props.employeesBirthday)}
-                disabled={this.state.Next >= this.props.employeesBirthday.length}
+                onClick={() => this.Next(this.props.employeesReward)}
+                disabled={this.state.Next >= this.props.employeesReward.length}
                 className={styles.NavigationRightButtonStyling}
                 ariaLabel={"Next"} />
             </div>

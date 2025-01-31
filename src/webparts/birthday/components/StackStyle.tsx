@@ -19,7 +19,7 @@ export default class StackStyle extends React.Component<
       Employees: [],
       RenderedEmployees: [],
       UpdateCount: 0,
-      Next: 3,
+      Next: 5,
       Count: 1,
       Reload: true
     };
@@ -31,14 +31,14 @@ export default class StackStyle extends React.Component<
     const array: any[] = [];
     let count = 0;
     const min = 0;
-    const max = min + 3;
+    const max = min + 5;
     this.props.employeesBirthday.map(Post => {
       count = count + 1;
       if (count > min && count < max) {
         array.push(Post);
       }
     });
-    this.setState({ RenderedEmployees: array, Next: 3, Count: 1, UpdateCount: 0 });
+    this.setState({ RenderedEmployees: array, Next: 5, Count: 1, UpdateCount: 0 });
   }
 
   public formatDateTime(dateTime: any) {
@@ -52,7 +52,7 @@ export default class StackStyle extends React.Component<
     const array: any[] = [];
     let count = 0;
     const min = 0;
-    const max = min + 4;
+    const max = min + 6;
     if (prevProps.employeesBirthday !== this.props.employeesBirthday) {
 
       this.props.employeesBirthday.map(Post => {
@@ -61,7 +61,7 @@ export default class StackStyle extends React.Component<
           array.push(Post);
         }
       });
-      this.setState({ RenderedEmployees: array, Next: 4, Count: 1, UpdateCount: 0 });
+      this.setState({ RenderedEmployees: array, Next: 6, Count: 1, UpdateCount: 0 });
       return true;
     }
     else if (this.props.employeesBirthday.length > 0 && this.props.employeesBirthday.length > this.state.RenderedEmployees.length && this.state.UpdateCount < 4) {
@@ -71,7 +71,7 @@ export default class StackStyle extends React.Component<
           array.push(Post);
         }
       });
-      this.setState({ RenderedEmployees: array, Next: 3, Count: 1, UpdateCount: this.state.UpdateCount + 1 });
+      this.setState({ RenderedEmployees: array, Next: 5, Count: 1, UpdateCount: this.state.UpdateCount + 1 });
       return true;
     }
   }
@@ -79,21 +79,21 @@ export default class StackStyle extends React.Component<
     const array: any[] = [];
     let count = 0;
     const min = this.state.Next;
-    const max = min + 4;
+    const max = min + 6;
     Employees.map((Post: any) => {
       count = count + 1;
       if (count > min && count < max) {
         array.push(Post);
       }
     });
-    const newVal = this.state.Next + 3;
+    const newVal = this.state.Next + 5;
     this.setState({ RenderedEmployees: array, Next: newVal, Count: this.state.Count + 1 });
   }
 
   public Back(Employees: any) {
     const array: any[] = [];
-    const min = this.state.Next - 6;
-    const max = this.state.Next - 2;
+    const min = this.state.Next - 10;
+    const max = this.state.Next - 4;
     let count = 0;
     Employees.map((Post: any) => {
       count = count + 1;
@@ -101,11 +101,11 @@ export default class StackStyle extends React.Component<
         array.push(Post);
       }
     });
-    const newVal = this.state.Next - 3;
+    const newVal = this.state.Next - 5;
     this.setState({ RenderedEmployees: array, Next: newVal, Count: this.state.Count - 1 });
   }
   public renderdots() {
-    const dotCount = Math.ceil(this.props.employeesBirthday.length / 3);
+    const dotCount = Math.ceil(this.props.employeesBirthday.length / 5);
     const dots = [];
 
     for (let i = 0; i < dotCount; i++) {
