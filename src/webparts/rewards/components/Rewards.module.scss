@@ -2,14 +2,31 @@
 
 .rewards {
   .heading {
-    // display: flex;
+    display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
     align-items: center;
+    padding: 0 50px;
   }
 
   .buttonAdd {
-    padding: 2em;
+    padding: 0;
+
+    button{
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin: 0 !important;
+      background-color: #ffffff;
+      color: #161616;
+      border: none;
+      cursor: pointer;
+
+      span{
+        display: flex;
+        align-items: center;
+      }
+      
+    }
   }
 
   .addform {
@@ -18,10 +35,10 @@
   }
 
   .pagetitle {
-    font-size: 20px;
-    color: red;
+    font-size: 25px;
+    color: #DA1A32;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .StackStyle {
@@ -70,45 +87,47 @@
 
     .Prevbtn {
       width: 48px;
-      position: relative;
+      position: absolute;
       left: 0;
-      top: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
     }
 
     .Nextbtn {
       width: 48px;
-      position: relative;
+      position: absolute;
       right: 0;
-      top: 80px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .card {
-      background: "[theme:bodyText, default: #323130]";
+      // background: "[theme:bodyText, default: #323130]";
+      background-color: rgb(255 255 255 / 12%);
       border-radius: 10px;
       position: relative;
-      width: 25%;
-      height: 50%;
-      text-wrap: wrap;
       display: flex;
-      flex-direction: column;
       align-items: center;
       height: auto;
-      background-color: #1e1e2e;
-      border: 2px solid rgb(93, 91, 91);
-      border-radius: 15px;
+      border: 2px solid #3E3D3D;
       padding: 20px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
       text-align: center;
       color: #ffffff;
-      gap: 10px;
-      margin-right: 10px;
+      gap: 24px;
+      -webkit-backdrop-filter: blur(50px);
+      backdrop-filter: blur(50px);
+      min-width: 320px;
     }
 
-    .date {
-      padding-top: 10px;
-      color: rgb(147, 145, 145);
-      font-size: 10px;
-      text-align: center;
+    .images {
+      position: relative;
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 150px;
     }
 
     .imgWidth {
@@ -138,11 +157,20 @@
       margin-top: 3em;
     }
 
+    .details{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .RewardCard {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       gap: 2em;
+      position: relative;
+      padding: 0 50px;
+
 
       @media screen and (max-width: 768px) {
         display: block;
@@ -211,6 +239,87 @@
             background: rgba(0, 113, 206, 1);
           }
         }
+      }
+    }
+  }
+}
+
+
+
+.modalbody{
+  background-color: #242424;
+
+  .modalheader{
+    background-color: #2D2D2D;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button{
+      border-radius: 8px;
+      &:hover{
+        background-color: #242424;
+      }
+      i{
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+
+  }
+
+  .modalcontent{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+
+    label{
+      color: #fff;
+    }
+
+    input{
+
+      border-radius: 8px;
+    }
+
+    .datepicker{
+      .fieldGroup-215{
+        background-color: #161616;
+        color: #fff;
+      }
+
+    }
+
+    .uploadarea{
+      input{
+        color: #ffffff;
+      }
+    }
+  
+  }
+
+  .modalfooter{
+    background-color: #2D2D2D;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+
+    button{
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin: 0 !important;
+      background-color: #ffffff;
+      color: #161616;
+      border: none;
+      cursor: pointer;
+
+      &:hover{
+        background-color: #161616;
+        color: #fff;
       }
     }
   }

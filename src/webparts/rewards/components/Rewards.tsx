@@ -245,12 +245,21 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
     return (
       <section className={`${styles.rewards}`}>
         <div className={styles.heading}>
-          <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
+          <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+         
+          {this.state.isAdmin === true && (
+            <div className={styles.buttonAdd}>
+              <PrimaryButton
+                iconProps={AddFormIcon}
+                onClick={this.onAddForm}
+                className={styles.addform}
+              >
+                Add Form{" "}
+              </PrimaryButton>
+            </div>
+          )}
         </div>
-        {this.state.isAdmin === true &&
-          <div className={styles.buttonAdd}>
-            <PrimaryButton iconProps={AddFormIcon} onClick={this.onAddForm} className={styles.addform}>Add Form </PrimaryButton>
-          </div>}
+        
 
         {this.state.employeesReward.length > 0 && <StackStyle
           employeesReward={this.state.employeesReward}
@@ -262,11 +271,30 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
             isOpen={this.state.openAddFormModal}
             isModeless={false}
             containerClassName={contentStyles.container}>
-            <div style={{ padding: "18px" }}>
-              <div style={{ display: "flex" }}>
-                <span style={{ textAlign: "center", display: "flex", justifyContent: "center", flexGrow: "1", width: "450px", fontSize: "20px", fontFamily: 'sans-serif', fontWeight: "400" }}><b>Add Form Details</b></span>
-                <IconButton iconProps={CancelIcon} ariaLabel="Close popup modal" onClick={this.onModalClose} styles={iconButtonStyles} />
+            <div className={styles.modalbody}>
+              <div className={styles.modalheader}>
+                <span
+                  style={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexGrow: "1",
+                    fontSize: "20px",
+                    fontFamily: "sans-serif",
+                    fontWeight: "400",
+                    color: "#fff",
+                  }}
+                >
+                  <b>Add Form Details</b>
+                </span>
+                <IconButton
+                  iconProps={CancelIcon}
+                  ariaLabel="Close popup modal"
+                  onClick={this.onModalClose}
+                  styles={iconButtonStyles}
+                />
               </div>
+              <div className={styles.modalcontent}>
               <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
               <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
               <TextField label="Year" onChange={this.onYearChange} value={this.state.year} />
@@ -279,7 +307,12 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
                   onChange={this.uploadImage}
                 />
               </div>
-              <PrimaryButton style={{ float: "right", marginTop: "7px", marginBottom: "9px" }} id="b2" onClick={this.onSubmitForm} >Submit</PrimaryButton >
+              </div>
+              <div className={styles.modalfooter}>
+                <PrimaryButton id="b2" onClick={this.onSubmitForm}>
+                  Submit
+                </PrimaryButton>
+              </div>
             </div>
           </Modal>
         </div>
