@@ -23,7 +23,7 @@ export const Story: React.FunctionComponent<IStoryProps> = (props: React.PropsWi
                 />
             </div>
             <article className={styles.textContent}>
-                <h2 className={styles.storyTitle}>{storyData.title}</h2>
+                {/* <h2 className={styles.storyTitle}>{storyData.title}</h2> */}
                 {storyData.paragraphs.map((paragraph: string, index: number) => (
                     <p key={index} className={styles.storyParagraph}
                         dangerouslySetInnerHTML={{ __html: paragraph }} />
