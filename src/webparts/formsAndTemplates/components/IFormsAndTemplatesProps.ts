@@ -8,6 +8,7 @@ export interface IFormsAndTemplatesProps {
   laURL: string;
   groupName: string;
   WebpartTitle: string;
+  noPermissionErrorMsg: string;
 }
 export interface IFormsAndTemplatesState {
   formDetails: any[];

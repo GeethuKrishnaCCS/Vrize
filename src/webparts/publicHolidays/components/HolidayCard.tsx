@@ -4,10 +4,11 @@ import * as React from "react";
 interface HolidayCardProps {
     Date: string;
     Title: string;
-    filteredListUrl: string
+    filteredListUrl: string;
+    webpartTitle: string;
 }
 
-export const HolidayCard = ({ Date: dateStr, Title, filteredListUrl }: HolidayCardProps) => {
+export const HolidayCard = ({ Date: dateStr, Title, filteredListUrl, webpartTitle }: HolidayCardProps) => {
     const date = new Date(dateStr);
 
     if (isNaN(date.getTime())) {
@@ -16,7 +17,7 @@ export const HolidayCard = ({ Date: dateStr, Title, filteredListUrl }: HolidayCa
 
     return (
         <div className={styles.card}>
-            <h1>{'Upcoming Holidays'}</h1>
+            <h1>{webpartTitle}</h1>
             <div className={styles.cardContent}>
                 <div className={styles.dateSection}>
                     <div className={styles.day}>

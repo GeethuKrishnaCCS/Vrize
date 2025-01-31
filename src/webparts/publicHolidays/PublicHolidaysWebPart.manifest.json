@@ -3,26 +3,46 @@
   "id": "9ff4a57e-fa68-4ff2-b608-b9f5cc5a587f",
   "alias": "PublicHolidaysWebPart",
   "componentType": "WebPart",
-
   // The "*" signifies that the version should be taken from the package.json
   "version": "*",
   "manifestVersion": 2,
-
   // If true, the component can only be installed on sites where Custom Script is allowed.
   // Components that allow authors to embed arbitrary script code should set this to true.
   // https://support.office.com/en-us/article/Turn-scripting-capabilities-on-or-off-1f2c515f-5d7e-448a-9fd7-835da935584f
   "requiresCustomScript": false,
-  "supportedHosts": ["SharePointWebPart", "TeamsPersonalApp", "TeamsTab", "SharePointFullPage"],
+  "supportedHosts": [
+    "SharePointWebPart",
+    "TeamsPersonalApp",
+    "TeamsTab",
+    "SharePointFullPage"
+  ],
   "supportsThemeVariants": true,
-
-  "preconfiguredEntries": [{
-    "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
-    "group": { "default": "Advanced" },
-    "title": { "default": "publicHolidays" },
-    "description": { "default": "publicHolidays description" },
-    "officeFabricIconFontName": "Page",
-    "properties": {
-      "description": "publicHolidays"
+  "preconfiguredEntries": [
+    {
+      "groupId": "5c03119e-3074-46fd-976b-c60198311f70", // Advanced
+      "group": {
+        "default": "Advanced"
+      },
+      "title": {
+        "default": "publicHolidays"
+      },
+      "description": {
+        "default": "publicHolidays description"
+      },
+      "officeFabricIconFontName": "Page",
+      "properties": {
+        "webpartTitle": "Upcoming Holiday",
+        "listName": "PublicHolidays",
+        "eventLinksConfig": {
+          "India": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=843234f9%2Dc465%2D41d2%2D9ef4%2Dcf773708cb3e",
+          "Serbia": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=182b2ef3%2Da3af%2D45cd%2Db9c0%2D93d4ef909eea",
+          "Colombia": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=5a0b5d7a%2D8321%2D4655%2D8a0f%2Db5025641493b",
+          "Canada": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=56559c3f%2Db76d%2D4c37%2D98cb%2D29e1054551fa",
+          "Singapore": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=51a1d3d5%2D77ff%2D432a%2Da692%2D3442c22dbc5d",
+          "South Africa": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=9096ff58%2De124%2D411d%2D904e%2Dd006c444d527",
+          "United States": "/Lists/UpcomingHolidays/Calendar.aspx?viewid=4cb1a834%2D9b83%2D402a%2Daf72%2Df7b692df965f"
+        }
+      }
     }
-  }]
+  ]
 }

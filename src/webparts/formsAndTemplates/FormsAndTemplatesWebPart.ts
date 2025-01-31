@@ -27,8 +27,8 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
         listName: this.properties.listName,
         laURL: this.properties.laURL,
         groupName: this.properties.groupName,
-        WebpartTitle: this.properties.WebpartTitle
-
+        WebpartTitle: this.properties.WebpartTitle,
+        noPermissionErrorMsg: this.properties.noPermissionErrorMsg
       }
     );
 
@@ -118,6 +118,9 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
                 }),
                 PropertyPaneTextField('WebpartTitle', {
                   label: "Webpart Title"
+                }),
+                PropertyPaneTextField('noPermissionErrorMsg', {
+                  label: "No Permission Error Message"
                 })
               ]
             }

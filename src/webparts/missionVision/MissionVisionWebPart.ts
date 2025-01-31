@@ -114,53 +114,6 @@ export default class MissionVisionWebPart extends BaseClientSideWebPart<IMission
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
-  // private schema = generateJsonSchema("./types/Types.ts", "IStoryConfig")
-  // private schema = {
-  //   "$schema": "http://json-schema.org/draft-07/schema#",
-  //   "type": "object",
-  //   "properties": {
-  //     "title": {
-  //       "type": "string",
-  //       "description": "Title of the story"
-  //     },
-  //     "description": {
-  //       "type": "string",
-  //       "description": "Description of the story"
-  //     },
-  //     "author": {
-  //       "type": "string",
-  //       "description": "Author of the story"
-  //     },
-  //     "publishedDate": {
-  //       "type": "string",
-  //       "format": "date-time",
-  //       "description": "Date when the story was published"
-  //     },
-  //     "tags": {
-  //       "type": "array",
-  //       "items": {
-  //         "type": "string"
-  //       },
-  //       "description": "Tags associated with the story"
-  //     },
-  //     "metadata": {
-  //       "type": "object",
-  //       "properties": {
-  //         "version": {
-  //           "type": "number",
-  //           "description": "Version of the story"
-  //         },
-  //         "lastModified": {
-  //           "type": "string",
-  //           "format": "date-time",
-  //           "description": "Last modified date"
-  //         }
-  //       },
-  //       "required": ["version", "lastModified"]
-  //     }
-  //   },
-  //   "required": ["title", "description", "publishedDate", "tags", "metadata"]
-  // }
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {

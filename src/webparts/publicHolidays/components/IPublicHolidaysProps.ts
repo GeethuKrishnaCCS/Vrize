@@ -1,4 +1,5 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
+import { IEventLinksConfig } from "../types/Types";
 
 export interface IPublicHolidaysProps {
   description: string;
@@ -9,4 +10,6 @@ export interface IPublicHolidaysProps {
   context: WebPartContext
   limitDate: Date | undefined;
   listName: string;
+  webpartTitle: string;
+  eventLinksConfig: IEventLinksConfig;
 }

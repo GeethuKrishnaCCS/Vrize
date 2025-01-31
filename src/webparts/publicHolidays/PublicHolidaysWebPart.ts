@@ -3,6 +3,7 @@ import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
 import {
   type IPropertyPaneConfiguration,
+  PropertyPaneLabel,
   PropertyPaneTextField
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
@@ -11,10 +12,14 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'PublicHolidaysWebPartStrings';
 import PublicHolidays from './components/PublicHolidays';
 import { IPublicHolidaysProps } from './components/IPublicHolidaysProps';
+import { PropertyFieldMonacoEditor } from '@pnp/spfx-property-controls';
+import { IEventLinksConfig } from './types/Types';
 
 export interface IPublicHolidaysWebPartProps {
   description: string;
   listName: string;
+  webpartTitle: string;
+  eventLinksConfig: string;
 }
 
 export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublicHolidaysWebPartProps> {
@@ -33,7 +38,9 @@ export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublic
         userDisplayName: this.context.pageContext.user.displayName,
         context: this.context,
         listName: this.properties.listName,
-        limitDate: undefined
+        limitDate: undefined,
+        webpartTitle: this.properties.webpartTitle,
+        eventLinksConfig: this.parseConfig<IEventLinksConfig>(this.properties.eventLinksConfig)
       }
     );
 
@@ -46,7 +53,17 @@ export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublic
     });
   }
 
-
+  private parseConfig<T>(config: string | T | undefined): T {
+    try {
+      if (typeof config === "string") {
+        return JSON.parse(config) as T;
+      }
+      return (config || undefined) as T; // Return the object or undefined
+    } catch (error) {
+      console.warn("Failed to parse config. Returning default value.", error);
+      return undefined as unknown as T; // Fallback to undefined
+    }
+  }
 
   private _getEnvironmentMessage(): Promise<string> {
     if (!!this.context.sdks.microsoftTeams) { // running in Teams, office.com or Outlook
@@ -112,12 +129,26 @@ export default class PublicHolidaysWebPart extends BaseClientSideWebPart<IPublic
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('webpartTitle', {
+                  label: "Webpart Title"
                 }),
                 PropertyPaneTextField('listName', {
                   label: 'Holiday List Title'
-                })
+                }),
+                PropertyPaneLabel('eventLinksConfigJSONField', {
+                  text: "Event Links Config (JSON)"
+                }),
+                PropertyFieldMonacoEditor('eventLinksConfig', {
+                  key: 'eventLinksConfigJSONField',
+                  value: typeof this.properties.eventLinksConfig === "string" ? this.properties.eventLinksConfig : JSON.stringify(this.properties.eventLinksConfig, null, 2),
+                  language: "json",
+                  showLineNumbers: true,
+                  jsonDiagnosticsOptions: {
+                    allowComments: true,
+                    validate: true,
+                    schemaValidation: 'error'
+                  }
+                }),
               ]
             }
           ]

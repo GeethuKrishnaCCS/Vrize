@@ -31,7 +31,8 @@
       },
       "officeFabricIconFontName": "Page",
       "properties": {
-        "WebpartTitle": "FormsAndTemplates"
+        "WebpartTitle": "FormsAndTemplates",
+        "noPermissionErrorMsg": "Form is not configured correctly"
       }
     }
   ]

@@ -144,6 +144,9 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         if (responseJSON.isSubmitted === true) {
           this.setState({ status: "Submitted" })
         }
+        else if (responseJSON.isSubmitted === "noPermission") {
+          this.setState({ status: "noPermission" })
+        }
         else {
           this.setState({ status: "Pending" })
         }
@@ -192,7 +195,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
     await this.service.addListItem(queryurl, formDetails);
     this.setState({ openAddFormModal: false, formName: "", formDescription: "", formLink: "", ownerEmail: "" });
-    this.getFormsAndTemplates()
+    await this.getFormsAndTemplates()
   }
   public onEditClick = (formlink: string) => {
     const editlink = formlink.replace("ResponsePage", "DesignPageV2");
@@ -266,6 +269,8 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
                 <div className={styles.cardfooter}>
                   {form.Status === "Submitted" &&
                     <div className={styles.submitStatus}>{form.Status}</div>}
+                  {form.Status === "noPermission" &&
+                    <div className={styles.noPermissionStatus}>{this.props.noPermissionErrorMsg}</div>}
                   {form.Status === "Pending" &&
                     <div className={styles.pendingStatus}>{form.Status}</div>}
                   <div className={styles.date}>{form.Created}</div>
