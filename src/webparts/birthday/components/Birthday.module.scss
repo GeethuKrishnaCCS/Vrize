@@ -2,14 +2,30 @@
 
 .birthday {
   .heading {
-    // display: flex;
+    display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
     align-items: center;
   }
 
   .buttonAdd {
-    padding: 2em;
+    padding: 0;
+
+    button{
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin: 0 !important;
+      background-color: #ffffff;
+      color: #161616;
+      border: none;
+      cursor: pointer;
+
+      span{
+        display: flex;
+        align-items: center;
+      }
+      
+    }
   }
 
   .addform {
@@ -18,10 +34,10 @@
   }
 
   .pagetitle {
-    font-size: 20px;
-    color: red;
+    font-size: 25px;
+    color: #DA1A32;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .nobirthday {
@@ -44,10 +60,8 @@
       font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
       font-size: 48px;
       font-weight: 500;
-      font-size: 48px;
       line-height: 72px;
       text-align: center;
-      // color: #000000;
       color: #fff;
       margin-bottom: 28px;
 
@@ -137,12 +151,24 @@
       position: absolute;
     }
 
+    .dots{
+      position: absolute;
+    }
+
     .imgWidth {
       width: 100px;
       height: 100px;
       border-radius: 50%;
       object-fit: cover;
 
+    }
+
+    .imggrid{
+      width: 150px;
+      height: 150px;
+      display: flex ;
+      align-items: center;
+      justify-content: center;
     }
 
     .name {
@@ -163,6 +189,12 @@
       margin-top: 3em;
     }
 
+    .details{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .BirthdayCard {
       width: 100%;
       display: flex;
@@ -174,7 +206,6 @@
         gap: 2em;
       }
     }
-
 
 
     .NavigationLeftButtonStyling {
@@ -240,6 +271,78 @@
     }
   }
 
+}
+
+.modalbody{
+  background-color: #242424;
+
+  .modalheader{
+    background-color: #2D2D2D;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button{
+      border-radius: 8px;
+      &:hover{
+        background-color: #242424;
+      }
+      i{
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+
+  }
+
+  .modalcontent{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 
 
+    label{
+      color: #fff;
+    }
+
+    input{
+      background-color: #161616;
+      color: #fff;
+      border-radius: 8px;
+    }
+
+    .datepicker{
+      .fieldGroup-215{
+        background-color: #161616;
+        color: #fff;
+      }
+
+    }
+  
+  }
+
+  .modalfooter{
+    background-color: #2D2D2D;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+
+    button{
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin: 0 !important;
+      background-color: #ffffff;
+      color: #161616;
+      border: none;
+      cursor: pointer;
+
+      &:hover{
+        background-color: #161616;
+        color: #fff;
+      }
+    }
+  }
 }
