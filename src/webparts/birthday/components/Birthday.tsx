@@ -330,11 +330,8 @@ export default class Birthday extends React.Component<
       ITextFieldStyles
     > = {
       fieldGroup: {
-        height: "40px",
-        borderRadius: "8px",
         overflow: "hidden",
         border:"none",
-        backgroundColor: "transparent",
       },
     };
 

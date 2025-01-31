@@ -6,6 +6,7 @@
     margin-bottom: 10px;
     justify-content: space-between;
     align-items: center;
+    padding: 0 50px;
   }
 
   .buttonAdd {
@@ -93,16 +94,19 @@
 
     .Prevbtn {
       width: 48px;
-      position: relative;
+      position: absolute;
       left: 0;
-      top: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
     }
 
     .Nextbtn {
       width: 48px;
-      position: relative;
+      position: absolute;
       right: 0;
-      top: 80px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .card {
@@ -143,8 +147,8 @@
 
     .innerring {
       position: absolute;
-      left: 16px;
-      top: 16px;
+      left: 18px;
+      top: 17px;
     }
 
     .outerring {
@@ -200,6 +204,8 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2em;
+      position: relative;
+      padding: 0 50px;
 
       @media screen and (max-width: 768px) {
         display: block;
@@ -308,8 +314,7 @@
     }
 
     input{
-      background-color: #161616;
-      color: #fff;
+
       border-radius: 8px;
     }
 
@@ -319,6 +324,12 @@
         color: #fff;
       }
 
+    }
+
+    .uploadarea{
+      input{
+        color: #ffffff;
+      }
     }
   
   }
