@@ -135,9 +135,7 @@ export default class StackStyle extends React.Component<
     return (
       <div className={styles.StackStyle}>
         <div className={styles.StackStyleContainer}>
-          <div className={styles.heading}>
-            <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
-          </div>
+
 
 
           <div className={styles.BirthdaySlider}>

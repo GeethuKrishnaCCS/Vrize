@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from './Rewards.module.scss';
 import type { IRewardsProps, IRewardsState } from './IRewardsProps';
-import { ActionButton, FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
+import { FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
 import StackStyle from './StackStyle';
 import { BaseService } from '../../../shared/services/BaseService';
 
@@ -23,7 +23,8 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       designation: "",
       dateOfBirth: null,
       selectedFile: null,
-      isAdmin: false
+      isAdmin: false,
+      year: ""
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -75,24 +76,13 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   }
   private async getEmployeeDatas() {
     let imageurl: any;
-    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.birthdayListName;
-    const selectquery = "*,Birthday,Employee/ID,Employee/Title,Employee/EMail";
-    const expandquery = "Employee";
-    const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
+    const selectquery = "*";
+    const employeeData = await this.service.getItemsSelect(queryurl, selectquery);
     if (employeeData) {
       const EmployeeDetails: any[] = [];
-      const currentDate = new Date();
-      const day = String(currentDate.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
-      const formattedTodayDate = `${day}-${month}`;
-      console.log('formattedTodayDate: ', formattedTodayDate);
       for (let i = 0; i < employeeData.length; i++) {
         const item = employeeData[i];
-        const dateOfBirth = new Date(item.Birthday);
-        const day = String(dateOfBirth.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
-        const month = String(dateOfBirth.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
-        const formattedBirthDate = `${day}-${month}`;
-        console.log('formattedBirthDate: ', formattedBirthDate);
         if (item.ImageLink === null) {
           const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
           const selectquery = "*,FileRef,FileLeafRef"
@@ -109,14 +99,14 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
           imageurl = item.ImageLink.Url
         }
 
-        if (formattedBirthDate === formattedTodayDate) {
-          EmployeeDetails.push({
-            ImageURL: imageurl,
-            Designation: item.Designation,
-            FullName: item.EmployeeName,
-            Birthday: item.Birthday,
-          });
-        }
+
+        EmployeeDetails.push({
+          ImageURL: imageurl,
+          Designation: item.Designation,
+          FullName: item.EmployeeName,
+          Year: item.Year,
+        });
+
       }
       console.log('greetings: ', EmployeeDetails);
       this.setState({
@@ -146,6 +136,11 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       this.setState({ designation: designation });
     }
   }
+  public onYearChange = (event: any, year: string) => {
+    if (year.trim() !== "") {
+      this.setState({ year: year });
+    }
+  }
   private uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files && event.target.files[0];
     if (file) {
@@ -158,23 +153,22 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       EmployeeName: this.state.name,
       Designation: this.state.designation,
       Birthday: this.state.dateOfBirth
-
     };
-    const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.birthdayListName;
+    const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
     const addbdayemp = await this.service.addListItem(queryListurl, formDetails);
     const createdListItemId = addbdayemp.ID; // Assuming the response contains the created item ID
     console.log('createdItemId: ', createdListItemId);
     if (this.state.selectedFile !== null) {
       const empName = this.state.name.replace(/[^a-zA-Z0-9 ]/g, '');
       const fileName = empName + this.state.selectedFile.name.substring(this.state.selectedFile.name.lastIndexOf('.'));
-      const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/` + this.props.birthdayLibraryName, fileName, this.state.selectedFile);
+      const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/` + this.props.rewardsLibraryName, fileName, this.state.selectedFile);
       const gettingfileItem = await this.service.getFileContent(fileResponse.ServerRelativeUrl);
       console.log('gettingfileItem: ', gettingfileItem);
       const createdLibItemId = gettingfileItem.ID
       const updateEmpID = {
         EmployeeId: createdListItemId
       };
-      const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.birthdayLibraryName;
+      const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.rewardsLibraryName;
       const updatebdayemp = await this.service.updateItem(queryLiburl, updateEmpID, createdLibItemId);
       if (updatebdayemp) {
         const updateLink = {
@@ -245,8 +239,13 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
 
     return (
       <section className={`${styles.rewards}`}>
+        <div className={styles.heading}>
+          <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
+        </div>
         {this.state.isAdmin === true &&
-          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
+          <div className={styles.buttonAdd}>
+            <PrimaryButton iconProps={AddFormIcon} onClick={this.onAddForm} className={styles.addform}>Add Form </PrimaryButton>
+          </div>}
 
         {this.state.employeesBirthday.length > 0 && <StackStyle
           employeesBirthday={this.state.employeesBirthday}
@@ -265,6 +264,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
               </div>
               <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
               <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
+              <TextField label="Year" onChange={this.onYearChange} value={this.state.year} />
               <div className={styles.uploadarea}>
                 <label htmlFor="inputpic"><strong>Upload Profile image : </strong></label>
                 <input type="file"
