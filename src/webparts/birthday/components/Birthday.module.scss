@@ -24,6 +24,14 @@
     font-weight: 600;
   }
 
+  .nobirthday {
+    color: "[theme:bodyText, default: #323130]";
+    background-color: whitesmoke;
+    border: 2px solid #3E3D3D;
+    border-radius: 2em;
+    padding: 1em;
+  }
+
   .StackStyle {
     .StackStyleContainer {
       width: 100%;

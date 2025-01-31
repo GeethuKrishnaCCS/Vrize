@@ -10,7 +10,7 @@ export interface StylingState {
 
 }
 export interface StylingProps {
-    employeesBirthday: any[];
+    employeesReward: any[];
     Reload: boolean;
     context: WebPartContext;
     WebpartTitle: string;
