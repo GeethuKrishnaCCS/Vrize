@@ -159,9 +159,6 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
                 }),
                 PropertyPaneTextField('height', {
                   label: 'Height'
-                }),
-                PropertyPaneTextField('WebpartTitle', {
-                  label: 'Webpart Title'
                 })
               ]
             },

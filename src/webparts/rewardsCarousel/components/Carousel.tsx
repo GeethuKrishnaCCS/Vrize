@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './Carousel.module.scss';
 import { ICarouselProps } from './ICarouselProps';
 import { SizeMe, SizeMeProps } from 'react-sizeme';
-import { Link } from '@fluentui/react';
+import { PrimaryButton } from '@fluentui/react';
 
 export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?: number, interval?: ReturnType<typeof setInterval>, height: string, width: string }> {
     constructor(props: ICarouselProps, state: any) {
@@ -19,14 +19,17 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
     public componentDidMount(): void {
         this.startAutorotate();
     }
-
+    public onViewAll() {
+        const rewardsandbirthdaylink = this.props.context.pageContext.web.absoluteUrl + "/SitePages/RewardsAndBirthdays.aspx";
+        window.open(rewardsandbirthdaylink, '_blank', 'noopener,noreferrer');
+    }
     public render(): React.ReactElement<ICarouselProps> {
         return (
             <div className={styles.carousel}>
                 <SizeMe>{({ size }: SizeMeProps) =>
                     <div className={styles.slideshowContainer}>
                         {/*  Iterate over each item to generate the carousel */}
-                        {this.props.employeesReward?.slice(0, this.props.employeesRewardCount).map((image: any, index: any) => {
+                        {this.props.employeesReward?.slice(0, this.props.employeesRewardCount).map((emp: any, index: any) => {
                             return (
                                 <div
                                     onMouseEnter={() => this.stopAutorotate()}
@@ -34,34 +37,38 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
                                     key={index.toString()}
                                     className={`${index === this.state.showSlideIndex ? styles.show : styles.mySlides} ${styles.fade}`}>
                                     <div className={styles.numbertext}>{index + 1}/{this.props.employeesRewardCount}</div>
-                                    {image.redirectLink && image.redirectLink != '#' ? (
-                                        <Link href={image.redirectLink} target='_blank' rel='noopener noreferrer'>
-                                            <img
-                                                className={this.props.columnSection === "FullColumn" ? styles.imgWidth : styles.sectionimgWidth}
-                                                src={image.path ?? ''}
-                                                width={this.state.width}
-                                                height={this.state.height}
-                                                alt="Image"
-                                            />
-                                        </Link>
-                                    ) : (
-                                        <img
-                                            className={styles.imgWidth}
-                                            src={image.path ?? ''}
-                                            width={this.state.width}
-                                            height={this.state.height}
-                                            alt="Image"
-                                        />
-                                    )}
-                                    <div className={`${styles.text} ${image.caption ? styles.backgroundBlack : ''} ms-u-hiddenSm ms-font-m-plus ms-fontWeight-semibold`}>{image.caption ? image.caption : ''}</div>
-                                </div>
+                                    <div className={styles.card}>
+                                        <div className={styles.heading}>
+                                            <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
+                                        </div>
+                                        <div><PrimaryButton onClick={this.onViewAll}
+                                            className={styles.viewAll}> View All
+                                        </PrimaryButton>
+                                        </div>
+                                        <img className={styles.imgWidth}
+                                            src={emp.ImageURL ?? ''}
+                                            alt="Image" />
+                                        <div>Vrizer</div>
+                                        <div>of the year</div>
+                                        <div className={styles.details}>
+                                            <div className={styles.name}>
+                                                {emp.FullName}
+                                            </div>
+                                            <div className={styles.designation}>
+                                                {emp.Designation}
+                                            </div>
+                                        </div>
+
+                                    </div></div>
                             );
                         })}
 
                         <a className={styles.prev} onClick={() => this.prevSlide()} >&#10094;</a>
                         <a className={styles.next} onClick={() => this.nextSlide()} >&#10095;</a>
                     </div>}
+
                 </SizeMe>
+
             </div>
         );
     }

@@ -61,11 +61,9 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
 
     return (
       <section className={`${styles.rewardsCarousel}`}>
-        <div className={styles.heading}>
-          <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
-        </div>
-        <Carousel duration={this.props.duration}
-          employeesReward={this.state.employeesReward}
+
+        <Carousel duration={this.props.duration} context={this.props.context}
+          employeesReward={this.state.employeesReward} WebpartTitle={this.props.WebpartTitle}
           employeesRewardCount={Number(this.state.employeesReward.length)}
           isAutoRotate={this.props.isAutorotate}
           height={this.props.height}

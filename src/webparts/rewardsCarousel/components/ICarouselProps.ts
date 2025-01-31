@@ -8,4 +8,6 @@ export interface ICarouselProps {
     height: number;         // Height of the carousel
     width: number;         // Width of the carousel
     columnSection: string;  // Column section
+    context: any;
+    WebpartTitle: string;
 }
