@@ -151,16 +151,18 @@ export default class StackStyle extends React.Component<
                 return (
                   <div className={styles.card}>
                     <div className={styles.year}>{emp.Year}</div>
-                    <img className={styles.imgWidth}
-                      src={emp.ImageURL ?? ''}
-                      alt="Image" />
+                    <div className={styles.cardContent}>
+                      <img className={styles.imgWidth}
+                        src={emp.ImageURL ?? ''}
+                        alt="Image" />
 
-                    <div className={styles.details}>
-                      <div className={styles.name}>
-                        {emp.FullName}
-                      </div>
-                      <div className={styles.designation}>
-                        {emp.Designation}
+                      <div className={styles.details}>
+                        <div className={styles.name}>
+                          {emp.FullName}
+                        </div>
+                        <div className={styles.designation}>
+                          {emp.Designation}
+                        </div>
                       </div>
                     </div>
 

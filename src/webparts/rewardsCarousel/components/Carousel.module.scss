@@ -4,14 +4,21 @@
     // @include ms-Grid-row;
     // @include ms-Grid-col;
     // @include ms-sm12;
-    height: 200px;
+    height: 230px;
     overflow: hidden;
 
     .heading {
-        // display: flex;
+        display: flex;
         margin-bottom: 10px;
         justify-content: space-between;
         align-items: center;
+
+        .viewAll{
+            background-color: transparent;
+            border: 1px solid #ffffff;
+            border-radius: 8px;
+        }
+
     }
 
     .pagetitle {
@@ -61,7 +68,7 @@
         border-radius: 10px;
         position: relative;
         display: flex;
-        align-items: center;
+        flex-direction: column;
         height: auto;
         border: 2px solid #3E3D3D;
         padding: 20px;
@@ -72,7 +79,41 @@
         -webkit-backdrop-filter: blur(50px);
         backdrop-filter: blur(50px);
         min-width: 320px;
+
+        .cardcontent{
+            display: flex;
+            align-items: center;
+            gap: 24px;
+
+            .details{
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                justify-content: flex-start;
+                text-align: left;
+
+                .vrizer{
+                    font-size: 24px;
+                    font-weight: 800;
+                    color: #DA1A32;
+                }
+                .yearof{
+                    font-size: 14px;
+                    color: rgb(147, 145, 145);
+                }
+
+                .name{
+                    text-align: left;
+                    margin: 0;
+                }
+                .designation{
+                    text-align: left;
+                }
+            }
+        }
     }
+
+    
 
     .year {
         font-weight: 600;
@@ -132,6 +173,7 @@
         font-size: 18px;
         transition: 0.6s ease;
         border-radius: 0 3px 3px 0;
+        -webkit-user-select: none; /* Added for Safari support */
         user-select: none;
     }
 
