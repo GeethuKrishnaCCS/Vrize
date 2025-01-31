@@ -34,19 +34,19 @@ export class PublicHolidaysService {
 
         try {
             const today = new Date().toDateString();
-            let filterQuery = `Date ge '${today}' and Location eq '${currentLocation}'`;
+            let filterQuery = `StartDate ge '${today}' and Location eq '${currentLocation}'`;
 
             // Only add "Date lt" filter if limitToDate is provided
             if (limitToDate) {
                 const formattedLimitDate = limitToDate.toISOString();
-                filterQuery += ` and Date lt '${formattedLimitDate}'`;
+                filterQuery += ` and StartDate lt '${formattedLimitDate}'`;
             }
             publicHolidays = await this.sp.web.lists
                 .getByTitle(listName)
                 .items
                 .filter(filterQuery)
                 .top(rowCount || 100)
-                .orderBy('Date', true)
+                .orderBy('StartDate', true)
                 ();
         }
         catch (error) {
