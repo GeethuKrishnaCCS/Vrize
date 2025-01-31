@@ -1,6 +1,5 @@
 .storySection {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -13,23 +12,23 @@
 }
 
 .imageContainer {
-  flex: 1 1 40%;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 35%;
 
   img {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     object-fit: cover;
   }
 }
 
 .textContent {
-  flex: 1 1 50%;
   padding: 20px;
+  width:65%;
 
   @media (max-width: 768px) {
     text-align: center;

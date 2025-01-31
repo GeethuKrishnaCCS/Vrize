@@ -14,8 +14,10 @@ export const Mission: React.FunctionComponent<IMissionProps> = (props: React.Pro
                 <div className={styles.grid}>
                     <div className={styles.content}>
                         <h2 className={styles.title}>{content.title}</h2>
-                        <h3 className={styles.subtitle}>{content.subtitle}</h3>
-                        <p className={styles.text}>{content.text}</p>
+                        <div className={styles.textWrapper}>
+                            <div className={styles.subtitle}>{content.subtitle}</div>
+                            <p className={styles.text}>{content.text}</p>
+                        </div>
                     </div>
                     <div className={styles.imageWrapper}>
                         <img

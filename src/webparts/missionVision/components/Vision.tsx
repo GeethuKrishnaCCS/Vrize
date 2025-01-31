@@ -28,7 +28,7 @@ export const Vision: React.FunctionComponent<IVisionProps> = (props: React.Props
                                 className={styles.card}
                                 style={{ animationDelay: `${index * 0.1}s` }}
                             >
-                                <img className={styles.icon} src={metric.icon} />
+                                <img className={styles.icon} src={metric.icon} alt='' />
                                 <p className={styles.label} dangerouslySetInnerHTML={{ __html: metric.label }} />
                             </div>
                         ))}
