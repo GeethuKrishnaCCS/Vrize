@@ -132,7 +132,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
 
   }
   public onDesignationChange = (event: any, designation: string) => {
-    if (designation.trim() !== "") {
+    if (designation.trim() === "") {
       this.setState({ designation: "" });
     }
     else {
@@ -140,7 +140,10 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
     }
   }
   public onYearChange = (event: any, year: string) => {
-    if (year.trim() !== "") {
+    if (year.trim() === "") {
+      this.setState({ year: "" });
+    }
+    else {
       this.setState({ year: year });
     }
   }
@@ -246,7 +249,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       <section className={`${styles.rewards}`}>
         <div className={styles.heading}>
           <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
-         
+
           {this.state.isAdmin === true && (
             <div className={styles.buttonAdd}>
               <PrimaryButton
@@ -259,7 +262,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
             </div>
           )}
         </div>
-        
+
 
         {this.state.employeesReward.length > 0 && <StackStyle
           employeesReward={this.state.employeesReward}
@@ -295,18 +298,18 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
                 />
               </div>
               <div className={styles.modalcontent}>
-              <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
-              <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
-              <TextField label="Year" onChange={this.onYearChange} value={this.state.year} />
-              <div className={styles.uploadarea}>
-                <label htmlFor="inputpic"><strong>Upload Profile image : </strong></label>
-                <input type="file"
-                  id="inputpic"
-                  name="Select Image"
-                  required={true}
-                  onChange={this.uploadImage}
-                />
-              </div>
+                <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
+                <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
+                <TextField label="Year" onChange={this.onYearChange} value={this.state.year} />
+                <div className={styles.uploadarea}>
+                  <label htmlFor="inputpic"><strong>Upload Profile image : </strong></label>
+                  <input type="file"
+                    id="inputpic"
+                    name="Select Image"
+                    required={true}
+                    onChange={this.uploadImage}
+                  />
+                </div>
               </div>
               <div className={styles.modalfooter}>
                 <PrimaryButton id="b2" onClick={this.onSubmitForm}>

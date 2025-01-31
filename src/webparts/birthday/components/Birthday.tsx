@@ -231,7 +231,7 @@ export default class Birthday extends React.Component<
         );
       const fileResponse = await this.service.uploadDocument(
         `${this.props.context.pageContext.web.serverRelativeUrl}/` +
-          this.props.birthdayLibraryName,
+        this.props.birthdayLibraryName,
         fileName,
         this.state.selectedFile
       );
@@ -331,7 +331,7 @@ export default class Birthday extends React.Component<
     > = {
       fieldGroup: {
         overflow: "hidden",
-        border:"none",
+        border: "none",
       },
     };
 
@@ -351,7 +351,6 @@ export default class Birthday extends React.Component<
             </div>
           )}
         </div>
-       
 
         {this.state.employeesBirthday.length > 0 && <StackStyle
           employeesBirthday={this.state.employeesBirthday}

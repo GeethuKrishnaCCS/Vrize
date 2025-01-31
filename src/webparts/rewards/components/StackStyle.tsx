@@ -150,7 +150,7 @@ export default class StackStyle extends React.Component<
                 i = i + 1;
                 return (
                   <div className={styles.card}>
-
+                    <div className={styles.year}>{emp.Year}</div>
                     <img className={styles.imgWidth}
                       src={emp.ImageURL ?? ''}
                       alt="Image" />
