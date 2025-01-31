@@ -197,6 +197,7 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
         }
         const updatelinkemp = await this.service.updateItem(queryListurl, updateLink, createdListItemId);
         if (updatelinkemp) {
+          await this.getEmployeeDatas();
           this.setState({ openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null, Reload: true });
         }
       }
