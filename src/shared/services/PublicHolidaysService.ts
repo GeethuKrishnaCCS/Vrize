@@ -12,7 +12,7 @@ import "@pnp/sp/fields";
 export interface IPublicHoliday {
     Title: string;
     OfficeLocation: string;
-    Date: string;
+    StartDate: string;
     DateValue?: string;
     Image?: any;
     ImageValue?: string;

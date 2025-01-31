@@ -2,13 +2,13 @@ import styles from "./HolidayCard.module.scss";
 import * as React from "react";
 
 interface HolidayCardProps {
-    Date: string;
+    StartDate: string;
     Title: string;
     filteredListUrl: string;
     webpartTitle: string;
 }
 
-export const HolidayCard = ({ Date: dateStr, Title, filteredListUrl, webpartTitle }: HolidayCardProps) => {
+export const HolidayCard = ({ StartDate: dateStr, Title, filteredListUrl, webpartTitle }: HolidayCardProps) => {
     const date = new Date(dateStr);
 
     if (isNaN(date.getTime())) {
