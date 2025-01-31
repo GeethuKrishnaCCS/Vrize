@@ -26,14 +26,14 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
                 <SizeMe>{({ size }: SizeMeProps) =>
                     <div className={styles.slideshowContainer}>
                         {/*  Iterate over each item to generate the carousel */}
-                        {this.props.images?.info?.slice(0, this.props.imagesCount).map((image: any, index: any) => {
+                        {this.props.employeesReward?.slice(0, this.props.employeesRewardCount).map((image: any, index: any) => {
                             return (
                                 <div
                                     onMouseEnter={() => this.stopAutorotate()}
                                     onMouseLeave={() => this.startAutorotate()}
                                     key={index.toString()}
                                     className={`${index === this.state.showSlideIndex ? styles.show : styles.mySlides} ${styles.fade}`}>
-                                    <div className={styles.numbertext}>{index + 1}/{this.props.imagesCount}</div>
+                                    <div className={styles.numbertext}>{index + 1}/{this.props.employeesRewardCount}</div>
                                     {image.redirectLink && image.redirectLink != '#' ? (
                                         <Link href={image.redirectLink} target='_blank' rel='noopener noreferrer'>
                                             <img
@@ -75,13 +75,13 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
 
     private nextSlide(): void {
         let nextSlide: number = Number(this.state.showSlideIndex) + 1;
-        if (nextSlide > this.props.imagesCount - 1) { nextSlide = 0; }
+        if (nextSlide > this.props.employeesRewardCount - 1) { nextSlide = 0; }
         this.setState({ showSlideIndex: nextSlide });
     }
 
     private prevSlide(): void {
         let nextSlide: number = Number(this.state.showSlideIndex) - 1;
-        if (nextSlide < 0) { nextSlide = this.props.imagesCount - 1; }
+        if (nextSlide < 0) { nextSlide = this.props.employeesRewardCount - 1; }
         this.setState({ showSlideIndex: nextSlide });
     }
 
