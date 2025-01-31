@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styles from './Rewards.module.scss';
 import type { IRewardsProps, IRewardsState } from './IRewardsProps';
-import { ActionButton, FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
+import { FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
 import StackStyle from './StackStyle';
 import { BaseService } from '../../../shared/services/BaseService';
 
@@ -16,14 +16,15 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
         title: ""
       },
       modaloverlay: { isOpen: false, modalText: "" },
-      employeesBirthday: [],
+      employeesReward: [],
       Reload: false,
       openAddFormModal: false,
       name: "",
       designation: "",
       dateOfBirth: null,
       selectedFile: null,
-      isAdmin: false
+      isAdmin: false,
+      year: ""
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
@@ -75,24 +76,13 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   }
   private async getEmployeeDatas() {
     let imageurl: any;
-    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.birthdayListName;
-    const selectquery = "*,Birthday,Employee/ID,Employee/Title,Employee/EMail";
-    const expandquery = "Employee";
-    const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
+    const selectquery = "*";
+    const employeeData = await this.service.getItemsSelect(queryurl, selectquery);
     if (employeeData) {
       const EmployeeDetails: any[] = [];
-      const currentDate = new Date();
-      const day = String(currentDate.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
-      const formattedTodayDate = `${day}-${month}`;
-      console.log('formattedTodayDate: ', formattedTodayDate);
       for (let i = 0; i < employeeData.length; i++) {
         const item = employeeData[i];
-        const dateOfBirth = new Date(item.Birthday);
-        const day = String(dateOfBirth.getDate()).padStart(2, '0'); // Get the day and pad with leading zero if needed
-        const month = String(dateOfBirth.getMonth() + 1).padStart(2, '0'); // Get the month (0-indexed, so add 1) and pad with leading zero
-        const formattedBirthDate = `${day}-${month}`;
-        console.log('formattedBirthDate: ', formattedBirthDate);
         if (item.ImageLink === null) {
           const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
           const selectquery = "*,FileRef,FileLeafRef"
@@ -109,18 +99,18 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
           imageurl = item.ImageLink.Url
         }
 
-        if (formattedBirthDate === formattedTodayDate) {
-          EmployeeDetails.push({
-            ImageURL: imageurl,
-            Designation: item.Designation,
-            FullName: item.EmployeeName,
-            Birthday: item.Birthday,
-          });
-        }
+
+        EmployeeDetails.push({
+          ImageURL: imageurl,
+          Designation: item.Designation,
+          FullName: item.EmployeeName,
+          Year: item.Year,
+        });
+
       }
       console.log('greetings: ', EmployeeDetails);
       this.setState({
-        employeesBirthday: EmployeeDetails
+        employeesReward: EmployeeDetails
       })
     }
 
@@ -143,7 +133,15 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   }
   public onDesignationChange = (event: any, designation: string) => {
     if (designation.trim() !== "") {
+      this.setState({ designation: "" });
+    }
+    else {
       this.setState({ designation: designation });
+    }
+  }
+  public onYearChange = (event: any, year: string) => {
+    if (year.trim() !== "") {
+      this.setState({ year: year });
     }
   }
   private uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
@@ -154,27 +152,27 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
     }
   }
   public onSubmitForm = async () => {
+    this.setState({ modaloverlay: { isOpen: true, modalText: "Data Saving..." } });
     const formDetails = {
       EmployeeName: this.state.name,
       Designation: this.state.designation,
-      Birthday: this.state.dateOfBirth
-
+      Year: this.state.year
     };
-    const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.birthdayListName;
+    const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
     const addbdayemp = await this.service.addListItem(queryListurl, formDetails);
     const createdListItemId = addbdayemp.ID; // Assuming the response contains the created item ID
     console.log('createdItemId: ', createdListItemId);
     if (this.state.selectedFile !== null) {
       const empName = this.state.name.replace(/[^a-zA-Z0-9 ]/g, '');
       const fileName = empName + this.state.selectedFile.name.substring(this.state.selectedFile.name.lastIndexOf('.'));
-      const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/` + this.props.birthdayLibraryName, fileName, this.state.selectedFile);
+      const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/` + this.props.rewardsLibraryName, fileName, this.state.selectedFile);
       const gettingfileItem = await this.service.getFileContent(fileResponse.ServerRelativeUrl);
       console.log('gettingfileItem: ', gettingfileItem);
       const createdLibItemId = gettingfileItem.ID
       const updateEmpID = {
-        EmployeeId: createdListItemId
+        RewardsId: createdListItemId
       };
-      const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.birthdayLibraryName;
+      const queryLiburl = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.rewardsLibraryName;
       const updatebdayemp = await this.service.updateItem(queryLiburl, updateEmpID, createdLibItemId);
       if (updatebdayemp) {
         const updateLink = {
@@ -185,7 +183,8 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
         }
         const updatelinkemp = await this.service.updateItem(queryListurl, updateLink, createdListItemId);
         if (updatelinkemp) {
-          this.setState({ openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null, Reload: true });
+          await this.getEmployeeDatas();
+          this.setState({ modaloverlay: { isOpen: false, modalText: "" }, openAddFormModal: false, name: "", designation: "", selectedFile: null, Reload: true });
         }
       }
     }
@@ -245,11 +244,25 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
 
     return (
       <section className={`${styles.rewards}`}>
-        {this.state.isAdmin === true &&
-          <div><ActionButton iconProps={AddFormIcon} onClick={this.onAddForm}>Add Form </ActionButton></div>}
+        <div className={styles.heading}>
+          <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+         
+          {this.state.isAdmin === true && (
+            <div className={styles.buttonAdd}>
+              <PrimaryButton
+                iconProps={AddFormIcon}
+                onClick={this.onAddForm}
+                className={styles.addform}
+              >
+                Add Form{" "}
+              </PrimaryButton>
+            </div>
+          )}
+        </div>
+        
 
-        {this.state.employeesBirthday.length > 0 && <StackStyle
-          employeesBirthday={this.state.employeesBirthday}
+        {this.state.employeesReward.length > 0 && <StackStyle
+          employeesReward={this.state.employeesReward}
           Reload={this.state.Reload}
           context={this.props.context}
           WebpartTitle={this.props.WebpartTitle} />}
@@ -258,13 +271,33 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
             isOpen={this.state.openAddFormModal}
             isModeless={false}
             containerClassName={contentStyles.container}>
-            <div style={{ padding: "18px" }}>
-              <div style={{ display: "flex" }}>
-                <span style={{ textAlign: "center", display: "flex", justifyContent: "center", flexGrow: "1", width: "450px", fontSize: "20px", fontFamily: 'sans-serif', fontWeight: "400" }}><b>Add Form Details</b></span>
-                <IconButton iconProps={CancelIcon} ariaLabel="Close popup modal" onClick={this.onModalClose} styles={iconButtonStyles} />
+            <div className={styles.modalbody}>
+              <div className={styles.modalheader}>
+                <span
+                  style={{
+                    textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexGrow: "1",
+                    fontSize: "20px",
+                    fontFamily: "sans-serif",
+                    fontWeight: "400",
+                    color: "#fff",
+                  }}
+                >
+                  <b>Add Form Details</b>
+                </span>
+                <IconButton
+                  iconProps={CancelIcon}
+                  ariaLabel="Close popup modal"
+                  onClick={this.onModalClose}
+                  styles={iconButtonStyles}
+                />
               </div>
+              <div className={styles.modalcontent}>
               <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
               <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
+              <TextField label="Year" onChange={this.onYearChange} value={this.state.year} />
               <div className={styles.uploadarea}>
                 <label htmlFor="inputpic"><strong>Upload Profile image : </strong></label>
                 <input type="file"
@@ -274,7 +307,12 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
                   onChange={this.uploadImage}
                 />
               </div>
-              <PrimaryButton style={{ float: "right", marginTop: "7px", marginBottom: "9px" }} id="b2" onClick={this.onSubmitForm} >Submit</PrimaryButton >
+              </div>
+              <div className={styles.modalfooter}>
+                <PrimaryButton id="b2" onClick={this.onSubmitForm}>
+                  Submit
+                </PrimaryButton>
+              </div>
             </div>
           </Modal>
         </div>

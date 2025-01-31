@@ -2,14 +2,31 @@
 
 .birthday {
   .heading {
-    // display: flex;
+    display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
     align-items: center;
+    padding: 0 50px;
   }
 
   .buttonAdd {
-    padding: 2em;
+    padding: 0;
+
+    button{
+      border-radius: 8px;
+      padding: 10px 15px;
+      margin: 0 !important;
+      background-color: #ffffff;
+      color: #161616;
+      border: none;
+      cursor: pointer;
+
+      span{
+        display: flex;
+        align-items: center;
+      }
+      
+    }
   }
 
   .addform {
@@ -18,10 +35,18 @@
   }
 
   .pagetitle {
-    font-size: 20px;
-    color: red;
+    font-size: 25px;
+    color: #DA1A32;
     text-align: left;
-    font-weight: 600;
+    font-weight: 700;
+  }
+
+  .nobirthday {
+    color: "[theme:bodyText, default: #323130]";
+    background-color: whitesmoke;
+    border: 2px solid #3E3D3D;
+    border-radius: 2em;
+    padding: 1em;
   }
 
   .StackStyle {
@@ -36,10 +61,8 @@
       font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
       font-size: 48px;
       font-weight: 500;
-      font-size: 48px;
       line-height: 72px;
       text-align: center;
-      // color: #000000;
       color: #fff;
       margin-bottom: 28px;
 
@@ -71,16 +94,19 @@
 
     .Prevbtn {
       width: 48px;
-      position: relative;
+      position: absolute;
       left: 0;
-      top: 80px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
     }
 
     .Nextbtn {
       width: 48px;
-      position: relative;
+      position: absolute;
       right: 0;
-      top: 80px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
     .card {
@@ -88,7 +114,6 @@
       background-color: rgb(255 255 255 / 12%);
       border-radius: 10px;
       position: relative;
-      width: 25%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -101,7 +126,7 @@
       gap: 24px;
       -webkit-backdrop-filter: blur(50px);
       backdrop-filter: blur(50px);
-      min-width: 180px;
+      min-width: 100px;
     }
 
     .date {
@@ -122,11 +147,15 @@
 
     .innerring {
       position: absolute;
-      left: 16px;
-      top: 16px;
+      left: 18px;
+      top: 17px;
     }
 
     .outerring {
+      position: absolute;
+    }
+
+    .dots{
       position: absolute;
     }
 
@@ -136,6 +165,14 @@
       border-radius: 50%;
       object-fit: cover;
 
+    }
+
+    .imggrid{
+      width: 150px;
+      height: 150px;
+      display: flex ;
+      align-items: center;
+      justify-content: center;
     }
 
     .name {
@@ -156,18 +193,25 @@
       margin-top: 3em;
     }
 
+    .details{
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .BirthdayCard {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       gap: 2em;
+      position: relative;
+      padding: 0 50px;
 
       @media screen and (max-width: 768px) {
         display: block;
         gap: 2em;
       }
     }
-
 
 
     .NavigationLeftButtonStyling {
@@ -233,6 +277,83 @@
     }
   }
 
+}
+
+.modalbody{
+  background-color: #242424;
+
+  .modalheader{
+    background-color: #2D2D2D;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button{
+      border-radius: 8px;
+      &:hover{
+        background-color: #242424;
+      }
+      i{
+        color: #fff;
+        font-size: 20px;
+      }
+    }
+
+  }
+
+  .modalcontent{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 
 
+    label{
+      color: #fff;
+    }
+
+    input{
+
+      border-radius: 8px;
+    }
+
+    .datepicker{
+      .fieldGroup-215{
+        background-color: #161616;
+        color: #fff;
+      }
+
+    }
+
+    .uploadarea{
+      input{
+        color: #ffffff;
+      }
+    }
+  
+  }
+
+  .modalfooter{
+    background-color: #2D2D2D;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+
+    button{
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin: 0 !important;
+      background-color: #ffffff;
+      color: #161616;
+      border: none;
+      cursor: pointer;
+
+      &:hover{
+        background-color: #161616;
+        color: #fff;
+      }
+    }
+  }
 }

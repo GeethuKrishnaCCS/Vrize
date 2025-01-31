@@ -28,6 +28,10 @@ export class BaseService {
     public updateItem(url: string, data: any, id: number): Promise<any> {
         return this.sp.web.getList(url).items.getById(id).update(data);
     }
+    public getItemsSelect(queryurl: string, select: string): Promise<any> {
+        return this.sp.web.getList(queryurl).items
+            .select(select)()
+    }
     // Image Carousel Service
     public getImageItems(url: string, selectquery: string): Promise<any> {
         return this.sp.web.getList(url).items.select(selectquery)();
