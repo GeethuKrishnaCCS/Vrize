@@ -4,6 +4,7 @@ import type { IRewardsProps, IRewardsState } from './IRewardsProps';
 import { FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
 import StackStyle from './StackStyle';
 import { BaseService } from '../../../shared/services/BaseService';
+import * as moment from 'moment';
 
 export default class Rewards extends React.Component<IRewardsProps, IRewardsState, {}> {
   private service: BaseService;/* To call the service file */
@@ -77,8 +78,9 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   private async getEmployeeDatas() {
     let imageurl: any;
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
-    const selectquery = "*";
-    const employeeData = await this.service.getItemsSelect(queryurl, selectquery);
+    const selectquery = "*,Category/Title,Category/ID";
+    const expandquery = "Category";
+    const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
     if (employeeData) {
       const EmployeeDetails: any[] = [];
       for (let i = 0; i < employeeData.length; i++) {
@@ -104,7 +106,8 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
           ImageURL: imageurl,
           Designation: item.Designation,
           FullName: item.EmployeeName,
-          Year: item.Year,
+          Year: moment(item.IssueDate).format("YYYY"),
+          Category: item.Category.Title
         });
 
       }

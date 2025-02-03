@@ -3,6 +3,7 @@ import styles from './RewardsCarousel.module.scss';
 import type { IRewardsCarouselProps, IRewardsCarouselState } from './IRewardsCarouselProps';
 import { BaseService } from '../../../shared/services/BaseService';
 import { Carousel } from './Carousel';
+import * as moment from 'moment';
 
 export default class RewardsCarousel extends React.Component<IRewardsCarouselProps, IRewardsCarouselState, {}> {
   private service: BaseService;/* To call the service file */
@@ -48,7 +49,8 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
             ImageURL: imageurl,
             Designation: item.Designation,
             FullName: item.EmployeeName,
-            Year: item.Year,
+            Year: moment(item.IssueDate).format("YYYY"),
+            Category: item.Category.Title
           });
         }
       }
