@@ -33,7 +33,7 @@ export class Carousel extends React.Component<ICarouselProps, { showSlideIndex?:
                                     onMouseLeave={() => this.startAutorotate()}
                                     key={index.toString()}
                                     className={`${index === this.state.showSlideIndex ? styles.show : styles.mySlides} ${styles.fade}`}>
-                                    <div className={styles.numbertext}>{index + 1}/{this.props.imagesCount}</div>
+                                    {/* <div className={styles.numbertext}>{index + 1}/{this.props.imagesCount}</div> */}
                                     {image.redirectLink && image.redirectLink != '#' ? (
                                         <Link href={image.redirectLink} target='_blank' rel='noopener noreferrer'>
                                             <img

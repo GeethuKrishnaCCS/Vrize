@@ -54,9 +54,9 @@ export class Carousel extends React.Component<
                                                 : styles.mySlides
                                                 } ${styles.fade}`}
                                         >
-                                            <div className={styles.numbertext}>
+                                            {/* <div className={styles.numbertext}>
                                                 {index + 1}/{this.props.employeesRewardCount}
-                                            </div>
+                                            </div> */}
                                             <div className={styles.card}>
                                                 <div className={styles.heading}>
                                                     <div className={styles.pagetitle}>
