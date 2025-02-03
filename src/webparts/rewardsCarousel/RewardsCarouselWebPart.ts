@@ -41,7 +41,8 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
         rewardsLibraryName: this.properties.rewardsLibraryName,
         defaultLibraryName: this.properties.defaultLibraryName,
         groupName: this.properties.groupName,
-        ColumnSection: this.properties.ColumnSection
+        ColumnSection: this.properties.ColumnSection,
+        category: this.properties.category
       }
     );
 
@@ -148,6 +149,9 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
                 }),
                 PropertyPaneTextField('defaultLibraryName', {
                   label: "Default Library Name"
+                }),
+                PropertyPaneTextField('category', {
+                  label: "Category Title"
                 }),
                 PropertyPaneChoiceGroup('layout', {
                   options: [
