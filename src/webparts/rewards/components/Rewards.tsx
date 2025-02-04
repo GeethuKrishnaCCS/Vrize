@@ -331,13 +331,13 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
               <div className={styles.modalcontent}>
                 <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
                 <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
-                <DatePicker label="Due Date *"
+                <DatePicker label="Issue Date *"
                   value={this.state.issueDate}
                   placeholder="Select a date..."
                   minDate={new Date()}
                   onSelectDate={this.IssueDateChange}
-                  formatDate={this.onFormatDate}
-                /><Dropdown
+                  formatDate={this.onFormatDate} />
+                <Dropdown
                   label='Category'
                   options={this.state.categoryOptions}
                   onChange={this.categoryChange}
