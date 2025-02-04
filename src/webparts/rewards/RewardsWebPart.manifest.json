@@ -36,7 +36,8 @@
           "rewardsListName": "RewardsAndRecognition",
           "rewardsLibraryName": "RewardsAndRecognitionGallery",
           "defaultLibraryName": "DefaultGallery",
-          "groupName": "VrizeAdmin"
+          "groupName": "VrizeAdmin",
+          "categoryListName": "RRCategory"
         }
       }
     }

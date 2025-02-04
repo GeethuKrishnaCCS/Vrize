@@ -30,7 +30,8 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
         rewardsListName: this.properties.rewardsListName,
         rewardsLibraryName: this.properties.rewardsLibraryName,
         defaultLibraryName: this.properties.defaultLibraryName,
-        groupName: this.properties.groupName
+        groupName: this.properties.groupName,
+        categoryListName: this.properties.categoryListName
       }
     );
 
@@ -123,6 +124,9 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
                 }),
                 PropertyPaneTextField('defaultLibraryName', {
                   label: "Default Library Name"
+                }),
+                PropertyPaneTextField('categoryListName', {
+                  label: "Category List Name"
                 })
               ]
             }

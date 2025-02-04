@@ -1,3 +1,4 @@
+import { IDropdownOption } from "@fluentui/react";
 import { WebPartContext } from "@microsoft/sp-webpart-base";
 
 export interface IRewardsProps {
@@ -9,6 +10,7 @@ export interface IRewardsProps {
   rewardsListName: string;
   rewardsLibraryName: string;
   defaultLibraryName: string;
+  categoryListName: string;
 }
 
 export interface IRewardsState {
@@ -22,7 +24,9 @@ export interface IRewardsState {
   dateOfBirth: any;
   selectedFile: any;
   isAdmin: boolean;
-  year: string;
+  issueDate: any;
+  categoryOptions: IDropdownOption[];
+  category: { key: any, text: string };
 }
 
 export interface IUser {
