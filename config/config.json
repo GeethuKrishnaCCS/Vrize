@@ -57,6 +57,14 @@
           "manifest": "./src/webparts/rewardsCarousel/RewardsCarouselWebPart.manifest.json"
         }
       ]
+    },
+    "my-teams-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/myTeams/MyTeamsWebPart.js",
+          "manifest": "./src/webparts/myTeams/MyTeamsWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -69,6 +77,7 @@
     "MissionVisionWebPartStrings": "lib/webparts/missionVision/loc/{locale}.js",
     "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
-    "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js"
+    "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js",
+    "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js"
   }
 }
