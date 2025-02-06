@@ -4,7 +4,9 @@
     // @include ms-Grid-row;
     // @include ms-Grid-col;
     // @include ms-sm12;
-    height: 230px;
+    max-width: 253px;
+    min-height: 300px;
+    height: auto;
     overflow: hidden;
 
     .heading {
@@ -64,8 +66,8 @@
 
     .card {
         // background: "[theme:bodyText, default: #323130]";
-        background-color: rgb(255 255 255 / 12%);
-        border-radius: 10px;
+        background-color: rgb(240 240 250 / 100%);
+        border-radius: 2px;
         position: relative;
         display: flex;
         flex-direction: column;
@@ -74,23 +76,25 @@
         padding: 20px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
         text-align: center;
-        color: #ffffff;
+        color: rgb(15, 5, 5);
         gap: 24px;
         -webkit-backdrop-filter: blur(50px);
         backdrop-filter: blur(50px);
-        min-width: 320px;
+        width: calc(100% - 44px);
 
         .cardcontent {
             display: flex;
             align-items: center;
+            flex-direction: column;
             gap: 24px;
 
             .details {
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
-                justify-content: flex-start;
-                text-align: left;
+                justify-content: center;
+                text-align: center;
+                width: 100%;
 
                 .vrizer {
                     font-size: 20px;
@@ -100,17 +104,23 @@
 
                 .yearof {
                     font-size: 14px;
-                    color: rgb(147, 145, 145);
+                    color: rrgb(15, 5, 5);
                 }
 
                 .name {
-                    text-align: left;
+                    text-align: center;
                     margin: 0;
+                    color: rgb(15, 5, 5);
 
                 }
 
                 .designation {
-                    text-align: left;
+                    text-align: center;
+                }
+
+                hr{
+                    width: 100%;
+                    border:1px solid #898A92;
                 }
             }
         }
@@ -168,23 +178,31 @@
         cursor: pointer;
         position: absolute;
         top: 50%;
-        width: auto;
-        padding: 16px;
+        width: 22px;
+        height: 22px;
+        padding: 2px;
         margin-top: -22px;
-        color: rgb(189, 183, 183);
+        color: white;
         font-weight: bold;
         font-size: 18px;
         transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
+        border-radius: 0;
         -webkit-user-select: none;
         /* Added for Safari support */
         user-select: none;
+        background-color: #B4B3BA;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
     }
 
     /* Position the "next button" to the right */
+    .prev {
+        left: 8px;
+    }
     .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
+        right: 8px;    
     }
 
     /* On hover, add a black background color with a little bit see-through */
