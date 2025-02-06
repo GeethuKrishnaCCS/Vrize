@@ -157,6 +157,9 @@ export default class StackStyle extends React.Component<
                         alt="Image" />
 
                       <div className={styles.details}>
+                        <div className={styles.category}>
+                          {emp.Category}
+                        </div>
                         <div className={styles.name}>
                           {emp.FullName}
                         </div>

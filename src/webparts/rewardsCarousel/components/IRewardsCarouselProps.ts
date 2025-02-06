@@ -14,6 +14,7 @@ export interface IRewardsCarouselProps {
   width: number;
   height: number;
   ColumnSection: string;
+  category: string;
 }
 export interface IRewardsCarouselState {
   employeesReward: any[];

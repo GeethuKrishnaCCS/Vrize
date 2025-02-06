@@ -13,7 +13,7 @@
         justify-content: space-between;
         align-items: center;
 
-        .viewAll{
+        .viewAll {
             background-color: transparent;
             border: 1px solid #ffffff;
             border-radius: 8px;
@@ -80,40 +80,43 @@
         backdrop-filter: blur(50px);
         min-width: 320px;
 
-        .cardcontent{
+        .cardcontent {
             display: flex;
             align-items: center;
             gap: 24px;
 
-            .details{
+            .details {
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
                 justify-content: flex-start;
                 text-align: left;
 
-                .vrizer{
-                    font-size: 24px;
-                    font-weight: 800;
+                .vrizer {
+                    font-size: 20px;
+                    font-weight: bolder;
                     color: #DA1A32;
                 }
-                .yearof{
+
+                .yearof {
                     font-size: 14px;
                     color: rgb(147, 145, 145);
                 }
 
-                .name{
+                .name {
                     text-align: left;
                     margin: 0;
+
                 }
-                .designation{
+
+                .designation {
                     text-align: left;
                 }
             }
         }
     }
 
-    
+
 
     .year {
         font-weight: 600;
@@ -173,7 +176,8 @@
         font-size: 18px;
         transition: 0.6s ease;
         border-radius: 0 3px 3px 0;
-        -webkit-user-select: none; /* Added for Safari support */
+        -webkit-user-select: none;
+        /* Added for Safari support */
         user-select: none;
     }
 

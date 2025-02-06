@@ -7,8 +7,14 @@
   background-color: #f9f9f9;
   font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
+    align-items: flex-start;
+    padding: 24px;
+  }
+
+  @media (max-width: 767px) {
     flex-direction: column;
+    padding: 16px;
   }
 }
 
@@ -25,15 +31,24 @@
     // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     object-fit: cover;
   }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 }
 
 .textContent {
   padding: 20px;
   width:65%;
 
-  @media (max-width: 768px) {
+  @media (max-width: 1080px) {
+    width: 100%;
+    padding: 0;
+  }
+  @media (max-width: 767px) {
     text-align: center;
   }
+
 }
 
 .storyTitle {

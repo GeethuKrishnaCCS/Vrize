@@ -1,9 +1,11 @@
 import * as React from 'react';
 import styles from './Rewards.module.scss';
 import type { IRewardsProps, IRewardsState } from './IRewardsProps';
-import { FontWeights, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
+import { DatePicker, Dropdown, FontWeights, IDropdownOption, IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
 import StackStyle from './StackStyle';
 import { BaseService } from '../../../shared/services/BaseService';
+import * as moment from 'moment';
+import * as _ from 'lodash';
 
 export default class Rewards extends React.Component<IRewardsProps, IRewardsState, {}> {
   private service: BaseService;/* To call the service file */
@@ -24,15 +26,19 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       dateOfBirth: null,
       selectedFile: null,
       isAdmin: false,
-      year: ""
+      issueDate: null,
+      categoryOptions: [],
+      category: { key: null, text: "" }
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
     this.getEmployeeDatas = this.getEmployeeDatas.bind(this);
+    this.getCategory = this.getCategory.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
     this.onAddForm = this.onAddForm.bind(this);
     this.onNameChange = this.onNameChange.bind(this);
     this.onDesignationChange = this.onDesignationChange.bind(this);
+    this.categoryChange = this.categoryChange.bind(this);
     this.uploadImage = this.uploadImage.bind(this);
     this.onSubmitForm = this.onSubmitForm.bind(this);
 
@@ -77,8 +83,9 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   private async getEmployeeDatas() {
     let imageurl: any;
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
-    const selectquery = "*";
-    const employeeData = await this.service.getItemsSelect(queryurl, selectquery);
+    const selectquery = "*,Category/Title,Category/ID";
+    const expandquery = "Category";
+    const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
     if (employeeData) {
       const EmployeeDetails: any[] = [];
       for (let i = 0; i < employeeData.length; i++) {
@@ -104,7 +111,8 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
           ImageURL: imageurl,
           Designation: item.Designation,
           FullName: item.EmployeeName,
-          Year: item.Year,
+          Year: moment(item.IssueDate).format("YYYY"),
+          Category: item.Category.Title
         });
 
       }
@@ -112,8 +120,28 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       this.setState({
         employeesReward: EmployeeDetails
       })
-    }
 
+    }
+    await this.getCategory();
+  }
+  public getCategory = async () => {
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.categoryListName;
+    const categoryData = await this.service.getListItems(queryurl);
+    if (categoryData) {
+      const CategoryOptions: any[] = [];
+      let sorted_category: any[] = [];
+      for (let i = 0; i < categoryData.length; i++) {
+        const item = categoryData[i];
+        CategoryOptions.push({ key: item.ID, text: item.Title });
+      }
+      console.log('category: ', CategoryOptions);
+      sorted_category = _.orderBy(CategoryOptions, 'key', ['asc']);
+      this.setState({ categoryOptions: sorted_category });
+    }
+  }
+  //Dropdown Methos
+  public categoryChange(event: React.FormEvent<HTMLDivElement>, category: IDropdownOption) {
+    this.setState({ category: category });
   }
   public onModalClose = () => {
     this.setState({ openAddFormModal: false, name: "", designation: "", dateOfBirth: null, selectedFile: null });
@@ -139,13 +167,13 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       this.setState({ designation: designation });
     }
   }
-  public onYearChange = (event: any, year: string) => {
-    if (year.trim() === "") {
-      this.setState({ year: "" });
-    }
-    else {
-      this.setState({ year: year });
-    }
+  public IssueDateChange = (date?: Date): void => {
+    this.setState({ issueDate: date });
+  }
+  // On format date
+  private onFormatDate = (date: Date): string => {
+    const selectd = moment(date).format("DD-MM-YYYY",);
+    return selectd;
   }
   private uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files && event.target.files[0];
@@ -159,7 +187,9 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
     const formDetails = {
       EmployeeName: this.state.name,
       Designation: this.state.designation,
-      Year: this.state.year
+      Year: moment(this.state.issueDate).format("YYYY"),
+      IssueDate: this.state.issueDate,
+      CategoryId: this.state.category.key
     };
     const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
     const addbdayemp = await this.service.addListItem(queryListurl, formDetails);
@@ -192,6 +222,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       }
     }
   }
+
   public render(): React.ReactElement<IRewardsProps> {
     const theme = getTheme();
     const contentStyles = mergeStyleSets({
@@ -300,7 +331,18 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
               <div className={styles.modalcontent}>
                 <TextField label="Name" onChange={this.onNameChange} value={this.state.name} />
                 <TextField label="Designation" onChange={this.onDesignationChange} value={this.state.designation} />
-                <TextField label="Year" onChange={this.onYearChange} value={this.state.year} />
+                <DatePicker label="Issue Date *"
+                  value={this.state.issueDate}
+                  placeholder="Select a date..."
+                  minDate={new Date()}
+                  onSelectDate={this.IssueDateChange}
+                  formatDate={this.onFormatDate} />
+                <Dropdown
+                  label='Category'
+                  options={this.state.categoryOptions}
+                  onChange={this.categoryChange}
+                  selectedKey={this.state.category.key}
+                />
                 <div className={styles.uploadarea}>
                   <label htmlFor="inputpic"><strong>Upload Profile image : </strong></label>
                   <input type="file"
@@ -312,9 +354,10 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
                 </div>
               </div>
               <div className={styles.modalfooter}>
-                <PrimaryButton id="b2" onClick={this.onSubmitForm}>
-                  Submit
-                </PrimaryButton>
+                {this.state.name !== "" && this.state.designation !== "" &&
+                  this.state.issueDate !== null && this.state.category.key !== null && <PrimaryButton id="b2" onClick={this.onSubmitForm}>
+                    Submit
+                  </PrimaryButton>}
               </div>
             </div>
           </Modal>

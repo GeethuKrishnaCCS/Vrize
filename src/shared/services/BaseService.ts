@@ -95,7 +95,7 @@ export class BaseService {
     public getItemsSelectExpand(queryurl: string, select: string, expand: string): Promise<any> {
         return this.sp.web.getList(queryurl).items
             .select(select)
-            .expand(expand)()
+            .expand(expand).orderBy("ID", false)()
     }
 
 }

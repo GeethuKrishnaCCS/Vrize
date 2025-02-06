@@ -3,6 +3,7 @@ import styles from './RewardsCarousel.module.scss';
 import type { IRewardsCarouselProps, IRewardsCarouselState } from './IRewardsCarouselProps';
 import { BaseService } from '../../../shared/services/BaseService';
 import { Carousel } from './Carousel';
+import * as moment from 'moment';
 
 export default class RewardsCarousel extends React.Component<IRewardsCarouselProps, IRewardsCarouselState, {}> {
   private service: BaseService;/* To call the service file */
@@ -21,11 +22,12 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
   private async getEmployeeDatas() {
     let imageurl: any;
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
-    const selectquery = "*";
-    const employeeData = await this.service.getItemsSelect(queryurl, selectquery);
+    const selectquery = "*,Category/Title,Category/ID";
+    const expandquery = "Category";
+    const employeeData = await this.service.getItemsSelectExpand(queryurl, selectquery, expandquery);
     if (employeeData) {
       const EmployeeDetails: any[] = [];
-      for (let i = 0; i < employeeData.length; i++) {
+      for (let i = 0; i < 5; i++) {
         const item = employeeData[i];
         if (item.ImageLink === null) {
           const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
@@ -42,13 +44,15 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
         else {
           imageurl = item.ImageLink.Url
         }
+        // if (item.Category.Title === this.props.category) {
         EmployeeDetails.push({
           ImageURL: imageurl,
           Designation: item.Designation,
           FullName: item.EmployeeName,
-          Year: item.Year,
+          Year: moment(item.IssueDate).format("YYYY"),
+          Category: item.Category.Title
         });
-
+        // }
       }
       console.log('greetings: ', EmployeeDetails);
       this.setState({

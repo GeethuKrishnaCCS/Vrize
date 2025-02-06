@@ -138,7 +138,7 @@ export default class StackStyle extends React.Component<
           <div className={styles.BirthdaySlider}>
             <div className={styles.Prevbtn}>
               <IconButton iconProps={backicon}
-                onClick={() => this.Back(this.props.employeesBirthday)} disabled={this.state.Next === 3}
+                onClick={() => this.Back(this.props.employeesBirthday)} disabled={this.state.Next === 5}
                 className={styles.NavigationLeftButtonStyling}
                 ariaLabel={"Back"} />
             </div>
@@ -163,28 +163,28 @@ export default class StackStyle extends React.Component<
                       </em>
                       <em className={styles.dots}>
                         <svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="25.0306" cy="132.03" r="6.50213" transform="rotate(0.229748 25.0306 132.03)" stroke="#5F4F39"/>
-                          <circle cx="132.031" cy="33.0302" r="6.50213" transform="rotate(0.229748 132.031 33.0302)" stroke="#5F4F39"/>
-                          <circle cx="136.5" cy="6.5" r="5.97409" transform="rotate(0.229748 136.5 6.5)" stroke="#541A21"/>
-                          <circle cx="22.5002" cy="155.5" r="4.18206" transform="rotate(0.229748 22.5002 155.5)" stroke="#541A21" stroke-width="0.6"/>
-                          <circle cx="25.0162" cy="132.016" r="4" transform="rotate(0.229748 25.0162 132.016)" fill="#5F4F39"/>
-                          <circle cx="132.016" cy="33.016" r="4" transform="rotate(0.229748 132.016 33.016)" fill="#5F4F39"/>
-                          <circle cx="136.486" cy="6.48684" r="3.19835" transform="rotate(0.229748 136.486 6.48684)" fill="#541A21" stroke="#541A21"/>
-                          <circle cx="22.4905" cy="155.491" r="2.2604" transform="rotate(0.229748 22.4905 155.491)" fill="#541A21" stroke="#541A21" stroke-width="0.6"/>
-                          </svg>
-                        </em>
+                          <circle cx="25.0306" cy="132.03" r="6.50213" transform="rotate(0.229748 25.0306 132.03)" stroke="#5F4F39" />
+                          <circle cx="132.031" cy="33.0302" r="6.50213" transform="rotate(0.229748 132.031 33.0302)" stroke="#5F4F39" />
+                          <circle cx="136.5" cy="6.5" r="5.97409" transform="rotate(0.229748 136.5 6.5)" stroke="#541A21" />
+                          <circle cx="22.5002" cy="155.5" r="4.18206" transform="rotate(0.229748 22.5002 155.5)" stroke="#541A21" stroke-width="0.6" />
+                          <circle cx="25.0162" cy="132.016" r="4" transform="rotate(0.229748 25.0162 132.016)" fill="#5F4F39" />
+                          <circle cx="132.016" cy="33.016" r="4" transform="rotate(0.229748 132.016 33.016)" fill="#5F4F39" />
+                          <circle cx="136.486" cy="6.48684" r="3.19835" transform="rotate(0.229748 136.486 6.48684)" fill="#541A21" stroke="#541A21" />
+                          <circle cx="22.4905" cy="155.491" r="2.2604" transform="rotate(0.229748 22.4905 155.491)" fill="#541A21" stroke="#541A21" stroke-width="0.6" />
+                        </svg>
+                      </em>
                       <img className={styles.imgWidth}
                         src={emp.ImageURL ?? ''}
                         alt="Image" /></div>
 
-                        <div className={styles.details}>
-                          <div className={styles.name}>
-                            {emp.FullName}
-                          </div>
-                          <div className={styles.designation}>
-                            {emp.Designation}
-                          </div>
-                        </div>
+                    <div className={styles.details}>
+                      <div className={styles.name}>
+                        {emp.FullName}
+                      </div>
+                      <div className={styles.designation}>
+                        {emp.Designation}
+                      </div>
+                    </div>
 
                   </div>
 
