@@ -67,20 +67,21 @@
     .card {
         // background: "[theme:bodyText, default: #323130]";
         background-color: rgb(240 240 250 / 100%);
-        border-radius: 2px;
+        // border-radius: 2px;
         position: relative;
         display: flex;
         flex-direction: column;
         height: auto;
-        border: 2px solid #3E3D3D;
+        // border: 2px solid #3E3D3D;
         padding: 20px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+        // box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
         text-align: center;
         color: rgb(15, 5, 5);
         gap: 24px;
         -webkit-backdrop-filter: blur(50px);
         backdrop-filter: blur(50px);
         width: calc(100% - 44px);
+        min-height: 240px;
 
         .cardcontent {
             display: flex;
@@ -118,9 +119,9 @@
                     text-align: center;
                 }
 
-                hr{
+                hr {
                     width: 100%;
-                    border:1px solid #898A92;
+                    border: 1px solid #898A92;
                 }
             }
         }
@@ -201,8 +202,9 @@
     .prev {
         left: 8px;
     }
+
     .next {
-        right: 8px;    
+        right: 8px;
     }
 
     /* On hover, add a black background color with a little bit see-through */
