@@ -191,7 +191,7 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
   //       if (dateOfBirth === currentDate) {
   //         EmployeeDetails.push({
   //           ImageURL: employeeDetail.personImage,
-  //           Designation: item.Designation,
+  //           Designation: item.Designation, 
   //           FullName: item.EmployeeName,
   //           Birthday: item.Birthday,
   //         });
