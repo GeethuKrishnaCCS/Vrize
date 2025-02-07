@@ -2,7 +2,7 @@
 
 .rewardsCarousel {
   .heading {
-    // display: flex;
+    display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
     align-items: center;
@@ -13,5 +13,9 @@
     color: black;
     text-align: left;
     font-weight: 600;
+  }
+
+  .viewAll {
+    text-align: right;
   }
 }
