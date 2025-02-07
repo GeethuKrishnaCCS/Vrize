@@ -1,8 +1,4 @@
 .storySection {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
   padding: 40px;
   background-color: #f9f9f9;
   font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
@@ -18,6 +14,21 @@
   }
 }
 
+
+.container{
+    max-width: 72rem;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      padding: 16px;
+    }
+
+}
 .imageContainer {
   display: flex;
   justify-content: center;

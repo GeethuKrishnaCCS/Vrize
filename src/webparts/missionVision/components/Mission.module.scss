@@ -33,7 +33,7 @@
     flex-direction: column;
     gap: 1.5rem;
     animation: fadeIn 0.5s ease-in;
-    width: 60%;
+    width: 65%;
   }
   
   .title {
@@ -69,14 +69,12 @@
     // background-color: #eaeaea;
     padding: 20px;
     border-radius: 10px;
-    width: 40%;
+    width: 35%;
 }
 
 .image {
     max-width: 100%;
     height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
   
   @media (min-width: 767px) {

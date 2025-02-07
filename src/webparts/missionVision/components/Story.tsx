@@ -15,6 +15,7 @@ export const Story: React.FunctionComponent<IStoryProps> = (props: React.PropsWi
 
     return (
         <section className={styles.storySection}>
+            <div className={styles.container}>
             <div className={styles.imageContainer}>
                 <img
                     src={storyData.image.src}
@@ -29,6 +30,7 @@ export const Story: React.FunctionComponent<IStoryProps> = (props: React.PropsWi
                         dangerouslySetInnerHTML={{ __html: paragraph }} />
                 ))}
             </article>
+            </div>
         </section>
     );
 
