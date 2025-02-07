@@ -4,6 +4,7 @@ import type { IRewardsCarouselProps, IRewardsCarouselState } from './IRewardsCar
 import { BaseService } from '../../../shared/services/BaseService';
 import { Carousel } from './Carousel';
 import * as moment from 'moment';
+import { Link } from '@fluentui/react';
 
 export default class RewardsCarousel extends React.Component<IRewardsCarouselProps, IRewardsCarouselState, {}> {
   private service: BaseService;/* To call the service file */
@@ -15,6 +16,7 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
     this.service = new BaseService(this.props.context, siteURL);
     this.getEmployeeDatas = this.getEmployeeDatas.bind(this);
+    this.linkClick = this.linkClick.bind(this);
   }
   public async componentDidMount() {
     await this.getEmployeeDatas();
@@ -60,12 +62,21 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
       })
     }
   }
+  public linkClick() {
+    const rewardsandbirthdaylink =
+      this.props.context.pageContext.web.absoluteUrl +
+      "/SitePages/RewardsAndBirthdays.aspx";
+    window.open(rewardsandbirthdaylink, "_self", "noopener,noreferrer");
+  }
   public render(): React.ReactElement<IRewardsCarouselProps> {
 
 
     return (
       <section className={`${styles.rewardsCarousel}`}>
-
+        <div className={styles.heading}>
+          <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+          <Link className={styles.viewAll} onClick={this.linkClick} >View All</Link>
+        </div>
         <Carousel duration={this.props.duration} siteurl={this.props.context.pageContext.web.absoluteUrl}
           employeesReward={this.state.employeesReward} WebpartTitle={this.props.WebpartTitle}
           employeesRewardCount={Number(this.state.employeesReward.length)}

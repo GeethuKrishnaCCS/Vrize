@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from "./Carousel.module.scss";
 import { ICarouselProps } from "./ICarouselProps";
 import { SizeMe, SizeMeProps } from "react-sizeme";
-import { PrimaryButton } from "@fluentui/react";
+// import { PrimaryButton } from "@fluentui/react";
 
 export class Carousel extends React.Component<
     ICarouselProps,
@@ -58,7 +58,7 @@ export class Carousel extends React.Component<
                                                 {index + 1}/{this.props.employeesRewardCount}
                                             </div> */}
                                             <div className={styles.card}>
-                                                <div className={styles.heading}>
+                                                {/* <div className={styles.heading}>
                                                     <div className={styles.pagetitle}>
                                                         {this.props.WebpartTitle}
                                                     </div>
@@ -69,7 +69,7 @@ export class Carousel extends React.Component<
                                                         {" "}
                                                         View All
                                                     </PrimaryButton>
-                                                </div>
+                                                </div> */}
 
                                                 <div className={styles.cardcontent}>
                                                     <img
@@ -78,11 +78,12 @@ export class Carousel extends React.Component<
                                                         alt="Image"
                                                     />
                                                     <div className={styles.details}>
-                                                        <div className={styles.vrizer}>{emp.Category}</div>
                                                         <div className={styles.name}>{emp.FullName}</div>
                                                         <div className={styles.designation}>
                                                             {emp.Designation}
                                                         </div>
+                                                        <hr></hr>
+                                                        <div className={styles.vrizer}>{emp.Category}</div>
                                                     </div>
                                                 </div>
                                             </div>
