@@ -39,6 +39,7 @@ export default class StackStyle extends React.Component<
       }
     });
     this.setState({ RenderedEmployees: array, Next: 5, Count: 1, UpdateCount: 0 });
+   
   }
 
   public formatDateTime(dateTime: any) {
@@ -148,7 +149,8 @@ export default class StackStyle extends React.Component<
                 return (
                   <div className={styles.card}>
                     <div className={styles.date}>
-                      {"On " + moment(new Date()).format("DD/MM/YYYY")}
+                      {"On " + moment(emp.Birthday).format("DD/MM")}
+                      {/* {"On " + moment(new Date()).format("DD/MM/YYYY")} */}
                     </div>
                     <div className={styles.images}>
                       <em className={styles.innerring}>
@@ -174,7 +176,7 @@ export default class StackStyle extends React.Component<
                         </svg>
                       </em>
                       <img className={styles.imgWidth}
-                        src={emp.ImageURL ?? ''}
+                        src={emp.ImageURL || ''}
                         alt="Image" /></div>
 
                     <div className={styles.details}>

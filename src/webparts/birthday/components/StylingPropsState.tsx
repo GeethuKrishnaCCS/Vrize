@@ -14,4 +14,6 @@ export interface StylingProps {
     Reload: boolean;
     context: WebPartContext;
     WebpartTitle: string;
+    DateEnter: string;
+    
 }
