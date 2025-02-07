@@ -74,7 +74,7 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
     return (
       <section className={`${styles.rewardsCarousel}`}>
         <div className={styles.heading}>
-          <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
+          <div className={styles.pagetitle}>{this.props.WebpartTitle}</div>
           <Link className={styles.viewAll} onClick={this.linkClick} >View All</Link>
         </div>
         <Carousel duration={this.props.duration} siteurl={this.props.context.pageContext.web.absoluteUrl}
