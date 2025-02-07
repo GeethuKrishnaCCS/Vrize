@@ -11,11 +11,16 @@ import { IReadonlyTheme } from '@microsoft/sp-component-base';
 import * as strings from 'BirthdayWebPartStrings';
 import Birthday from './components/Birthday';
 import { IBirthdayProps } from './components/IBirthdayProps';
+// import { PropertyFieldDateTimePicker, DateConvention } from '@pnp/spfx-property-controls/lib/PropertyFieldDateTimePicker';
 
 
+import { IDateTimeFieldValue } from "@pnp/spfx-property-controls/lib/PropertyFieldDateTimePicker";
+
+export interface IPropertyControlsTestWebPartProps {
+  selecteddate: IDateTimeFieldValue;
+}
 
 export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProps> {
-
 
   public render(): void {
     const element: React.ReactElement<IBirthdayProps> = React.createElement(
@@ -27,7 +32,9 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
         WebpartTitle: this.properties.WebpartTitle,
         birthdayListName: this.properties.birthdayListName,
         birthdayLibraryName: this.properties.birthdayLibraryName,
-        defaultLibraryName: this.properties.defaultLibraryName
+        defaultLibraryName: this.properties.defaultLibraryName,
+        DateEnter: this.properties.DateEnter,
+        // selecteddate: this.properties.selecteddate
       }
     );
 
@@ -117,7 +124,21 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
                 }),
                 PropertyPaneTextField('defaultLibraryName', {
                   label: "Default Library Name"
-                })
+                }),
+                PropertyPaneTextField('DateEnter', {
+                  label: "Enter Date in DD-MM"
+                }),
+                // PropertyFieldDateTimePicker('selecteddate', {
+                //   label: 'Select the date',
+                //   initialDate: this.properties.selecteddate,
+                //   dateConvention: DateConvention.DateTime,
+                //   // timeConvention: TimeConvention.Hours12,
+                //   onPropertyChange: this.onPropertyPaneFieldChanged,
+                //   properties: this.properties,
+                //   deferredValidationTime: 0,
+                //   key: 'dateTimeFieldId',
+                //   showLabels: false
+                // })
               ]
             }
           ]
