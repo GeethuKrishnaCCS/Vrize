@@ -4,6 +4,7 @@ import type { IBirthdayProps, IBirthdayState } from "./IBirthdayProps";
 import { BaseService } from "../../../shared/services/BaseService";
 import StackStyle from "./StackStyle";
 import * as moment from "moment";
+import * as _ from "lodash";
 
 export default class Birthday extends React.Component<IBirthdayProps, IBirthdayState, {}> {
   private service: BaseService; /* To call the service file */
@@ -126,6 +127,7 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     if (employeeData) {
       console.log('employeeData: ', employeeData);
       const EmployeeDetails: any[] = [];
+      let sorted_EmployeeDetails: any[] = [];
       const currentDate = moment(new Date()).format("DD-MM"); // Format current date as "DD-MM"
       console.log('currentDate: ', currentDate);
       const endDate = moment(this.props.DateEnter, "DD-MM").format("DD-MM");
@@ -155,8 +157,9 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
           });
         }
       }
+      sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
       this.setState({
-        employeesBirthday: EmployeeDetails,
+        employeesBirthday: sorted_EmployeeDetails,
       });
     }
   }
