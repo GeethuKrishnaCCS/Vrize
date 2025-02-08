@@ -97,5 +97,27 @@ export class BaseService {
             .select(select)
             .expand(expand).orderBy("ID", false)()
     }
+    //My Teams
+    public async getManagers(context: any): Promise<any> {
+        const client = await context.msGraphClientFactory.getClient("3");
+        const groupmembers = await client
+            .api('me/manager')
+            .version('v1.0')
+            .get();
 
+        return groupmembers;
+
+
+    }
+    public async getResponders(context: any): Promise<any> {
+        const client = await context.msGraphClientFactory.getClient("3");
+        const groupmembers = await client
+            .api('me/directReports')
+            .version('v1.0')
+            .get();
+
+        return groupmembers;
+
+
+    }
 }
