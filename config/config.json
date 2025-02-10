@@ -65,6 +65,14 @@
           "manifest": "./src/webparts/myTeams/MyTeamsWebPart.manifest.json"
         }
       ]
+    },
+    "marquee-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/marquee/MarqueeWebPart.js",
+          "manifest": "./src/webparts/marquee/MarqueeWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -78,6 +86,7 @@
     "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
     "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js",
-    "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js"
+    "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js",
+    "MarqueeWebPartStrings": "lib/webparts/marquee/loc/{locale}.js"
   }
 }
