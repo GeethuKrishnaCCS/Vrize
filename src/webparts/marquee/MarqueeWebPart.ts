@@ -25,13 +25,18 @@ export default class MarqueeWebPart extends BaseClientSideWebPart<IMarqueeWebPar
          overflow: hidden;
          white-space: nowrap;
          box-sizing: border-box;
-         background-color: grey; /* Set background color to grey */
+         background-color: rgb(208 208 208);
+         border-radius: 4px;
          height: 100%;
+        
        }
        .marquee {
          display: inline-block;
          padding-left: 100%;
-         animation: marquee 10s linear infinite;
+         animation: marquee 12s linear infinite;
+         padding: 10px 0 10px 100%;
+         color: #222;
+         font-size: 16px;
          
        }
        @keyframes marquee {
