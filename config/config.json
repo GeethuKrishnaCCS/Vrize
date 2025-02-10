@@ -81,6 +81,14 @@
           "manifest": "./src/webparts/multiMarquee/MultiMarqueeWebPart.manifest.json"
         }
       ]
+    },
+    "birthday-carousel-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/birthdayCarousel/BirthdayCarouselWebPart.js",
+          "manifest": "./src/webparts/birthdayCarousel/BirthdayCarouselWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -96,6 +104,7 @@
     "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js",
     "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js",
     "MarqueeWebPartStrings": "lib/webparts/marquee/loc/{locale}.js",
-    "MultiMarqueeWebPartStrings": "lib/webparts/multiMarquee/loc/{locale}.js"
+    "MultiMarqueeWebPartStrings": "lib/webparts/multiMarquee/loc/{locale}.js",
+    "BirthdayCarouselWebPartStrings": "lib/webparts/birthdayCarousel/loc/{locale}.js"
   }
 }
