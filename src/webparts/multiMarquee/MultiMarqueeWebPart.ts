@@ -12,6 +12,7 @@ export interface IMultiMarqueeWebPartProps {
   hindiText: string;
   spanishText: string;
   cyrillicText: string;
+  time: string;
 }
 
 export default class MultiMarqueeWebPart extends BaseClientSideWebPart<IMultiMarqueeWebPartProps> {
@@ -60,7 +61,7 @@ export default class MultiMarqueeWebPart extends BaseClientSideWebPart<IMultiMar
         marqueeText.innerText = texts[currentIndex];
         currentIndex = (currentIndex + 1) % texts.length;
       }
-    }, 10000); // Switch text every 10 seconds
+    }, Number(this.properties.time + "000")); // Switch text every 10 seconds
   }
 
   protected onInit(): Promise<void> {
@@ -142,6 +143,9 @@ export default class MultiMarqueeWebPart extends BaseClientSideWebPart<IMultiMar
                 }),
                 PropertyPaneTextField('cyrillicText', {
                   label: 'Cyrillic Text'
+                }),
+                PropertyPaneTextField('time', {
+                  label: 'Time'
                 })
               ]
             }

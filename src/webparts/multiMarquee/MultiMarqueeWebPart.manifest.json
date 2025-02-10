@@ -16,6 +16,7 @@
     "TeamsTab",
     "SharePointFullPage"
   ],
+  "supportsFullBleed": true,
   "supportsThemeVariants": true,
   "preconfiguredEntries": [
     {
@@ -34,7 +35,8 @@
         "englishText": "Coming Soon",
         "hindiText": "जल्द आ रहा है",
         "spanishText": "Muy pronto",
-        "cyrillicText": "Próximamente"
+        "cyrillicText": "Próximamente",
+        "time": "3"
       }
     }
   ]
