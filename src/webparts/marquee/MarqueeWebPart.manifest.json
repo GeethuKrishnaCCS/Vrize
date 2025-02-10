@@ -16,6 +16,7 @@
     "TeamsTab",
     "SharePointFullPage"
   ],
+  "supportsFullBleed": true,
   "supportsThemeVariants": true,
   "preconfiguredEntries": [
     {
