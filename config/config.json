@@ -73,6 +73,14 @@
           "manifest": "./src/webparts/marquee/MarqueeWebPart.manifest.json"
         }
       ]
+    },
+    "multi-marquee-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/multiMarquee/MultiMarqueeWebPart.js",
+          "manifest": "./src/webparts/multiMarquee/MultiMarqueeWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -87,6 +95,7 @@
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
     "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js",
     "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js",
-    "MarqueeWebPartStrings": "lib/webparts/marquee/loc/{locale}.js"
+    "MarqueeWebPartStrings": "lib/webparts/marquee/loc/{locale}.js",
+    "MultiMarqueeWebPartStrings": "lib/webparts/multiMarquee/loc/{locale}.js"
   }
 }
