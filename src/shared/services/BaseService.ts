@@ -56,6 +56,14 @@ export class BaseService {
 
 
     }
+    //Birthday Carousel
+    public getItemSelectExpandOrderBy(siteUrl: string, listname: string, select: string, expand: string, Orderby: string): Promise<any> {
+        return this.sp.web.getList(siteUrl + "/Lists/" + listname).items
+            .select(select)
+            .expand(expand)
+            .orderBy(Orderby, true)
+            ()
+    }
     // Birthday Service
     public getItemsFilter(queryurl: string, filter: string): Promise<any> {
         return this.sp.web.getList(queryurl).items.filter(filter)()

@@ -16,20 +16,20 @@ export interface IBirthdayCarouselWebPartProps {
   description: string;
 }
 
-export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirthdayCarouselWebPartProps> {
+export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirthdayCarouselProps> {
 
-  private _isDarkTheme: boolean = false;
-  private _environmentMessage: string = '';
+  // private _isDarkTheme: boolean = false;
+  // private _environmentMessage: string = '';
 
   public render(): void {
     const element: React.ReactElement<IBirthdayCarouselProps> = React.createElement(
       BirthdayCarousel,
       {
-        description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName
+        context: this.context,
+        webpartName: this.properties.webpartName,
+        birthdayListName: this.properties.birthdayListName,
+        NoOfItemDisplay: this.properties.NoOfItemDisplay,
+        DefaultGalleryUrl: this.properties.DefaultGalleryUrl
       }
     );
 
@@ -38,7 +38,7 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      this._environmentMessage = message;
+      // this._environmentMessage = message;
     });
   }
 
@@ -76,7 +76,7 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
       return;
     }
 
-    this._isDarkTheme = !!currentTheme.isInverted;
+    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -108,8 +108,17 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('webpartName', {
+                  label: 'Webpart Name'
+                }),
+                PropertyPaneTextField('birthdayListName', {
+                  label: 'Birthday List Name'
+                }),
+                PropertyPaneTextField('NoOfItemDisplay', {
+                  label: 'Number Of Items to Display'
+                }),
+                PropertyPaneTextField('DefaultGalleryUrl', {
+                  label: 'Default Gallery Url'
                 })
               ]
             }
