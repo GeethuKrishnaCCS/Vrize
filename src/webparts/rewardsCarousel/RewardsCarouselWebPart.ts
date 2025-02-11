@@ -48,6 +48,7 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
+      // this._environmentMessage = message;
     });
   }
 

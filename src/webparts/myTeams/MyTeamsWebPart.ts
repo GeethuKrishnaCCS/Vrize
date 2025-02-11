@@ -35,6 +35,7 @@ export default class MyTeamsWebPart extends BaseClientSideWebPart<IMyTeamsProps>
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
+      // this._environmentMessage = message;
     });
   }
 

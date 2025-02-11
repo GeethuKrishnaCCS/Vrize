@@ -49,6 +49,7 @@ export default class MarqueeWebPart extends BaseClientSideWebPart<IMarqueeWebPar
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
+      // this._environmentMessage = message;
     });
   }
 

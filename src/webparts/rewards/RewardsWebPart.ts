@@ -40,6 +40,7 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
+      // this._environmentMessage = message;
     });
   }
 

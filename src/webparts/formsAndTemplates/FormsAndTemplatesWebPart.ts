@@ -37,6 +37,7 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
+      // this._environmentMessage = message;
     });
   }
 
