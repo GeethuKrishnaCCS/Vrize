@@ -12,7 +12,6 @@ import * as strings from 'MissionVisionWebPartStrings';
 import MissionVision, { IMissionVisionProps } from './components/Main';
 import { PropertyFieldMonacoEditor } from '@pnp/spfx-property-controls';
 import { ICoreValuesConfig, IMissionConfig, IStoryConfig, IVisionConfig } from './types/Types';
-// import { generateJsonSchema } from './utils/generateSchema';
 
 export interface IMissionVisionWebPartProps {
   storyConfig: string;
@@ -131,7 +130,6 @@ export default class MissionVisionWebPart extends BaseClientSideWebPart<IMission
                 }),
                 PropertyFieldMonacoEditor('storyConfig', {
                   key: 'storyConfigJSONField',
-                  // value: this.properties.StatusMappingJSON,
                   value: typeof this.properties.storyConfig === "string" ? this.properties.storyConfig : JSON.stringify(this.properties.storyConfig, null, 2),
                   language: "json",
                   showLineNumbers: true,
@@ -139,12 +137,6 @@ export default class MissionVisionWebPart extends BaseClientSideWebPart<IMission
                     allowComments: true,
                     validate: true,
                     schemaValidation: 'error',
-                    // schemas: [
-                    //   {
-                    //     uri: 'storyConfigSchema',
-                    //     fileMatch: ['*'],
-                    //   }
-                    // ]
                   }
                 }),
                 PropertyPaneLabel('missionConfigJSONField', {

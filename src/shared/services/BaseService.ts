@@ -51,10 +51,7 @@ export class BaseService {
             .version('v1.0')
             .get();
         let data = response.value;
-        console.log(data);
         return data;
-
-
     }
     //Birthday Carousel
     public getItemSelectExpandOrderBy(siteUrl: string, listname: string, select: string, expand: string, Orderby: string): Promise<any> {

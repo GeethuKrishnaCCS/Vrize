@@ -26,9 +26,7 @@ export const Mission: React.FunctionComponent<IMissionProps> = (props: React.Pro
                             className={styles.image}
                         />
                     </div>
-                    {/* <div className={styles.circle}>
-                        <div className={styles.line}></div>
-                    </div> */}
+
                 </div>
             </div>
         </section>

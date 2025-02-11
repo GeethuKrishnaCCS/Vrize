@@ -1,18 +1,13 @@
 import * as React from 'react';
 import styles from './ImageCarousel.module.scss';
 import { type IImageCarouselProps, type IImageCarouselState, type IImageDetails } from './IImageCarouselProps';
-// import { escape } from '@microsoft/sp-lodash-subset';
-// import { Lightbox } from '../../../components/Lightbox/Lightbox';
-// import { List } from '../../../components/List/List';
 import { PrimaryButton } from '@fluentui/react';
-// import { SPHttpClient, SPHttpClientResponse } from '@microsoft/sp-http';
 import { Log } from '@microsoft/sp-core-library';
 import { Carousel } from '../../../shared/components/Carousel/Carousel';
 import { BaseService } from '../../../shared/services/BaseService';
 
 const CAROUSEL: string = 'carousel';
 const LIGHTBOX: string = 'lightbox';
-// const LIST: string = 'list';
 
 export default class ImageCarousel extends React.Component<IImageCarouselProps, IImageCarouselState, {}> {
   private service: BaseService;/* To call the service file */
@@ -48,25 +43,12 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
     let imageDetails: IImageDetails = { info: [] };
 
     try {
-      // Get the max number of records to be fetched
-      // let maxRec: number = this.props.layout === CAROUSEL ? Constants.CaroselMax : this.props.layout === LIST ? Constants.ListMax : Constants.LightboxMax;
-      // const apiUrl = `${this.props.webUrl}/_api/web/lists/getByTitle('${this.props.listName}')/items`;
-      // const filterQuery = `?$filter=Enable eq 1&$expand=File&$top=${this.props.imagesCount > 0 ? this.props.imagesCount : maxRec}&$select=RedirectLink,Caption,Description,File/Name,File/ServerRelativeUrl`;
-      // // Make the request to SharePoint
-      // const response: SPHttpClientResponse = await this.context.spHttpClient.get(apiUrl + filterQuery, SPHttpClient.configurations.v1);
       const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.listName;
       const selectquery = "*,FileRef,FileLeafRef"
       const imagedoc = await this.service.getImageItems(queryURL, selectquery);
-      console.log(imagedoc);
-      // if (response.ok) {
-      //   const data = await response.json();
       imagedoc.forEach((image: { [x: string]: any; }) => {
         imageDetails.info.push({ caption: image["Caption"], description: image["Description"], name: image["FileLeafRef"], path: image["FileRef"], redirectLink: image["RedirectURL"] !== null ? image["RedirectURL"]["Url"] : "#" });
       });
-      // }
-      // else {
-      //   console.log(response)
-      // }
     }
     catch (e) {
       Log.error(this.props.loggerName, new Error(`Error occured in ImageGallery.getItems()`));

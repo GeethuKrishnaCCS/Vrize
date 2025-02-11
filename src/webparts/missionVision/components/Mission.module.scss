@@ -1,88 +1,90 @@
 .section {
-    padding: 4rem 1rem;
-    background: #F0F0FA;
-    font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
-  }
-  
-  .container {
-    max-width: 72rem;
-    margin: 0 auto;
-  }
-  
-  .grid {
-    display: flex;
-    gap: 3rem;
-    align-items: center;
-    width: 100%;
+  padding: 4rem 1rem;
+  background: #F0F0FA;
+  font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
+}
 
-    @media (max-width: 767px) {
-      flex-direction: column;
-      
-      .content{
-        width: 100%;
-      }
-      .imageWrapper {
-        width: 100%;
-      }
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
+}
 
+.grid {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+
+    .content {
+      width: 100%;
     }
+
+    .imageWrapper {
+      width: 100%;
+    }
+
   }
-  
-  .content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    animation: fadeIn 0.5s ease-in;
-    width: 65%;
-  }
-  
-  .title {
-    font-size: 4rem;
-    font-weight: normal;
-    color: #111827;
-    margin: 0;
-  }
-  
-  .subtitle {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #dc2626;
-    margin: 0;
-  }
-  
-  .text {
-    font-size: 1.125rem;
-    color: #4B5563;
-    line-height: 1.75;
-    margin: 0;
-  }
-  
-  .textWrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .imageWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // background-color: #eaeaea;
-    padding: 20px;
-    border-radius: 10px;
-    width: 35%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.5s ease-in;
+  width: 65%;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: normal;
+  color: #111827;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #dc2626;
+  margin: 0;
+}
+
+.text {
+  font-size: 1.125rem;
+  color: #4B5563;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.textWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.imageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  width: 35%;
 }
 
 .image {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
-  
-  @media (min-width: 767px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    .circle {
-      width: 20rem;
-      height: 20rem;
-    }
+
+@media (min-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+
+  .circle {
+    width: 20rem;
+    height: 20rem;
+  }
+}

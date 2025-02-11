@@ -66,7 +66,6 @@ export default class MultiMarqueeWebPart extends BaseClientSideWebPart<IMultiMar
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      // this._environmentMessage = message;
     });
   }
 
@@ -104,7 +103,6 @@ export default class MultiMarqueeWebPart extends BaseClientSideWebPart<IMultiMar
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

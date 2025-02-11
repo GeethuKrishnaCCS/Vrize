@@ -37,7 +37,6 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      // this._environmentMessage = message;
     });
   }
 
@@ -75,7 +74,6 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

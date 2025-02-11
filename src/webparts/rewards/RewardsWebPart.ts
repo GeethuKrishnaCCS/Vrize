@@ -40,7 +40,6 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      // this._environmentMessage = message;
     });
   }
 
@@ -78,7 +77,6 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

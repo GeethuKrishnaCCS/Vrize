@@ -22,9 +22,6 @@ export interface IRewardsCarouselWebPartProps {
 
 export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewardsCarouselProps> {
 
-  // private _isDarkTheme: boolean = false;
-  // private _environmentMessage: string = '';
-
   public render(): void {
     const element: React.ReactElement<IRewardsCarouselProps> = React.createElement(
       RewardsCarousel,
@@ -51,7 +48,6 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
 
   protected onInit(): Promise<void> {
     return this._getEnvironmentMessage().then(message => {
-      // this._environmentMessage = message;
     });
   }
 
@@ -89,7 +85,6 @@ export default class RewardsCarouselWebPart extends BaseClientSideWebPart<IRewar
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

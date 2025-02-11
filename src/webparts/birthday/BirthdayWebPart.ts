@@ -7,13 +7,9 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
-
 import * as strings from 'BirthdayWebPartStrings';
 import Birthday from './components/Birthday';
 import { IBirthdayProps } from './components/IBirthdayProps';
-// import { PropertyFieldDateTimePicker, DateConvention } from '@pnp/spfx-property-controls/lib/PropertyFieldDateTimePicker';
-
-
 import { IDateTimeFieldValue } from "@pnp/spfx-property-controls/lib/PropertyFieldDateTimePicker";
 
 export interface IPropertyControlsTestWebPartProps {
@@ -34,7 +30,6 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
         birthdayLibraryName: this.properties.birthdayLibraryName,
         defaultLibraryName: this.properties.defaultLibraryName,
         DateEnter: this.properties.DateEnter,
-        // selecteddate: this.properties.selecteddate
       }
     );
 
@@ -81,7 +76,6 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;
@@ -127,18 +121,7 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
                 }),
                 PropertyPaneTextField('DateEnter', {
                   label: "Enter Date in DD-MM"
-                }),
-                // PropertyFieldDateTimePicker('selecteddate', {
-                //   label: 'Select the date',
-                //   initialDate: this.properties.selecteddate,
-                //   dateConvention: DateConvention.DateTime,
-                //   // timeConvention: TimeConvention.Hours12,
-                //   onPropertyChange: this.onPropertyPaneFieldChanged,
-                //   properties: this.properties,
-                //   deferredValidationTime: 0,
-                //   key: 'dateTimeFieldId',
-                //   showLabels: false
-                // })
+                })
               ]
             }
           ]

@@ -1,9 +1,5 @@
 import { WebPartContext } from "@microsoft/sp-webpart-base";
-// import { IDateTimeFieldValue } from "@pnp/spfx-property-controls";
-
 export interface IBirthdayProps {
-  // selecteddate: IDateTimeFieldValue | undefined;
- 
   description: string;
   context: WebPartContext;
   siteUrl: string;
@@ -18,7 +14,6 @@ export interface IBirthdayState {
   modaloverlay: { isOpen: boolean, modalText: string };
   employeesBirthday: any[];
   Reload: boolean;
-
 }
 
 export interface IUser {

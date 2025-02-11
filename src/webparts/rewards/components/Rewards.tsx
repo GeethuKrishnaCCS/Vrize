@@ -56,7 +56,6 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
       });
       const groupName = this.props.groupName; // Replace with your group name
       const isMember = await this.isUserMemberOfGroup(groupName);
-      console.log(`Is user a member of the group "${groupName}":`, isMember);
       if (isMember === true) {
         this.setState({ isAdmin: true });
         await this.getEmployeeDatas();
@@ -71,7 +70,6 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
   private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
     try {
       const users = await this.service.getGroupUsers(this.props.context, groupName);
-      console.log(users);
       const currentUser = await this.service.getCurrentUser();
       const userIsMember = users.some((user: any) => user.mail === currentUser.Email);
       return userIsMember;
@@ -94,7 +92,6 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
           const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
           const selectquery = "*,FileRef,FileLeafRef"
           const imagedoc = await this.service.getImageItems(queryURL, selectquery);
-          console.log(imagedoc);
           for (let i = 0; i < imagedoc.length; i++) {
             const image = imagedoc[i];
             if (image.DefaultType === "Default") {
@@ -116,7 +113,6 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
         });
 
       }
-      console.log('greetings: ', EmployeeDetails);
       this.setState({
         employeesReward: EmployeeDetails
       })
@@ -134,7 +130,6 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
         const item = categoryData[i];
         CategoryOptions.push({ key: item.ID, text: item.Title });
       }
-      console.log('category: ', CategoryOptions);
       sorted_category = _.orderBy(CategoryOptions, 'key', ['asc']);
       this.setState({ categoryOptions: sorted_category });
     }
@@ -194,13 +189,11 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
     const queryListurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.rewardsListName;
     const addbdayemp = await this.service.addListItem(queryListurl, formDetails);
     const createdListItemId = addbdayemp.ID; // Assuming the response contains the created item ID
-    console.log('createdItemId: ', createdListItemId);
     if (this.state.selectedFile !== null) {
       const empName = this.state.name.replace(/[^a-zA-Z0-9 ]/g, '');
       const fileName = empName + this.state.selectedFile.name.substring(this.state.selectedFile.name.lastIndexOf('.'));
       const fileResponse = await this.service.uploadDocument(`${this.props.context.pageContext.web.serverRelativeUrl}/` + this.props.rewardsLibraryName, fileName, this.state.selectedFile);
       const gettingfileItem = await this.service.getFileContent(fileResponse.ServerRelativeUrl);
-      console.log('gettingfileItem: ', gettingfileItem);
       const createdLibItemId = gettingfileItem.ID
       const updateEmpID = {
         RewardsId: createdListItemId

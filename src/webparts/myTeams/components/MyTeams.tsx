@@ -42,7 +42,6 @@ export default class MyTeams extends React.Component<IMyTeamsProps, IMyTeamsStat
   public getManagers = async () => {
     let managerArray = []
     const manager = await this.service.getManagers(this.props.context);
-    console.log(manager);
     managerArray.push({
       title: manager.displayName,
       email: manager.mail,
@@ -55,7 +54,6 @@ export default class MyTeams extends React.Component<IMyTeamsProps, IMyTeamsStat
   public getResponders = async () => {
     let responderArray = [];
     const users = await this.service.getResponders(this.props.context);
-    console.log(users);
     let responders = users.value;
     for (let i = 0; i < responders.length; i++) {
       responderArray.push({

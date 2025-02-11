@@ -2,7 +2,6 @@ import * as React from "react";
 import styles from "./Carousel.module.scss";
 import { ICarouselProps } from "./ICarouselProps";
 import { SizeMe, SizeMeProps } from "react-sizeme";
-// import { PrimaryButton } from "@fluentui/react";
 
 export class Carousel extends React.Component<
     ICarouselProps,

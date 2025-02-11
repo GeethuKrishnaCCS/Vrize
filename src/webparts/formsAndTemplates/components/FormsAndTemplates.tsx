@@ -6,7 +6,6 @@ import { ActionButton, FontWeights, IIconProps, IconButton, Link, Modal, Primary
 import * as moment from 'moment';
 import ModalOverlay from '../../../shared/controls/Overlay/Overlay';
 import { HttpClient, IHttpClientOptions } from '@microsoft/sp-http';
-// import * as _ from 'lodash';
 export default class FormsAndTemplates extends React.Component<IFormsAndTemplatesProps, IFormsAndTemplatesState, {}> {
   private service: BaseService;/* To call the service file */
   constructor(props: IFormsAndTemplatesProps) {
@@ -55,7 +54,6 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
 
       const groupName = this.props.groupName; // Replace with your group name
       const isMember = await this.isUserMemberOfGroup(groupName);
-      console.log(`Is user a member of the group "${groupName}":`, isMember);
       if (isMember === true) {
         this.setState({ isAdmin: true });
         await this.getFormsAndTemplates();
@@ -70,7 +68,6 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
   private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
     try {
       const users = await this.service.getGroupUsers(this.props.context, groupName);
-      console.log(users);
       const currentUser = await this.service.getCurrentUser();
       const userIsMember = users.some((user: any) => user.mail === currentUser.Email);
       return userIsMember;
@@ -83,7 +80,6 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     const formDetails: any[] = [];
     const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.listName;
     const existingItems = await this.service.getListItems(queryurl);
-    console.log(existingItems);
     if (existingItems.length !== 0) {
       for (let i = 0; i < existingItems.length; i++) {
         const item = existingItems[i];
@@ -92,7 +88,6 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         const formLink = item.FormLink;
         const urlParams = new URLSearchParams(formLink.split('?')[1]);
         const formId = urlParams.get('id');
-        console.log(formId);
         if (formId !== null) {
           if (item.FormOwner === this.state.currentUser.email) {
             editEnable = true;
@@ -113,10 +108,6 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
         }
         this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
       }
-      // let sorted_formDetails = _.orderBy(formDetails, (o: any) => {
-      //   return o.ID;
-      // }, ['desc']);
-      // console.log(sorted_formDetails);
       this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
     }
     else {
@@ -140,7 +131,6 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
       const response = await this.props.context.httpClient.post(postURL, HttpClient.configurations.v1, postOptions);
       const responseJSON = await response.json();
       if (response.ok) {
-        console.log(responseJSON);
         if (responseJSON.isSubmitted === true) {
           this.setState({ status: "Submitted" })
         }

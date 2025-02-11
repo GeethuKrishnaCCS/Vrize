@@ -150,33 +150,7 @@ export default class StackStyle extends React.Component<
                 );
               })}
 
-              {/* {this.state.RenderedEmployees.map((emp, key) => {
-                i = i + 1;
-                return (
-                  <div className={styles.card}>
-                    <div className={styles.year}>{emp.Year}</div>
-                    <div className={styles.cardContent}>
-                      <img className={styles.imgWidth}
-                        src={emp.ImageURL ?? ''}
-                        alt="Image" />
 
-                      <div className={styles.details}>
-                        <div className={styles.category}>
-                          {emp.Category}
-                        </div>
-                        <div className={styles.name}>
-                          {emp.FullName}
-                        </div>
-                        <div className={styles.designation}>
-                          {emp.Designation}
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                );
-              })} */}
             </div>
             <div className={styles.Nextbtn}>
               <IconButton iconProps={nexticon}

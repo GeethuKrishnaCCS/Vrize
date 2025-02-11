@@ -45,72 +45,6 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
 
     }
   }
-
-  // private async getEmployeeDatas() {
-  //   let imageurl: any;
-  //   const queryurl =
-  //     this.props.context.pageContext.web.serverRelativeUrl +
-  //     "/Lists/" +
-  //     this.props.birthdayListName;
-  //   const selectquery = "*,Birthday,Employee/ID,Employee/Title,Employee/EMail";
-  //   const expandquery = "Employee";
-  //   const employeeData = await this.service.getItemsSelectExpand(
-  //     queryurl,
-  //     selectquery,
-  //     expandquery
-  //   );
-  //   if (employeeData) {
-  //     const EmployeeDetails: any[] = [];
-  //     const currentDate = new Date();
-  //     const day = String(currentDate.getDate()).padStart(2, "0"); // Get the day and pad with leading zero if needed
-  //     const month = String(currentDate.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1) and pad with leading zero
-  //     const formattedTodayDate = `${day}-${month}`;
-  //     console.log("formattedTodayDate: ", formattedTodayDate);
-  //     for (let i = 0; i < employeeData.length; i++) {
-  //       const item = employeeData[i];
-  //       const dateOfBirth = new Date(item.Birthday);
-  //       const day = String(dateOfBirth.getDate()).padStart(2, "0"); // Get the day and pad with leading zero if needed
-  //       const month = String(dateOfBirth.getMonth() + 1).padStart(2, "0"); // Get the month (0-indexed, so add 1) and pad with leading zero
-  //       const formattedBirthDate = `${day}-${month}`;
-  //       console.log("formattedBirthDate: ", formattedBirthDate);
-  //       if (item.ImageLink === null) {
-  //         const queryURL =
-  //           this.props.context.pageContext.web.serverRelativeUrl +
-  //           "/" +
-  //           this.props.defaultLibraryName;
-  //         const selectquery = "*,FileRef,FileLeafRef";
-  //         const imagedoc = await this.service.getImageItems(
-  //           queryURL,
-  //           selectquery
-  //         );
-  //         console.log(imagedoc);
-  //         for (let i = 0; i < imagedoc.length; i++) {
-  //           const image = imagedoc[i];
-  //           if (image.DefaultType === "Default") {
-  //             imageurl = image.FileRef;
-  //           }
-  //         }
-  //       } else {
-  //         imageurl = item.ImageLink.Url;
-  //       }
-
-  //       if (formattedBirthDate === formattedTodayDate) {
-  //         EmployeeDetails.push({
-  //           ImageURL: imageurl,
-  //           Designation: item.Designation,
-  //           FullName: item.EmployeeName,
-  //           Birthday: item.Birthday,
-  //         });
-  //       }
-  //     }
-  //     console.log("greetings: ", EmployeeDetails);
-  //     this.setState({
-  //       employeesBirthday: EmployeeDetails,
-  //     });
-  //   }
-  // }
-
-
   private async getEmployeeDatas() {
     const queryurl =
       this.props.context.pageContext.web.serverRelativeUrl +
@@ -125,18 +59,13 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     );
 
     if (employeeData) {
-      console.log('employeeData: ', employeeData);
       const EmployeeDetails: any[] = [];
       let sorted_EmployeeDetails: any[] = [];
       const currentDate = moment(new Date()).format("DD-MM"); // Format current date as "DD-MM"
-      console.log('currentDate: ', currentDate);
       const endDate = moment(this.props.DateEnter, "DD-MM").format("DD-MM");
-      console.log('endDate: ', endDate);
-
       for (let i = 0; i < employeeData.length; i++) {
         const item = employeeData[i];
         const dateOfBirth = moment(item.Birthday).format("DD-MM"); // Format birthdate as "DD-MM"
-        console.log('dateOfBirth: ', dateOfBirth);
         const parseDate = (dateStr: string) => {
           const [day, month] = dateStr.split('-').map(Number);
           return new Date(0, month - 1, day); // Year is irrelevant, using 0
@@ -163,52 +92,6 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
       });
     }
   }
-
-
-  // private async getEmployeeDatas() {
-  //   const queryurl =
-  //     this.props.context.pageContext.web.serverRelativeUrl +
-  //     "/Lists/" +
-  //     this.props.birthdayListName;
-  //   const selectquery = "*,Birthday,Employee/ID,Employee/Title,Employee/EMail";
-  //   const expandquery = "Employee";
-  //   const employeeData = await this.service.getItemsSelectExpand(
-  //     queryurl,
-  //     selectquery,
-  //     expandquery
-  //   );
-
-  //   if (employeeData) {
-  //     const EmployeeDetails: any[] = [];
-  //     const currentDate = moment().format("DD-MM"); // Format current date as "day-month"
-  //     console.log("formattedTodayDate: ", currentDate);
-
-  //     for (let i = 0; i < employeeData.length; i++) {
-  //       const item = employeeData[i];
-  //       const dateOfBirth = moment(item.Birthday).format("DD-MM"); // Format birthdate as "day-month"
-  //       console.log("formattedBirthDate: ", dateOfBirth);
-
-  //       // Get employee image using getEmployeeDetail
-  //       const employeeDetail = this.getEmployeeDetail(item.EmployeeName, item.Employee.EMail);
-
-  //       if (dateOfBirth === currentDate) {
-  //         EmployeeDetails.push({
-  //           ImageURL: employeeDetail.personImage,
-  //           Designation: item.Designation, 
-  //           FullName: item.EmployeeName,
-  //           Birthday: item.Birthday,
-  //         });
-  //       }
-  //     }
-  //     console.log("greetings: ", EmployeeDetails);
-  //     this.setState({
-  //       employeesBirthday: EmployeeDetails,
-  //     });
-  //   }
-  // }
-
-
-
   public getEmployeeDetail(_name: string, _email: string) {
     const defaultImage = this.props.defaultLibraryName;
     const personImage = _email

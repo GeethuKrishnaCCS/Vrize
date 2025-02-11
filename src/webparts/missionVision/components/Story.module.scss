@@ -15,20 +15,21 @@
 }
 
 
-.container{
-    max-width: 72rem;
-    margin: 0 auto;
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
 
-    display: flex;
-    justify-content: center;
-    gap: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 
-    @media (max-width: 767px) {
-      flex-direction: column;
-      padding: 16px;
-    }
+  @media (max-width: 767px) {
+    flex-direction: column;
+    padding: 16px;
+  }
 
 }
+
 .imageContainer {
   display: flex;
   justify-content: center;
@@ -39,7 +40,6 @@
     max-width: 100%;
     height: auto;
     border-radius: 12px;
-    // box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     object-fit: cover;
   }
 
@@ -50,12 +50,13 @@
 
 .textContent {
   padding: 20px;
-  width:65%;
+  width: 65%;
 
   @media (max-width: 1080px) {
     width: 100%;
     padding: 0;
   }
+
   @media (max-width: 767px) {
     text-align: center;
   }

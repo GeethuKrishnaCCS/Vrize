@@ -107,27 +107,6 @@ export default class StackStyle extends React.Component<
   }
   public renderdots() {
     const dotCount = Math.ceil(this.props.employeesBirthday.length / 5);
-    const dots = [];
-
-    for (let i = 0; i < dotCount; i++) {
-      if (i === this.state.Count - 1) {
-        dots.push(
-          <div>{i}</div>
-          // <div key={i} className={`${styles.Dot} ${styles.active}`}>
-          //   <div className={styles.InnerDot}></div>
-          // </div>
-        );
-      }
-      else {
-        dots.push(
-          <div>{i}+ of + {this.state.Count}</div>
-          // <div key={i} className={styles.Dot}>
-          //   <div className={styles.InnerDot}></div>
-          // </div>
-        );
-      }
-    }
-
     return <div className={styles.NavDot}>{this.state.Count} of {dotCount}</div>;
 
   }
@@ -152,7 +131,6 @@ export default class StackStyle extends React.Component<
                   <div className={styles.card}>
                     <div className={styles.date}>
                       {"On " + moment(emp.Birthday).format("DD/MM")}
-                      {/* {"On " + moment(new Date()).format("DD/MM/YYYY")} */}
                     </div>
                     <div className={styles.images}>
                       <em className={styles.innerring}>
