@@ -1,111 +1,114 @@
 .section {
-    padding: 4rem 1rem 0 1rem ;
-    background: #f8f9fa;
-    font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
-  }
-  
-  .container {
-    max-width: 72rem;
-    margin: 0 auto;
-  }
-  
-  .grid {
-    display: flex;
-    gap: 3rem;
-    align-items: end;
+  padding: 4rem 1rem 0 1rem;
+  background: #f8f9fa;
+  font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
+}
 
-    @media (max-width: 1080px) {
-      flex-direction: column;
-      align-items: center;
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
+}
 
-      .content{
-        width: 100%;
-      }
-    }
+.grid {
+  display: flex;
+  gap: 3rem;
+  // align-items: end;
 
-  }
-  
-  .content {
-    display: flex;
+  @media (max-width: 1080px) {
     flex-direction: column;
-    gap: 2rem;
-    width: 60%;
-    padding-bottom: 4rem;
-  }
-  
-  .title {
-    font-size: 4rem;
-    font-weight: normal;
-    color: #111827;
-    margin: 0;
-  }
-  
-  .text {
-    font-size: 1.125rem;
-    color: #4B5563;
-  }
-  
-  .valuesList {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
+    align-items: center;
 
-    @media (max-width: 767px) {
-      flex-direction: column;
-    }
-  }
-  
-  .valueItem {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    animation: fadeIn 0.5s ease-in;
-  }
-  
-  .letter {
-    font-size: 4.875rem;
-    font-weight: 100;
-    color: #880024;
-    font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase));
-    font-style: var(--fontStyleRegular);
-  }
-  
-  .valueContent {
-    flex: 1;
-  }
-  
-  .valueTitle {
-    min-height: 3rem;
-    font-weight: 600;
-    color: #111827;
-  }
-  
-  .valueDescription {
-    color: #4B5563;
-    margin-top: 0.25rem;
-  }
-  
-  .imageWrapper {
-    width: 40%;
-
-    @media (max-width: 767px) {
-      margin: 0 auto;
-    }
-
-    @media (max-width: 767px) {
+    .content {
       width: 100%;
     }
+  }
 
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 60%;
+  padding-bottom: 4rem;
+  padding-top: 2em;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: normal;
+  color: #111827;
+  margin: 0;
+}
+
+.text {
+  font-size: 1.125rem;
+  color: #4B5563;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.valuesList {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
   }
-  
-  .image {
+}
+
+.valueItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.letter {
+  font-size: 4.875rem;
+  font-weight: 100;
+  color: #880024;
+  font-family: var(--fontFamilyCustomFont100, var(--fontFamilyBase));
+  font-style: var(--fontStyleRegular);
+}
+
+.valueContent {
+  flex: 1;
+}
+
+.valueTitle {
+  min-height: 3rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.valueDescription {
+  color: #4B5563;
+  margin-top: 0.25rem;
+}
+
+.imageWrapper {
+  width: 40%;
+
+  @media (max-width: 767px) {
+    margin: 0 auto;
+  }
+
+  @media (max-width: 767px) {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
-  
-  @media (min-width: 767px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 767px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+}

@@ -33,7 +33,7 @@ export default class MarqueeWebPart extends BaseClientSideWebPart<IMarqueeWebPar
        .marquee {
          display: inline-block;
          padding-left: 100%;
-         animation: marquee 12s linear infinite;
+         animation: marquee 30s linear infinite;
          padding: 10px 0 10px 100%;
          color: #222;
          font-size: 16px;
