@@ -34,7 +34,7 @@ export class PublicHolidaysService {
 
         try {
             const today = new Date().toDateString();
-            let filterQuery = `StartDate ge '${today}' and Location eq '${currentLocation}'`;
+            let filterQuery = `StartDate ge '${today}' and Location eq '${currentLocation}' and HolidayType ne 'Optional'`;
 
             // Only add "Date lt" filter if limitToDate is provided
             if (limitToDate) {

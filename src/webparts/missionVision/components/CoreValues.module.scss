@@ -1,6 +1,6 @@
 .section {
   padding: 4rem 1rem 0 1rem;
-  background: #f8f9fa;
+  // background: #f8f9fa;
   font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
 }
 
@@ -86,6 +86,8 @@
 .valueDescription {
   color: #4B5563;
   margin-top: 0.25rem;
+  line-height: 1;
+  font-size: 15px;
 }
 
 .imageWrapper {

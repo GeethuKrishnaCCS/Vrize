@@ -64,38 +64,38 @@ export default class ImageCarousel extends React.Component<IImageCarouselProps, 
       <div className={styles.imageCarousel}>
         <div className={styles.container}>
           <h1 className={styles.pagetitle}>{this.props.WebpartTitle}</h1>
-          <div className={`ms-Grid`}>
-            <div className={`ms-Grid-row`}>
-              <div className={`ms-Grid-col ms-sm12`}>
-                {
-                  this.props.webUrl && this.props.listName ?
+          {/* <div className={`ms-Grid`}> */}
+          {/* <div className={`ms-Grid-row`}> */}
+          {/* <div className={`ms-Grid-col ms-sm12`}> */}
+          {
+            this.props.webUrl && this.props.listName ?
 
-                    this.props.layout === CAROUSEL ?
-                      <React.Suspense fallback={<div>Loading...</div>}>
-                        <Carousel duration={this.props.duration}
-                          images={this.state.imageInfo}
-                          imagesCount={Number(this.state.imageCount)}
-                          isAutoRotate={this.props.isAutorotate}
-                          height={this.props.height}
-                          width={this.props.width}
-                          columnSection={this.props.ColumnSection}
-                          showCaptions={true}></Carousel>
-                      </React.Suspense>
-                      :
-                      this.props.layout === LIGHTBOX ?
-                        <React.Suspense fallback={<div>Loading...</div>}>
-                          {/* <Lightbox imagesCount={this.state.imageCount} colCount={this.props.colCount} images={this.state.imageInfo}></Lightbox> */}
-                        </React.Suspense>
-                        :
-                        <React.Suspense fallback={<div>Loading...</div>}>
-                          {/* <List imagesCount={this.state.imageCount} images={this.state.imageInfo}></List> */}
-                        </React.Suspense>
-                    :
-                    this.showConfigureMessge()
-                }
-              </div>
-            </div>
-          </div>
+              this.props.layout === CAROUSEL ?
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <Carousel duration={this.props.duration}
+                    images={this.state.imageInfo}
+                    imagesCount={Number(this.state.imageCount)}
+                    isAutoRotate={this.props.isAutorotate}
+                    height={this.props.height}
+                    width={this.props.width}
+                    columnSection={this.props.ColumnSection}
+                    showCaptions={true}></Carousel>
+                </React.Suspense>
+                :
+                this.props.layout === LIGHTBOX ?
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    {/* <Lightbox imagesCount={this.state.imageCount} colCount={this.props.colCount} images={this.state.imageInfo}></Lightbox> */}
+                  </React.Suspense>
+                  :
+                  <React.Suspense fallback={<div>Loading...</div>}>
+                    {/* <List imagesCount={this.state.imageCount} images={this.state.imageInfo}></List> */}
+                  </React.Suspense>
+              :
+              this.showConfigureMessge()
+          }
+          {/* </div> */}
+          {/* </div> */}
+          {/* </div> */}
         </div>
       </div>
     );
