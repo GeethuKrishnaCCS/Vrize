@@ -84,6 +84,9 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
             FullName: item.EmployeeName,
             Birthday: item.Birthday,
           });
+          this.setState({
+            employeesBirthday: EmployeeDetails,
+          });
         }
       }
       sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);

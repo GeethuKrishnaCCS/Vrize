@@ -133,7 +133,7 @@ export default class StackStyle extends React.Component<
                       {"On " + moment(emp.Birthday).format("DD/MM")}
                     </div>
                     <div className={styles.images}>
-                      <em className={styles.innerring}>
+                      {/* <em className={styles.innerring}>
                         <svg width="78" height="115" viewBox="0 0 78 115" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M57.5 113.5C26.5721 113.5 1.5 88.4279 1.5 57.5C1.5 26.5721 26.5721 1.5 57.5 1.5C63.7491 1.5 69.7592 2.52359 75.3716 4.41225C76.0741 4.11909 76.7837 3.83946 77.5 3.5737C71.2711 1.26268 64.533 0 57.5 0C25.7436 0 0 25.7436 0 57.5C0 89.2564 25.7436 115 57.5 115C64.533 115 71.2711 113.737 77.5 111.426C76.7837 111.161 76.0741 110.881 75.3716 110.588C69.7592 112.476 63.7491 113.5 57.5 113.5Z" fill="#541A21" />
                         </svg>
@@ -154,7 +154,7 @@ export default class StackStyle extends React.Component<
                           <circle cx="136.486" cy="6.48684" r="3.19835" transform="rotate(0.229748 136.486 6.48684)" fill="#541A21" stroke="#541A21" />
                           <circle cx="22.4905" cy="155.491" r="2.2604" transform="rotate(0.229748 22.4905 155.491)" fill="#541A21" stroke="#541A21" stroke-width="0.6" />
                         </svg>
-                      </em>
+                      </em> */}
                       <img className={styles.imgWidth}
                         src={emp.ImageURL || ''}
                         alt="Image" /></div>
