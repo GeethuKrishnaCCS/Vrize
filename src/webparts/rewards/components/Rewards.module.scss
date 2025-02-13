@@ -36,7 +36,7 @@
 
   .pagetitle {
     font-size: 25px;
-    color: #DA1A32;
+    color: #000;
     text-align: left;
     font-weight: 700;
   }
@@ -102,13 +102,13 @@
     }
 
     .card {
-      background-color: rgb(255 255 255 / 12%);
+      background-color: rgb(240 240 250);
       border-radius: 10px;
       position: relative;
       display: flex;
       flex-direction: column;
       height: auto;
-      border: 2px solid #3E3D3D;
+      // border: 2px solid #3E3D3D;
       padding: 20px;
       box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
       color: #ffffff;
@@ -144,7 +144,7 @@
     .year {
       font-weight: 600;
       font-size: 20px;
-      color: whitesmoke;
+      color: #000;
     }
 
     .imgWidth {
@@ -158,14 +158,14 @@
 
     .name {
       font-size: 18px;
-      color: #ffffff;
+      color: #000;
       margin-top: 10px;
       font-weight: bold;
     }
 
     .designation {
       font-size: 12px;
-      color: rgb(147, 145, 145);
+      color: #000;
     }
 
     .uploadarea {
@@ -183,9 +183,9 @@
       width: 100%;
       display: flex;
       flex-wrap: wrap;
-      gap: 2em;
+      gap: 2.5em;
       position: relative;
-      padding: 0 50px;
+      padding: 0 5em;
 
 
       @media screen and (max-width: 768px) {
@@ -203,8 +203,8 @@
       cursor: pointer;
       width: 48px;
       height: 48px;
-      background: rgba(20, 20, 20, 0.65);
-      color: #ffffff;
+      background: rgba(142, 141, 141, 0.65);
+      color: #f3eded;
     }
 
     .NavigationRightButtonStyling {
@@ -214,8 +214,8 @@
       cursor: pointer;
       width: 48px;
       height: 48px;
-      background: rgba(20, 20, 20, 0.65);
-      color: #ffffff;
+      background: rgba(142, 141, 141, 0.65);
+      color: #f3eded;
     }
 
 
