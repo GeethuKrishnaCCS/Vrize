@@ -309,7 +309,7 @@ export default class Rewards extends React.Component<IRewardsProps, IRewardsStat
                     fontSize: "20px",
                     fontFamily: "sans-serif",
                     fontWeight: "400",
-                    color: "#fff",
+                    color: "#000",
                   }}
                 >
                   <b>Add Form Details</b>
