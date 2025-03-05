@@ -75,7 +75,6 @@ export default class FormsAndTemplatesWebPart extends BaseClientSideWebPart<IFor
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

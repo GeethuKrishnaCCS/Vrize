@@ -18,9 +18,6 @@ export interface IBirthdayCarouselWebPartProps {
 
 export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirthdayCarouselProps> {
 
-  // private _isDarkTheme: boolean = false;
-  // private _environmentMessage: string = '';
-
   public render(): void {
     const element: React.ReactElement<IBirthdayCarouselProps> = React.createElement(
       BirthdayCarousel,
@@ -76,7 +73,6 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

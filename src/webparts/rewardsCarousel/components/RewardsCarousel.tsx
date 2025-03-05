@@ -35,7 +35,6 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
           const queryURL = this.props.context.pageContext.web.serverRelativeUrl + "/" + this.props.defaultLibraryName;
           const selectquery = "*,FileRef,FileLeafRef"
           const imagedoc = await this.service.getImageItems(queryURL, selectquery);
-          console.log(imagedoc);
           for (let i = 0; i < imagedoc.length; i++) {
             const image = imagedoc[i];
             if (image.DefaultType === "Default") {
@@ -46,7 +45,6 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
         else {
           imageurl = item.ImageLink.Url
         }
-        // if (item.Category.Title === this.props.category) {
         EmployeeDetails.push({
           ImageURL: imageurl,
           Designation: item.Designation,
@@ -54,9 +52,7 @@ export default class RewardsCarousel extends React.Component<IRewardsCarouselPro
           Year: moment(item.IssueDate).format("YYYY"),
           Category: item.Category.Title
         });
-        // }
       }
-      console.log('greetings: ', EmployeeDetails);
       this.setState({
         employeesReward: EmployeeDetails
       })

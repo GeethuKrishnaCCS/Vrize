@@ -2,7 +2,6 @@ import * as React from "react";
 import styles from "./PublicHolidays.module.scss";
 import type { IPublicHolidaysProps } from "./IPublicHolidaysProps";
 import { HolidayCard } from "./HolidayCard";
-// import { UpcomingHolidays } from "./UpcomingHolidays";
 import { IPublicHoliday, PublicHolidaysService } from "./../../../shared/services/PublicHolidaysService"
 import { IEventLinksConfig } from "../types/Types";
 

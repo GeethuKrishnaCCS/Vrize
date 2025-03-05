@@ -73,7 +73,6 @@ export default class MyTeamsWebPart extends BaseClientSideWebPart<IMyTeamsProps>
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

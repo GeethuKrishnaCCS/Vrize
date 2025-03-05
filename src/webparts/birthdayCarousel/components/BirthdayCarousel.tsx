@@ -37,14 +37,9 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
         "Employee",
         "Birthday"
       );
-      console.log("listItem: ", listItem);
-
       // Calculate the start date (today) and end date (14 days from today)
       const today = moment();
-      console.log('today: ', today);
       const endDate = today.clone().add(14, 'days');
-      console.log('endDate: ', endDate);
-
       // Filter employees whose birthday falls within the next 14 days
       const birthdayList = listItem.filter((item: any) => {
         if (item.Birthday) {
@@ -55,8 +50,6 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
       });
 
       this.setState({ greetings: birthdayList });
-      console.log('greetings: ', this.state.greetings);
-
     } catch (error) {
       console.error("Error fetching data:", error);
     }

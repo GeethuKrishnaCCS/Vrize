@@ -51,10 +51,7 @@ export class BaseService {
             .version('v1.0')
             .get();
         let data = response.value;
-        console.log(data);
         return data;
-
-
     }
     //Birthday Carousel
     public getItemSelectExpandOrderBy(siteUrl: string, listname: string, select: string, expand: string, Orderby: string): Promise<any> {
@@ -103,7 +100,7 @@ export class BaseService {
     public getItemsSelectExpand(queryurl: string, select: string, expand: string): Promise<any> {
         return this.sp.web.getList(queryurl).items
             .select(select)
-            .expand(expand).orderBy("ID", false)()
+            .expand(expand).orderBy("ID", false).top(1000)()
     }
     //My Teams
     public async getManagers(context: any): Promise<any> {

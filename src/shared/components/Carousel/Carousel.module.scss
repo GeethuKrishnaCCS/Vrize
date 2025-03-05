@@ -1,11 +1,5 @@
 .carousel {
-
-    // @include ms-Grid;
-    // @include ms-Grid-row;
-    // @include ms-Grid-col;
-    // @include ms-sm12;
     overflow: hidden;
-
 
     .mySlides {
         display: none;
@@ -34,8 +28,6 @@
         margin: auto;
         height: 100%;
     }
-
-
 
     .imgWidth {
         width: 100%;

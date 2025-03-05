@@ -78,7 +78,6 @@ export default class RewardsWebPart extends BaseClientSideWebPart<IRewardsProps>
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

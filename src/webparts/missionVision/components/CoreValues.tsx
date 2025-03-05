@@ -25,8 +25,7 @@ export const CoreValues: React.FunctionComponent<ICoreValuesProps> = (props: Rea
                 <h2 className={styles.title}>{content.title}</h2>
                 <div className={styles.grid}>
                     <div className={styles.content}>
-                        {/* <p className={styles.text}>{content.text}</p> */}
-                        <p
+                        <div
                             className={styles.text}
                             dangerouslySetInnerHTML={{ __html: content.text }}
                         />

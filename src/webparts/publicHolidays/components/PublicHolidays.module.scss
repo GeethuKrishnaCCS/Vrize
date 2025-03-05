@@ -2,9 +2,9 @@
 
 .publicHolidays {
   overflow: hidden;
-  padding: 1em;
   color: "[theme:bodyText, default: #323130]";
   color: var(--bodyText);
+
   &.teams {
     font-family: $ms-font-family-fallbacks;
   }
@@ -17,7 +17,6 @@
 }
 
 .loading {
-  // min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,6 +32,11 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }

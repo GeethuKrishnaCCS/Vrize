@@ -104,7 +104,6 @@ export default class MultiMarqueeWebPart extends BaseClientSideWebPart<IMultiMar
       return;
     }
 
-    // this._isDarkTheme = !!currentTheme.isInverted;
     const {
       semanticColors
     } = currentTheme;

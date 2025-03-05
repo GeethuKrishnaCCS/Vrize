@@ -45,9 +45,6 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
 
     }
   }
-
-
-
   private async getEmployeeDatas() {
     const queryurl =
       this.props.context.pageContext.web.serverRelativeUrl +
@@ -62,18 +59,13 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     );
 
     if (employeeData) {
-      console.log('employeeData: ', employeeData);
       const EmployeeDetails: any[] = [];
       let sorted_EmployeeDetails: any[] = [];
       const currentDate = moment(new Date()).format("DD-MM"); // Format current date as "DD-MM"
-      console.log('currentDate: ', currentDate);
       const endDate = moment(this.props.DateEnter, "DD-MM").format("DD-MM");
-      console.log('endDate: ', endDate);
-
       for (let i = 0; i < employeeData.length; i++) {
         const item = employeeData[i];
         const dateOfBirth = moment(item.Birthday).format("DD-MM"); // Format birthdate as "DD-MM"
-        console.log('dateOfBirth: ', dateOfBirth);
         const parseDate = (dateStr: string) => {
           const [day, month] = dateStr.split('-').map(Number);
           return new Date(0, month - 1, day); // Year is irrelevant, using 0
@@ -92,6 +84,9 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
             FullName: item.EmployeeName,
             Birthday: item.Birthday,
           });
+          this.setState({
+            employeesBirthday: EmployeeDetails,
+          });
         }
       }
       sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
@@ -100,8 +95,6 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
       });
     }
   }
-
-
   public getEmployeeDetail(_name: string, _email: string) {
     const defaultImage = this.props.defaultLibraryName;
     const personImage = _email
