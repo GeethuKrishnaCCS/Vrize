@@ -2,7 +2,7 @@ import * as React from 'react';
 import styles from './BirthdayCarousel.module.scss';
 import type { IBirthdayCarouselProps, IBirthdayCarouselState } from './IBirthdayCarouselProps';
 import { IIconProps, IconButton, Link } from '@fluentui/react';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import { BaseService } from '../../../shared/services/BaseService';
 
 export default class BirthdayCarousel extends React.Component<IBirthdayCarouselProps, IBirthdayCarouselState, {}> {
@@ -29,31 +29,40 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
   }
   public async getBirthdayDetail() {
     try {
-      const url: string = this.props.context.pageContext.web.serverRelativeUrl;
-      const listItem = await this.service.getItemSelectExpandOrderBy(
-        url,
-        this.props.birthdayListName,
+      const queryurl =
+      this.props.context.pageContext.web.serverRelativeUrl +
+      "/Lists/" +
+      this.props.birthdayListName;
+
+      const listItem = await this.service.getBirthdayCarouselItemSelectExpandOrderBy(
+        queryurl,
         "*, Employee/ID, Employee/Title, Employee/EMail, Birthday",
         "Employee",
         "Birthday"
-      );
+        );
+        console.log('listItem: ', listItem);
       // Calculate the start date (today) and end date (14 days from today)
-      const today = moment();
-      const endDate = today.clone().add(14, 'days');
-      // Filter employees whose birthday falls within the next 14 days
-      const birthdayList = listItem.filter((item: any) => {
-        if (item.Birthday) {
-          const birthdayThisYear = moment(item.Birthday).year(today.year());
-          return birthdayThisYear.isBetween(today, endDate, 'days', '[]');
-        }
-        return false;
-      });
+      // const today = moment();
+      // const endDate = today.clone().add(14, 'days');
+      // // Filter employees whose birthday falls within the next 14 days
+      // const birthdayList = listItem.filter((item: any) => {
+      //   if (item.Birthday) {
+      //     const birthdayThisYear = moment(item.Birthday).year(today.year()); 
+      //     return birthdayThisYear.isBetween(today, endDate, 'days', '[]');
+      //   }
+      //   return false;
+      // });
 
-      this.setState({ greetings: birthdayList });
+      this.setState({ greetings: listItem });
+      // this.setState({ greetings: birthdayList });
+      console.log('greetings: ', this.state.greetings);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
+
+
+
   public onViewAll() {
     const rewardsandbirthdaylink = this.props.context.pageContext.web.serverRelativeUrl +
       "/SitePages/Birthdays.aspx";
@@ -126,7 +135,8 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
                       <div className={styles.secondarycard}>
                         <div className={styles.Namecard}>{item.Employee.Title}</div>
                         <div className={styles.secondarytextstyle}>
-                          Birthday on {moment(item.Birthday).format('MMM DD')}
+                          {/* Birthday on {moment(item.Birthday).format('MMM DD')} */}
+                         { "Birthday on " + item.BirthdayText}
                         </div>
                       </div>
 

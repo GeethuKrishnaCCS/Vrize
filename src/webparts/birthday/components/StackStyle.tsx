@@ -130,7 +130,8 @@ export default class StackStyle extends React.Component<
                 return (
                   <div className={styles.card}>
                     <div className={styles.date}>
-                      {"On " + moment(emp.Birthday).format("DD/MM")}
+                      {/* {"On " + moment(emp.Birthday).format("DD/MM")} */}
+                      {"On " + moment.utc(emp.Birthday).format("DD/MM")}
                     </div>
                     <div className={styles.images}>
                       {/* <em className={styles.innerring}>

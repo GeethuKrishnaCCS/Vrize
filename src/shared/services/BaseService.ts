@@ -8,9 +8,6 @@ import "@pnp/sp/webs";
 import "@pnp/sp/lists"
 import "@pnp/sp/fields";
 
-
-
-
 export class BaseService {
     private sp: SPFI;
     constructor(context: WebPartContext, siteUrl: string) {
@@ -53,15 +50,112 @@ export class BaseService {
         let data = response.value;
         return data;
     }
+
+    // public getItemSelectExpandOrderBy(siteUrl: string, listname: string, select: string, expand: string, Orderby: string): Promise<any> {
+    //     // return this.sp.web.getList(siteUrl + "/Lists/" + listname).items
+    //     //     .select(select)
+    //     //     .expand(expand)
+    //     //     .orderBy(Orderby, true)
+    //     //     ()   
+    // }
+
     //Birthday Carousel
-    public getItemSelectExpandOrderBy(siteUrl: string, listname: string, select: string, expand: string, Orderby: string): Promise<any> {
-        return this.sp.web.getList(siteUrl + "/Lists/" + listname).items
-            .select(select)
-            .expand(expand)
-            .orderBy(Orderby, true)
-            ()
+    public getBirthdayCarouselItemSelectExpandOrderBy(
+        siteUrl: string,
+        select: string,
+        expand: string,
+        Orderby: string
+    ): Promise<any> {
+        return this.sp.web.getList(siteUrl)
+            .items.select(select).expand(expand).orderBy(Orderby, true)() // Ensure `()` to execute the query
+            .then((items: any) => {
+                // Function to get today's date in UTC
+                const getUTCDate = (date: any) => {
+                    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+                };
+
+                // Get current UTC date
+                const today = getUTCDate(new Date());
+                const todayMonth = today.getUTCMonth() + 1;
+                const todayDay = today.getUTCDate();
+
+                // Get UTC date after 14 days
+                const futureDate = new Date(today);
+                futureDate.setUTCDate(today.getUTCDate() + 14);
+                const futureMonth = futureDate.getUTCMonth() + 1;
+                const futureDay = futureDate.getUTCDate();
+
+                // Filter birthdays within the next 14 days
+                const upcomingBirthdays = items.filter((item: any) => {
+                    const birthday = new Date(item.Birthday);
+                    const birthMonth = birthday.getUTCMonth() + 1;
+                    const birthDay = birthday.getUTCDate();
+
+                    return (
+                        (birthMonth === todayMonth && birthDay >= todayDay) &&
+                        (birthMonth === futureMonth && birthDay <= futureDay)
+                    );
+                });
+
+                console.log("Upcoming Birthdays:", upcomingBirthdays);
+                return upcomingBirthdays; // Return the filtered results
+            })
+            .catch((error: any) => {
+                console.error("Error fetching birthdays:", error);
+                throw error; // Ensure the error propagates
+            });
     }
+
+
     // Birthday Service
+    public getBirthdaysUntilDate(
+        siteUrl: string,
+        select: string,
+        expand: string,
+        orderBy: string,
+        endDateStr: string // End date as a string in "DD-MM" format
+    ): Promise<any> {
+        return this.sp.web.getList(siteUrl)
+            .items.select(select).expand(expand).orderBy(orderBy, true)() // Ensure `()` to execute the query
+            .then((items: any) => {
+                // Function to get today's UTC date
+                const getUTCDate = (date: Date) => {
+                    return new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+                };
+
+                // Get today's UTC date
+                const today = getUTCDate(new Date());
+                const todayMonth = today.getUTCMonth() + 1;
+                const todayDay = today.getUTCDate();
+
+                // Parse the end date string and get the future UTC date
+                const [endDay, endMonth] = endDateStr.split("-").map(Number);
+                const futureDate = new Date(today.getFullYear(), endMonth - 1, endDay);
+                const futureMonth = futureDate.getUTCMonth() + 1;
+                const futureDay = futureDate.getUTCDate();
+
+                // Filter birthdays within the given date range
+                const upcomingBirthdays = items.filter((item: any) => {
+                    const birthday = new Date(item.Birthday);
+                    const birthMonth = birthday.getUTCMonth() + 1;
+                    const birthDay = birthday.getUTCDate();
+
+                    return (
+                        (birthMonth === todayMonth && birthDay >= todayDay) ||
+                        (birthMonth === futureMonth && birthDay <= futureDay)
+                    );
+                });
+
+                console.log(`Upcoming Birthdays until ${endDateStr}:`, upcomingBirthdays);
+                return upcomingBirthdays; // Return the filtered results
+            })
+            .catch((error: any) => {
+                console.error("Error fetching birthdays:", error);
+                throw error; // Ensure the error propagates
+            });
+    }
+
+
     public getItemsFilter(queryurl: string, filter: string): Promise<any> {
         return this.sp.web.getList(queryurl).items.filter(filter)()
     }
@@ -102,6 +196,7 @@ export class BaseService {
             .select(select)
             .expand(expand).orderBy("ID", false).top(1000)()
     }
+
     //My Teams
     public async getManagers(context: any): Promise<any> {
         const client = await context.msGraphClientFactory.getClient("3");
