@@ -51,13 +51,13 @@ export class BaseService {
         return data;
     }
 
-    // public getItemSelectExpandOrderBy(siteUrl: string, listname: string, select: string, expand: string, Orderby: string): Promise<any> {
-    //     // return this.sp.web.getList(siteUrl + "/Lists/" + listname).items
-    //     //     .select(select)
-    //     //     .expand(expand)
-    //     //     .orderBy(Orderby, true)
-    //     //     ()   
-    // }
+    public getItemSelectExpandOrderBy(siteUrl: string, select: string, expand: string, Orderby: string): Promise<any> {
+        return this.sp.web.getList(siteUrl).items
+            .select(select)
+            .expand(expand)
+            .orderBy(Orderby, true)
+            ()   
+    }
 
     //Birthday Carousel
     public getBirthdayCarouselItemSelectExpandOrderBy(
@@ -87,7 +87,7 @@ export class BaseService {
 
                 // Filter birthdays within the next 14 days
                 const upcomingBirthdays = items.filter((item: any) => {
-                    const birthday = new Date(item.Birthday);
+                    const birthday = new Date(item.BirthdayText);
                     const birthMonth = birthday.getUTCMonth() + 1;
                     const birthDay = birthday.getUTCDate();
 
@@ -116,7 +116,7 @@ export class BaseService {
         endDateStr: string // End date as a string in "DD-MM" format
     ): Promise<any> {
         return this.sp.web.getList(siteUrl)
-            .items.select(select).expand(expand).orderBy(orderBy, true)() // Ensure `()` to execute the query
+            .items.select(select).expand(expand).orderBy(orderBy, true).top(1000)() // Ensure `()` to execute the query
             .then((items: any) => {
                 // Function to get today's UTC date
                 const getUTCDate = (date: Date) => {
@@ -132,17 +132,19 @@ export class BaseService {
                 const [endDay, endMonth] = endDateStr.split("-").map(Number);
                 const futureDate = new Date(today.getFullYear(), endMonth - 1, endDay);
                 const futureMonth = futureDate.getUTCMonth() + 1;
+                console.log('futureMonth: ', futureMonth);
                 const futureDay = futureDate.getUTCDate();
+                console.log('futureDay: ', futureDay);
 
                 // Filter birthdays within the given date range
                 const upcomingBirthdays = items.filter((item: any) => {
-                    const birthday = new Date(item.Birthday);
+                    const birthday = new Date(item.BirthdayText);
                     const birthMonth = birthday.getUTCMonth() + 1;
                     const birthDay = birthday.getUTCDate();
 
                     return (
-                        (birthMonth === todayMonth && birthDay >= todayDay) ||
-                        (birthMonth === futureMonth && birthDay <= futureDay)
+                        (birthMonth >= todayMonth && birthDay >= todayDay) &&
+                        (birthMonth <= futureMonth && birthDay <= futureDay)
                     );
                 });
 
