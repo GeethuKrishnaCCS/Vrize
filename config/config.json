@@ -89,6 +89,14 @@
           "manifest": "./src/webparts/birthdayCarousel/BirthdayCarouselWebPart.manifest.json"
         }
       ]
+    },
+    "dynamicsolution-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/dynamicsolution/DynamicsolutionWebPart.js",
+          "manifest": "./src/webparts/dynamicsolution/DynamicsolutionWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
@@ -100,11 +108,12 @@
     "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js",
     "MissionVisionWebPartStrings": "lib/webparts/missionVision/loc/{locale}.js",
     "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js",
-    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js",
     "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js",
     "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js",
     "MarqueeWebPartStrings": "lib/webparts/marquee/loc/{locale}.js",
     "MultiMarqueeWebPartStrings": "lib/webparts/multiMarquee/loc/{locale}.js",
-    "BirthdayCarouselWebPartStrings": "lib/webparts/birthdayCarousel/loc/{locale}.js"
+    "BirthdayCarouselWebPartStrings": "lib/webparts/birthdayCarousel/loc/{locale}.js",
+    "DynamicsolutionWebPartStrings": "lib/webparts/dynamicsolution/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }
 }
