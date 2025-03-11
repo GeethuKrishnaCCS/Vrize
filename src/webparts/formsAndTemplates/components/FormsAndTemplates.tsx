@@ -48,7 +48,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
           email: user.Email,
           title: user.Title
         },
-        modaloverlay: { isOpen: true, modalText: "Loading..." }
+        // modaloverlay: { isOpen: true, modalText: "Loading..." }
       });
       /* fetch forms */
 
@@ -65,7 +65,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
     }
 
   }
-  private async isUserMemberOfGroup(groupName: string): Promise<boolean> {
+  public async isUserMemberOfGroup(groupName: string): Promise<boolean> {
     try {
       const users = await this.service.getGroupUsers(this.props.context, groupName);
       const currentUser = await this.service.getCurrentUser();
@@ -92,9 +92,9 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
           if (item.FormOwner === this.state.currentUser.email) {
             editEnable = true;
           }
-          const statuscheck = await this.checkFormStatus(item, formId);
-          const checked = [await statuscheck];
-          if (checked) {
+          // const statuscheck = await this.checkFormStatus(item, formId);
+          // const checked = [await statuscheck];
+          // if (checked) {
             formDetails.push({
               ID: item.ID,
               Title: item.Title,
@@ -104,7 +104,7 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
               Status: this.state.status,
               EditEnable: editEnable
             });
-          }
+          // }
         }
         this.setState({ formDetails: formDetails, modaloverlay: { isOpen: false, modalText: "" } });
       }
@@ -269,12 +269,12 @@ export default class FormsAndTemplates extends React.Component<IFormsAndTemplate
                   <h1 className={styles.h1}>{form.Title}</h1></Link>
                 <div className={styles.description}>{form.Description}</div>
                 <div className={styles.cardfooter}>
-                  {form.Status === "Submitted" &&
+                  {/* {form.Status === "Submitted" &&
                     <div className={styles.submitStatus}>{form.Status}</div>}
                   {form.Status === "noPermission" &&
                     <div className={styles.noPermissionStatus}>{this.props.noPermissionErrorMsg}</div>}
                   {form.Status === "Pending" &&
-                    <div className={styles.pendingStatus}>{form.Status}</div>}
+                    <div className={styles.pendingStatus}>{form.Status}</div>} */}
                   <div className={styles.date}>{form.Created}</div>
                   {form.EditEnable === true &&
                     <div className={styles.button}>
