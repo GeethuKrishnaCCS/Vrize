@@ -10,6 +10,86 @@
         }
       ]
     },
+    "forms-and-templates-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/formsAndTemplates/FormsAndTemplatesWebPart.js",
+          "manifest": "./src/webparts/formsAndTemplates/FormsAndTemplatesWebPart.manifest.json"
+        }
+      ]
+    },
+    "birthday-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/birthday/BirthdayWebPart.js",
+          "manifest": "./src/webparts/birthday/BirthdayWebPart.manifest.json"
+        }
+      ]
+    },
+    "rewards-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/rewards/RewardsWebPart.js",
+          "manifest": "./src/webparts/rewards/RewardsWebPart.manifest.json"
+        }
+      ]
+    },
+    "mission-vision-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/missionVision/MissionVisionWebPart.js",
+          "manifest": "./src/webparts/missionVision/MissionVisionWebPart.manifest.json"
+        }
+      ]
+    },
+    "public-holidays-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/publicHolidays/PublicHolidaysWebPart.js",
+          "manifest": "./src/webparts/publicHolidays/PublicHolidaysWebPart.manifest.json"
+        }
+      ]
+    },
+    "rewards-carousel-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/rewardsCarousel/RewardsCarouselWebPart.js",
+          "manifest": "./src/webparts/rewardsCarousel/RewardsCarouselWebPart.manifest.json"
+        }
+      ]
+    },
+    "my-teams-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/myTeams/MyTeamsWebPart.js",
+          "manifest": "./src/webparts/myTeams/MyTeamsWebPart.manifest.json"
+        }
+      ]
+    },
+    "marquee-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/marquee/MarqueeWebPart.js",
+          "manifest": "./src/webparts/marquee/MarqueeWebPart.manifest.json"
+        }
+      ]
+    },
+    "multi-marquee-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/multiMarquee/MultiMarqueeWebPart.js",
+          "manifest": "./src/webparts/multiMarquee/MultiMarqueeWebPart.manifest.json"
+        }
+      ]
+    },
+    "birthday-carousel-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/birthdayCarousel/BirthdayCarouselWebPart.js",
+          "manifest": "./src/webparts/birthdayCarousel/BirthdayCarouselWebPart.manifest.json"
+        }
+      ]
+    },
     "dynamicsolution-web-part": {
       "components": [
         {
@@ -22,6 +102,17 @@
   "externals": {},
   "localizedResources": {
     "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js",
+    "FormsAndTemplatesWebPartStrings": "lib/webparts/formsAndTemplates/loc/{locale}.js",
+    "BirthdayWebPartStrings": "lib/webparts/birthday/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js",
+    "RewardsWebPartStrings": "lib/webparts/rewards/loc/{locale}.js",
+    "MissionVisionWebPartStrings": "lib/webparts/missionVision/loc/{locale}.js",
+    "PublicHolidaysWebPartStrings": "lib/webparts/publicHolidays/loc/{locale}.js",
+    "RewardsCarouselWebPartStrings": "lib/webparts/rewardsCarousel/loc/{locale}.js",
+    "MyTeamsWebPartStrings": "lib/webparts/myTeams/loc/{locale}.js",
+    "MarqueeWebPartStrings": "lib/webparts/marquee/loc/{locale}.js",
+    "MultiMarqueeWebPartStrings": "lib/webparts/multiMarquee/loc/{locale}.js",
+    "BirthdayCarouselWebPartStrings": "lib/webparts/birthdayCarousel/loc/{locale}.js",
     "DynamicsolutionWebPartStrings": "lib/webparts/dynamicsolution/loc/{locale}.js",
     "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }

@@ -1,0 +1,27 @@
+.error-toast {
+    background-color: #f5c6cb;
+    padding: 25px 60px;
+    color: #070707;
+    border-radius: 3px;
+}
+
+.warning-toast {
+    background-color: #fff3cd;
+    padding: 25px 60px;
+    color: #070707;
+    border-radius: 3px;
+}
+
+.info-toast {
+    background-color: #d1ecf1;
+    padding: 25px 60px;
+    color: #070707;
+    border-radius: 3px;
+}
+
+.success-toast {
+    background-color: #d4edda;
+    padding: 25px 60px;
+    color: #070707;
+    border-radius: 3px;
+}

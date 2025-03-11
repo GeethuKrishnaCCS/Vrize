@@ -1,0 +1,112 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.formsAndTemplates {
+  .divrow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2em;
+  }
+
+  .h1 {
+    color: whitesmoke;
+  }
+
+  .card {
+    background: "[theme:bodyText, default: #323130]";
+    padding: 40px;
+    border-radius: 10px;
+    position: relative;
+    width: 25%;
+    height: 35%;
+    color: whitesmoke;
+    padding: 1em;
+    text-wrap: wrap;
+  }
+
+  .cardfooter {
+    margin-top: 36px;
+    text-align: right;
+    justify-content: space-between;
+    gap: 1em;
+  }
+
+  .description {
+    color: whitesmoke;
+    overflow-y: auto;
+    max-height: 5em;
+    min-height: 5em;
+  }
+
+  .pendingStatus {
+    border: 1.5px solid rgb(218, 144, 7);
+    border-radius: 1em;
+    padding: 4px;
+    text-align: center;
+    color: rgb(218, 144, 7);
+    float: inline-start;
+    font-weight: bold;
+    margin: 6px;
+    padding: 3px;
+    font-size: 12px;
+    float: left;
+  }
+
+  .submitStatus {
+    border: 1.5px solid rgb(70, 207, 7);
+    border-radius: 1em;
+    padding: 4px;
+    text-align: center;
+    color: rgb(70, 207, 7);
+    font-weight: bold;
+    margin: 6px;
+    padding: 3px;
+    font-size: 12px;
+    float: left;
+  }
+  .noPermissionStatus {
+    border: 1.5px solid rgb(207 7 62);
+    border-radius: 1em;
+    padding: 4px;
+    text-align: center;
+    color: rgb(207 7 7);
+    font-weight: bold;
+    margin: 6px;
+    padding: 3px;
+    font-size: 12px;
+    float: left;
+  }
+
+  .date {
+    padding-top: 10px;
+    color: rgb(147, 145, 145);
+    font-size: 10px;
+    float: left;
+  }
+
+  .button {
+    padding-top: 4px;
+    float: right;
+  }
+
+  .btnprimary {
+    background-color: whitesmoke;
+    color: #000000;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+  }
+
+  .btnprimary:hover {
+    background-color: #000000;
+    color: #fff;
+    border-color: #000000;
+    border-radius: 10px;
+
+  }
+
+  .pagetitle {
+    font-size: 20px;
+    color: black;
+    text-align: left;
+    font-weight: 600;
+  }
+}

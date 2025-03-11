@@ -1,0 +1,23 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.rewardsCarousel {
+  .heading {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 253px;
+
+  }
+
+  .pagetitle {
+    font-size: 20px;
+    color: black;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .viewAll {
+    text-align: right;
+  }
+}
