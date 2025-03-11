@@ -9,10 +9,20 @@
           "manifest": "./src/webparts/imageCarousel/ImageCarouselWebPart.manifest.json"
         }
       ]
+    },
+    "dynamicsolution-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/dynamicsolution/DynamicsolutionWebPart.js",
+          "manifest": "./src/webparts/dynamicsolution/DynamicsolutionWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js"
+    "ImageCarouselWebPartStrings": "lib/webparts/imageCarousel/loc/{locale}.js",
+    "DynamicsolutionWebPartStrings": "lib/webparts/dynamicsolution/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }
 }
