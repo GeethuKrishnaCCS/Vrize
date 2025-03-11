@@ -126,12 +126,14 @@ export default class StackStyle extends React.Component<
             </div>
             <div className={styles.BirthdayCard}>
               {this.state.RenderedEmployees.map((emp, key) => {
+                // console.log('emp: ', emp);
                 i = i + 1;
                 return (
                   <div className={styles.card}>
                     <div className={styles.date}>
                       {/* {"On " + moment(emp.Birthday).format("DD/MM")} */}
-                      {"On " + moment.utc(emp.Birthday).format("DD/MM")}
+                      {"On " + moment(emp.BirthdayText).format("DD/MM")}
+                      {/* { "On " + emp.BirthdayText} */}
                     </div>
                     <div className={styles.images}>
                       {/* <em className={styles.innerring}>

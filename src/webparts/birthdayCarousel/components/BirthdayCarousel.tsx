@@ -41,20 +41,11 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
         "Birthday"
         );
         console.log('listItem: ', listItem);
-      // Calculate the start date (today) and end date (14 days from today)
-      // const today = moment();
-      // const endDate = today.clone().add(14, 'days');
-      // // Filter employees whose birthday falls within the next 14 days
-      // const birthdayList = listItem.filter((item: any) => {
-      //   if (item.Birthday) {
-      //     const birthdayThisYear = moment(item.Birthday).year(today.year()); 
-      //     return birthdayThisYear.isBetween(today, endDate, 'days', '[]');
-      //   }
-      //   return false;
-      // });
+     
+      const sortedUsersAsc = [...listItem].sort((a, b) => new Date(a.BirthdayText).getTime() - new Date(b.BirthdayText).getTime());
+      console.log('sortedUsersAsc: ', sortedUsersAsc);
 
-      this.setState({ greetings: listItem });
-      // this.setState({ greetings: birthdayList });
+      this.setState({ greetings: sortedUsersAsc });
       console.log('greetings: ', this.state.greetings);
     } catch (error) {
       console.error("Error fetching data:", error);

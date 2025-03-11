@@ -45,57 +45,7 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     }
   }
 
-  // private async getEmployeeDatas() {
-  //   const queryurl =
-  //     this.props.context.pageContext.web.serverRelativeUrl +
-  //     "/Lists/" +
-  //     this.props.birthdayListName;
-  //   const selectquery = "*,Birthday,Employee/ID,Employee/Title,Employee/EMail";
-  //   const expandquery = "Employee";
-  //   const employeeData = await this.service.getItemsSelectExpand(
-  //     queryurl,
-  //     selectquery,
-  //     expandquery
-  //   );
-
-  //   if (employeeData) {
-  //     const EmployeeDetails: any[] = [];
-  //     let sorted_EmployeeDetails: any[] = [];
-  //     const currentDate = moment(new Date()).format("DD-MM"); // Format current date as "DD-MM"
-  //     const endDate = moment(this.props.DateEnter, "DD-MM").format("DD-MM");
-  //     for (let i = 0; i < employeeData.length; i++) {
-  //       const item = employeeData[i];
-  //       // const dateOfBirth = moment(item.Birthday).format("DD-MM"); // Format birthdate as "DD-MM"
-  //       const dateOfBirth = moment.utc(item.Birthday).format("DD-MM"); // Ensure UTC formatting
-  //       const parseDate = (dateStr: string) => {
-  //         const [day, month] = dateStr.split('-').map(Number);
-  //         return new Date(0, month - 1, day); // Year is irrelevant, using 0
-  //       };
-  //       const current = parseDate(currentDate);
-  //       const end = parseDate(endDate);
-  //       const birthDate = parseDate(dateOfBirth);
-  //       // Check if the dateOfBirth is between currentDate and endDate
-  //       if (birthDate >= current && birthDate <= end) {
-  //         // Get employee image using getEmployeeDetail
-  //         const employeeDetail = this.getEmployeeDetail(item.EmployeeName, item.Employee.EMail);
-
-  //         EmployeeDetails.push({
-  //           ImageURL: employeeDetail.personImage,
-  //           Designation: item.Designation,
-  //           FullName: item.EmployeeName,
-  //           Birthday: item.Birthday,
-  //         });
-  //         this.setState({
-  //           employeesBirthday: EmployeeDetails,
-  //         });
-  //       }
-  //     }
-  //     sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
-  //     this.setState({
-  //       employeesBirthday: sorted_EmployeeDetails,
-  //     });
-  //   }
-  // }
+  
 
   private async getEmployeeDatas() {
     try {
@@ -105,12 +55,13 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
             this.props.birthdayListName;
 
         const employeeData = await this.service.getBirthdaysUntilDate(
-            queryurl,
-            "*,Birthday,Employee/ID,Employee/Title,Employee/EMail",
-            "Employee",
-            "Birthday",
-            this.props.DateEnter
-        );
+          queryurl,
+          "*,Birthday,BirthdayText,Employee/ID,Employee/Title,Employee/EMail",
+          "Employee",
+          "Birthday",
+          this.props.DateEnter
+          );
+          console.log('employeeData: ', employeeData);
 
         if (employeeData) {
             const EmployeeDetails: any[] = employeeData.map((item: any) => {
@@ -120,12 +71,15 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
                     Designation: item.Designation,
                     FullName: item.EmployeeName,
                     Birthday: item.Birthday,
+                    BirthdayText: item.BirthdayText,
                 };
             });
 
-            const sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
+            const sortedUsersAsc = [...EmployeeDetails].sort((a, b) => new Date(a.BirthdayText).getTime() - new Date(b.BirthdayText).getTime());
+
+            // const sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
             this.setState({
-                employeesBirthday: sorted_EmployeeDetails,
+                employeesBirthday: sortedUsersAsc,
             });
         }
     } catch (error) {
