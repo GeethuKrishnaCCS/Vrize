@@ -3,7 +3,7 @@
   "solution": {
     "name": "vrize-client-side-solution",
     "id": "3460f200-b983-462d-b6b9-4d6720730e16",
-    "version": "1.0.0.5",
+    "version": "1.0.0.7",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
