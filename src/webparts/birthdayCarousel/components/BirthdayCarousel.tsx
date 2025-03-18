@@ -36,16 +36,18 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
 
       const listItem = await this.service.getBirthdayCarouselItemSelectExpandOrderBy(
         queryurl,
-        "*, Employee/ID, Employee/Title, Employee/EMail, Birthday",
+        "*, Employee/ID, Employee/Title, Employee/EMail, Birthday, BirthdayText",
         "Employee",
         "Birthday"
         );
         console.log('listItem: ', listItem);
      
-      const sortedUsersAsc = [...listItem].sort((a, b) => new Date(a.BirthdayText).getTime() - new Date(b.BirthdayText).getTime());
-      console.log('sortedUsersAsc: ', sortedUsersAsc);
+   
 
-      this.setState({ greetings: sortedUsersAsc });
+      const sortedUsersAsc = [...listItem].sort((a, b) => new Date(a.BirthdayText).getTime() - new Date(b.BirthdayText).getTime());
+       console.log('sortedUsersAsc: ', sortedUsersAsc);
+       this.setState({ greetings: sortedUsersAsc });
+     
       console.log('greetings: ', this.state.greetings);
     } catch (error) {
       console.error("Error fetching data:", error);

@@ -56,7 +56,7 @@ export class BaseService {
             .select(select)
             .expand(expand)
             .orderBy(Orderby, true)
-            ()   
+            ()
     }
 
     //Birthday Carousel
@@ -88,12 +88,20 @@ export class BaseService {
                 // Filter birthdays within the next 14 days
                 const upcomingBirthdays = items.filter((item: any) => {
                     const birthday = new Date(item.BirthdayText);
-                    const birthMonth = birthday.getUTCMonth() + 1;
-                    const birthDay = birthday.getUTCDate();
-
+                    const birthMonth = birthday.getMonth() + 1;
+                    // const birthDay = birthday.getUTCDate();
+                    const birthDay = birthday.getDate();
+                    const todayValue = todayMonth * 100 + todayDay;
+                    const futureValue = futureMonth * 100 + futureDay;
+                    const birthValue = birthMonth * 100 + birthDay;
                     return (
-                        (birthMonth === todayMonth && birthDay >= todayDay) &&
-                        (birthMonth === futureMonth && birthDay <= futureDay)
+                        // (birthMonth === todayMonth && birthDay >= todayDay) &&
+                        // (birthMonth === futureMonth && birthDay <= futureDay)
+
+                        // (birthMonth === todayMonth && birthDay >= todayDay) &&
+                        // (birthMonth < futureMonth || 
+                        // (birthMonth === futureMonth && birthDay <= futureDay))
+                        birthValue >= todayValue && birthValue <= futureValue
                     );
                 });
 
@@ -116,7 +124,7 @@ export class BaseService {
         endDateStr: string // End date as a string in "DD-MM" format
     ): Promise<any> {
         return this.sp.web.getList(siteUrl)
-            .items.select(select).expand(expand).orderBy(orderBy, true).top(1000)() // Ensure `()` to execute the query
+            .items.select(select).expand(expand).orderBy(orderBy, true).top(1000)() //
             .then((items: any) => {
                 // Function to get today's UTC date
                 const getUTCDate = (date: Date) => {
@@ -131,20 +139,30 @@ export class BaseService {
                 // Parse the end date string and get the future UTC date
                 const [endDay, endMonth] = endDateStr.split("-").map(Number);
                 const futureDate = new Date(today.getFullYear(), endMonth - 1, endDay);
-                const futureMonth = futureDate.getUTCMonth() + 1;
-                console.log('futureMonth: ', futureMonth);
+                const futureMonth = futureDate.getUTCMonth() + 1;                
                 const futureDay = futureDate.getUTCDate();
-                console.log('futureDay: ', futureDay);
+                
 
                 // Filter birthdays within the given date range
                 const upcomingBirthdays = items.filter((item: any) => {
                     const birthday = new Date(item.BirthdayText);
-                    const birthMonth = birthday.getUTCMonth() + 1;
-                    const birthDay = birthday.getUTCDate();
+                    // const birthMonth = birthday.getUTCMonth() + 1;
+                    // const birthDay = birthday.getUTCDate();
+
+
+                    const birthMonth = birthday.getMonth() + 1;
+                    // const birthDay = birthday.getUTCDate();
+                    const birthDay = birthday.getDate();
+                    const todayValue = todayMonth * 100 + todayDay;
+                    const futureValue = futureMonth * 100 + futureDay;
+                    const birthValue = birthMonth * 100 + birthDay;
+
 
                     return (
-                        (birthMonth >= todayMonth && birthDay >= todayDay) &&
-                        (birthMonth <= futureMonth && birthDay <= futureDay)
+                        // (birthMonth >= todayMonth && birthDay >= todayDay) &&
+                        // (birthMonth <= futureMonth && birthDay <= futureDay)
+
+                        birthValue >= todayValue && birthValue <= futureValue
                     );
                 });
 
