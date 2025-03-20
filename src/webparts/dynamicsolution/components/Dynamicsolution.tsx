@@ -361,12 +361,12 @@ export default class Dynamicsolution extends React.Component<IDynamicsolutionPro
       this.BaseService.uploadDocument(this.props.IconDocLibrary, this.state.file.name, this.state.file)
         .then(async (data: any) => {
           if (data !== null) {
-            const filePath = window.location.protocol + "//" + window.location.host + data.data.ServerRelativeUrl;
+            const filePath = window.location.protocol + "//" + window.location.host + data.ServerRelativeUrl;
             if (this.state.QuicklinktypeID === "Image") {
 
               updateItem = {
                 image: {
-                  Description: data.data.Name,
+                  Description: data.Name,
                   Url: filePath,
                 },
                 Title: this.state.text,
@@ -379,7 +379,7 @@ export default class Dynamicsolution extends React.Component<IDynamicsolutionPro
 
               updateItem = {
                 CardIcon: {
-                  Description: data.data.Name,
+                  Description: data.Name,
                   Url: filePath,
                 },
                 Title: this.state.text,
