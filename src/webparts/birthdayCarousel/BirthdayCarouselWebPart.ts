@@ -26,7 +26,7 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
         webpartName: this.properties.webpartName,
         birthdayListName: this.properties.birthdayListName,
         NoOfItemDisplay: this.properties.NoOfItemDisplay,
-        DefaultGalleryUrl: this.properties.DefaultGalleryUrl,
+        DefaultGalleryName: this.properties.DefaultGalleryName,
         heading: this.properties.heading,
         headingColor: this.properties.headingColor,
         body: this.properties.body,
@@ -118,8 +118,8 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
                 PropertyPaneTextField('NoOfItemDisplay', {
                   label: 'Number Of Items to Display'
                 }),
-                PropertyPaneTextField('DefaultGalleryUrl', {
-                  label: 'Default Gallery Url'
+                PropertyPaneTextField('DefaultGalleryName', {
+                  label: 'Default Gallery'
                 }),
                 PropertyPaneTextField('heading', {
                   label: 'Mail Heading'

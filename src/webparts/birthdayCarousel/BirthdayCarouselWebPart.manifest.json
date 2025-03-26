@@ -38,7 +38,8 @@
         "headingColor": "0b0909",
         "body": "Wishing you a day filled with love and joy!",
         "bodyColor": "f11010",
-        "GreetingsListName": "BirthdayGreetings"
+        "GreetingsListName": "BirthdayGreetings",
+        "DefaultGalleryName": "DefaultGallery"
       }
     }
   ]

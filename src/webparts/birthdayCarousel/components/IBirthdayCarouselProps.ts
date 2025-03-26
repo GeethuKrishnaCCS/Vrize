@@ -5,7 +5,7 @@ export interface IBirthdayCarouselProps {
   birthdayListName: string;
   NoOfItemDisplay: any;
   webpartName: string;
-  DefaultGalleryUrl: string;
+  DefaultGalleryName: string;
   heading: string;
   headingColor: any;
   body: string;

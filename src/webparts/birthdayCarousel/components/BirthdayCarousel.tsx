@@ -82,15 +82,13 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
     this.setState({ currentIndex: newIndex });
   }
   public getEmployeeDetail(name: string, email: string) {
-    const defaultImage = this.props.DefaultGalleryUrl;
-    const personImage = email
-      ? `${this.props.context.pageContext.web.absoluteUrl.replace(this.props.context.pageContext.web.serverRelativeUrl, '')}/_layouts/15/userphoto.aspx?size=L&accountname=${email}`
-      : defaultImage;
+    const personImage = `${this.props.context.pageContext.web.absoluteUrl.replace(this.props.context.pageContext.web.serverRelativeUrl, '')}/_layouts/15/userphoto.aspx?size=L&accountname=${email}`
+      ;
 
     return {
       displayName: name,
       mail: email,
-      personImage: personImage || defaultImage
+      personImage: personImage
     };
   }
   public handleSendGreetings(item: any) {
@@ -114,7 +112,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
     try {
       const queryliburl =
         this.props.context.pageContext.web.serverRelativeUrl +
-        "/DefaultGallery";
+        "/" + this.props.DefaultGalleryName;
       const siteUrl = this.props.context.pageContext.web.absoluteUrl;
       const tenantUrl = siteUrl.split('/sites/')[0]; // Extract tenant URL
       const items = await this.service.getdefaultImage(queryliburl);
