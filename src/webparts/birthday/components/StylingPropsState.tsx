@@ -7,6 +7,13 @@ export interface StylingState {
     Next: number;
     Count: number;
     Reload: boolean;
+    showGreetingsModal: boolean;
+    greetingsMail: string;
+    greetingsName: string;
+    heading: string;
+    headingColor: any;
+    body: string;
+    bodyColor: any;
 
 }
 export interface StylingProps {
@@ -15,5 +22,11 @@ export interface StylingProps {
     context: WebPartContext;
     WebpartTitle: string;
     DateEnter: string;
-    
+    DefaultGalleryName: string;
+    heading: string;
+    headingColor: any;
+    body: string;
+    bodyColor: any;
+    GreetingsListName: string;
+    Service: any;
 }

@@ -205,6 +205,8 @@
       text-align: center;
     }
 
+
+
     .uploadarea {
       margin-top: 3em;
     }
@@ -213,6 +215,25 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+    }
+
+    .greetbutton {
+      align-items: end;
+    }
+
+    .modalButton {
+      float: right;
+      margin-top: 7px;
+      margin-bottom: 9px;
+    }
+
+    .modalHeading {
+      display: "flex";
+      align-items: "center";
+      background-color: "[theme:link, default:#03787c]";
+      text-align: center;
+      justify-content: center;
+      flex-grow: 1;
     }
 
     .BirthdayCard {

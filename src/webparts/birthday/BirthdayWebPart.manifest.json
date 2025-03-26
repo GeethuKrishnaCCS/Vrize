@@ -34,7 +34,12 @@
         "WebpartTitle": "Birthday",
         "birthdayListName": "Birthday",
         "birthdayLibraryName": "BirthdayGallery",
-        "defaultLibraryName": "DefaultGallery"
+        "heading": "Happy Birthday!",
+        "headingColor": "0b0909",
+        "body": "Wishing you a day filled with love and joy!",
+        "bodyColor": "f11010",
+        "GreetingsListName": "BirthdayGreetings",
+        "DefaultGalleryName": "DefaultGallery"
       }
     }
   ]

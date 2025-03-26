@@ -45,60 +45,60 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
     }
   }
 
-  
+
 
   private async getEmployeeDatas() {
     try {
-        const queryurl =
-            this.props.context.pageContext.web.serverRelativeUrl +
-            "/Lists/" +
-            this.props.birthdayListName;
+      const queryurl =
+        this.props.context.pageContext.web.serverRelativeUrl +
+        "/Lists/" +
+        this.props.birthdayListName;
 
-        const employeeData = await this.service.getBirthdaysUntilDate(
-          queryurl,
-          "*,Birthday,BirthdayText,Employee/ID,Employee/Title,Employee/EMail",
-          "Employee",
-          "Birthday",
-          this.props.DateEnter
-          );
-          console.log('employeeData: ', employeeData);
+      const employeeData = await this.service.getBirthdaysUntilDate(
+        queryurl,
+        "*,Birthday,BirthdayText,Employee/ID,Employee/Title,Employee/EMail",
+        "Employee",
+        "Birthday",
+        this.props.DateEnter
+      );
+      console.log('employeeData: ', employeeData);
 
-        if (employeeData) {
-            const EmployeeDetails: any[] = employeeData.map((item: any) => {
-                const employeeDetail = this.getEmployeeDetail(item.EmployeeName, item.Employee.EMail);
-                return {
-                    ImageURL: employeeDetail.personImage,
-                    Designation: item.Designation,
-                    FullName: item.EmployeeName,
-                    Birthday: item.Birthday,
-                    BirthdayText: item.BirthdayText,
-                };
-            });
+      if (employeeData) {
+        const EmployeeDetails: any[] = employeeData.map((item: any) => {
+          const employeeDetail = this.getEmployeeDetail(item.EmployeeName, item.Employee.EMail);
+          return {
+            ImageURL: employeeDetail.personImage,
+            Designation: item.Designation,
+            FullName: item.EmployeeName,
+            Birthday: item.Birthday,
+            BirthdayText: item.BirthdayText,
+            EmployeeEmail: item.Employee.EMail,
+            EmployeeName: item.Employee.Title
+          };
+        });
 
-            const sortedUsersAsc = [...EmployeeDetails].sort((a, b) => new Date(a.BirthdayText).getTime() - new Date(b.BirthdayText).getTime());
+        const sortedUsersAsc = [...EmployeeDetails].sort((a, b) => new Date(a.BirthdayText).getTime() - new Date(b.BirthdayText).getTime());
 
-            // const sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
-            this.setState({
-                employeesBirthday: sortedUsersAsc,
-            });
-        }
+        // const sorted_EmployeeDetails = _.orderBy(EmployeeDetails, 'Birthday', ['asc']);
+        this.setState({
+          employeesBirthday: sortedUsersAsc,
+        });
+      }
     } catch (error) {
-        console.error("Error fetching employee data:", error);
+      console.error("Error fetching employee data:", error);
     }
-}
- 
+  }
+
 
 
   public getEmployeeDetail(_name: string, _email: string) {
-    const defaultImage = this.props.defaultLibraryName;
-    const personImage = _email
-      ? `${this.props.context.pageContext.web.absoluteUrl.replace(this.props.context.pageContext.web.serverRelativeUrl, '')}/_layouts/15/userphoto.aspx?size=L&accountname=${_email}`
-      : defaultImage;
+    const personImage = `${this.props.context.pageContext.web.absoluteUrl.replace(this.props.context.pageContext.web.serverRelativeUrl, '')}/_layouts/15/userphoto.aspx?size=L&accountname=${_email}`
+      ;
 
     return {
       displayName: _name,
       mail: _email,
-      personImage: personImage || defaultImage
+      personImage: personImage
     };
   }
 
@@ -117,6 +117,13 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
           context={this.props.context}
           WebpartTitle={this.props.WebpartTitle}
           DateEnter={this.props.DateEnter}
+          DefaultGalleryName={this.props.DefaultGalleryName}
+          heading={this.props.heading}
+          headingColor={this.props.headingColor}
+          body={this.props.body}
+          bodyColor={this.props.bodyColor}
+          GreetingsListName={this.props.GreetingsListName}
+          Service={this.service}
         />}
         {this.state.employeesBirthday.length === 0 &&
           <div className={styles.nobirthday}>

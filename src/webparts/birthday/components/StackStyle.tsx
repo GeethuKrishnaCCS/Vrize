@@ -1,8 +1,9 @@
 import * as React from "react";
 import { StylingState, StylingProps } from "./StylingPropsState";
 import * as moment from "moment";
-import { IIconProps, IconButton, mergeStyles } from "@fluentui/react";
+import { IIconProps, IconButton, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets, mergeStyles } from "@fluentui/react";
 import styles from "./Birthday.module.scss";
+import { MSGraphClientV3 } from '@microsoft/sp-http';
 export const iconClass = mergeStyles({
   fontSize: 15,
   height: 15,
@@ -21,8 +22,20 @@ export default class StackStyle extends React.Component<
       UpdateCount: 0,
       Next: 5,
       Count: 1,
-      Reload: true
+      Reload: true,
+      showGreetingsModal: false,
+      greetingsMail: "",
+      greetingsName: "",
+      heading: this.props.heading,
+      headingColor: "#" + this.props.headingColor, // Default color for heading
+      body: this.props.body,
+      bodyColor: "#" + this.props.bodyColor // Default color for message
     };
+    this.handleSendGreetings = this.handleSendGreetings.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.onConfirmSend = this.onConfirmSend.bind(this);
+    this.messageChange = this.messageChange.bind(this);
+    this.sendmail = this.sendmail.bind(this);
   }
 
 
@@ -110,10 +123,146 @@ export default class StackStyle extends React.Component<
     return <div className={styles.NavDot}>{this.state.Count} of {dotCount}</div>;
 
   }
+  public handleSendGreetings(item: any) {
+    console.log('item: ', item.EmployeeEmail);
+    this.setState({ showGreetingsModal: true, greetingsMail: item.EmployeeEmail, greetingsName: item.EmployeeName });
+  }
+  private closeModal() {
+    this.setState({ showGreetingsModal: false, body: '' });
+  }
+  public messageChange = (ev: React.FormEvent<HTMLInputElement>, body?: string) => {
+    this.setState({ body: body || '', });
+  }
+  public async onConfirmSend() {
+    this.setState({ showGreetingsModal: false, body: this.props.body });
+
+    await this.sendmail();
+
+  }
+  // Function to get the birthday image URL
+  public async getBirthdayImage() {
+    try {
+      const queryliburl =
+        this.props.context.pageContext.web.serverRelativeUrl +
+        "/" + this.props.DefaultGalleryName;
+      const siteUrl = this.props.context.pageContext.web.absoluteUrl;
+      const tenantUrl = siteUrl.split('/sites/')[0]; // Extract tenant URL
+      const items = await this.props.Service.getdefaultImage(queryliburl);
+      console.log('items: ', items);
+      if (items.length > 0) {
+        return `${tenantUrl}${items[0].FileRef}`; // Using FileRef as the image URL
+      } else {
+        console.error("No birthday images found.");
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching birthday image:", error);
+      return null;
+    }
+  }
+  //Send Mail
+  public sendmail = async () => {
+    const imageUrl = await this.getBirthdayImage();
+
+    if (!imageUrl) {
+      console.error("Failed to get birthday image.");
+      return;
+    }
+    //Create Subject for Email
+    let subject = this.props.heading;
+    let FinalBody = `
+    <p> Dear ${this.state.greetingsName},</p>
+  <div style="font-family: Arial, sans-serif; color: #333;">
+        <div style="background-image: url('${imageUrl}'); background-size: cover; padding: 20px; border-radius: 10px;">
+          <h1 style="color: ${this.state.headingColor};">${this.props.heading}</h1>
+          <p style="color: ${this.state.bodyColor}; font-style: italic;">${this.state.body}</p>
+        </div>
+      </div>
+    `;
+
+    const currentUser = await this.props.Service.getCurrentUser();
+    const addgreetings = {
+      Title: currentUser.Email,
+      GreetingsName: this.state.greetingsName,
+      GreetingsEmail: this.state.greetingsMail,
+      From: currentUser.Title,
+      ImageUrl: imageUrl,
+      Heading: this.props.heading,
+      Body: this.state.body,
+      HeadingColor: this.state.headingColor,
+      BodyColor: this.state.bodyColor
+    }
+    const queryurl = this.props.context.pageContext.web.serverRelativeUrl + "/Lists/" + this.props.GreetingsListName;
+    await this.props.Service.addListItem(queryurl, addgreetings)
+    //Create Body for Email  
+    let emailPostBody: any = {
+      "message": {
+        "subject": subject,
+        "body": {
+          "contentType": "HTML",
+          "content": FinalBody
+
+        },
+        "toRecipients": [
+          {
+            "emailAddress": {
+              "address": this.state.greetingsMail
+            }
+          }
+        ],
+      }
+    };
+
+    //Send Email uisng MS Graph  
+
+    this.props.context.msGraphClientFactory
+      .getClient("3")
+      .then((client: MSGraphClientV3): void => {
+        client
+          .api('/me/sendMail')
+          .post(emailPostBody);
+
+      });
+
+
+  }
   public render(): React.ReactElement<StylingProps> {
     let i = 0;
     const backicon: IIconProps = { iconName: 'ChevronLeftSmall' };
     const nexticon: IIconProps = { iconName: 'ChevronRightSmall' };
+    const cancelIcon: IIconProps = { iconName: 'Cancel' };
+    const contentStyles = mergeStyleSets({
+      container: {
+        width: "20%",
+        marginLeft: "8%",
+        borderRadius: "1em"
+      }
+    });
+    const theme = getTheme();
+    const iconButtonStyles = {
+      root: {
+        color: theme.palette.neutralPrimary,
+        marginTop: '4px',
+        marginRight: '4px',
+        width: '25px',
+        height: '25px',
+        float: "right",
+        cursor: "pointer"
+
+      },
+      rootHovered: {
+        color: theme.palette.neutralDark,
+      },
+    };
+    const customButtonStyles = {
+      root: {
+        border: '1px solid black',
+        borderRadius: '2em',
+        backgroundColor: 'skyblue',
+        color: 'black',
+        minHeight: '25px'
+      },
+    };
     return (
       <div className={styles.StackStyle}>
         <div className={styles.StackStyleContainer}>
@@ -164,13 +313,42 @@ export default class StackStyle extends React.Component<
 
                     <div className={styles.details}>
                       <div className={styles.name}>
-                        {emp.FullName}
+                        {emp.EmployeeName}
                       </div>
                       <div className={styles.designation}>
                         {emp.Designation}
                       </div>
                     </div>
+                    {moment(emp.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
+                      <div className={styles.greetbutton}>
+                        <PrimaryButton iconProps={{ iconName: 'Send' }}
+                          title="Send Greetings" onClick={() => this.handleSendGreetings(emp)}
+                          styles={customButtonStyles} >
+                          Let's Wish</PrimaryButton>
+                      </div>}
+                    <div >
 
+                      <Modal
+                        isOpen={this.state.showGreetingsModal}
+                        isModeless={true}
+                        containerClassName={contentStyles.container}>
+                        <div style={{ padding: "18px" }}>
+                          <div className={styles.modalHeading} style={{ display: "flex" }}>
+                            <span style={{ textAlign: "center", display: "flex", justifyContent: "center", flexGrow: "1" }}><b>Send a special note</b></span>
+                            <IconButton
+                              iconProps={cancelIcon}
+                              ariaLabel="Close popup modal"
+                              onClick={this.closeModal}
+                              styles={iconButtonStyles}
+                            />
+                          </div>
+
+                          <TextField id="message" autoComplete='true' label="Message" value={this.state.body} multiline
+                            onChange={this.messageChange} />
+                          <PrimaryButton style={{ float: "right", marginTop: "7px", marginBottom: "9px" }} className={styles.modalButton} id="b2" onClick={this.onConfirmSend}>SEND</PrimaryButton >
+                        </div>
+                      </Modal>
+                    </div>
                   </div>
 
                 );

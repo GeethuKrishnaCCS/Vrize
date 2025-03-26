@@ -128,12 +128,6 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
       return null;
     }
   }
-  // Function to strip HTML tags from a string
-  stripHtmlTags = (html: string) => {
-    const div = document.createElement("div");
-    div.innerHTML = html;
-    return div.textContent || div.innerText || "";
-  };
   //Send Mail
   public sendmail = async () => {
     const imageUrl = await this.getBirthdayImage();

@@ -6,8 +6,13 @@ export interface IBirthdayProps {
   WebpartTitle: string;
   birthdayListName: string;
   birthdayLibraryName: string;
-  defaultLibraryName: string;
   DateEnter: string;
+  DefaultGalleryName: string;
+  heading: string;
+  headingColor: any;
+  body: string;
+  bodyColor: any;
+  GreetingsListName: string;
 }
 export interface IBirthdayState {
   currentUser: IUser;
