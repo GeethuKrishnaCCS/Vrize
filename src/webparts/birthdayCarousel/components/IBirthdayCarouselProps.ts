@@ -6,6 +6,11 @@ export interface IBirthdayCarouselProps {
   NoOfItemDisplay: any;
   webpartName: string;
   DefaultGalleryUrl: string;
+  heading: string;
+  headingColor: any;
+  body: string;
+  bodyColor: any;
+  GreetingsListName: string;
 }
 export interface IBirthdayCarouselState {
   listItems: [];
@@ -13,4 +18,11 @@ export interface IBirthdayCarouselState {
   greetings: any;
   currentIndex: any;
   itemsPerPage: any;
+  showGreetingsModal: boolean;
+  greetingsMail: string;
+  greetingsName: string;
+  heading: string;
+  headingColor: any;
+  body: string;
+  bodyColor: any;
 }

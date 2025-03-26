@@ -15,6 +15,10 @@
     font-family: var(--fontFamilyCustomFont500, var(--fontFamilyBase));
   }
 
+  .greetbutton {
+    align-items: end;
+  }
+
   @media screen and (max-width: 767px) {
     .defaultBirthdayLabel {
       font-size: 20px;
@@ -159,5 +163,20 @@
     color: #666;
     font-family: var(--fontFamilyCustomFont300, var(--fontFamilyBase));
     font-weight: 400;
+  }
+
+  .modalButton {
+    float: right;
+    margin-top: 7px;
+    margin-bottom: 9px;
+  }
+
+  .modalHeading {
+    display: "flex";
+    align-items: "center";
+    background-color: "[theme:link, default:#03787c]";
+    text-align: center;
+    justify-content: center;
+    flex-grow: 1;
   }
 }

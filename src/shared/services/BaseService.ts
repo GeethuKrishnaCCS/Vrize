@@ -139,9 +139,9 @@ export class BaseService {
                 // Parse the end date string and get the future UTC date
                 const [endDay, endMonth] = endDateStr.split("-").map(Number);
                 const futureDate = new Date(today.getFullYear(), endMonth - 1, endDay);
-                const futureMonth = futureDate.getUTCMonth() + 1;                
+                const futureMonth = futureDate.getUTCMonth() + 1;
                 const futureDay = futureDate.getUTCDate();
-                
+
 
                 // Filter birthdays within the given date range
                 const upcomingBirthdays = items.filter((item: any) => {
@@ -174,7 +174,9 @@ export class BaseService {
                 throw error; // Ensure the error propagates
             });
     }
-
+    public getdefaultImage(url: string): Promise<any> {
+        return this.sp.web.getList(url).items.select("FileLeafRef", "FileRef").filter("DefaultType eq 'Birthday'")();
+    }
 
     public getItemsFilter(queryurl: string, filter: string): Promise<any> {
         return this.sp.web.getList(queryurl).items.filter(filter)()

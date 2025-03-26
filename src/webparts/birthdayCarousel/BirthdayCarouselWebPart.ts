@@ -26,7 +26,12 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
         webpartName: this.properties.webpartName,
         birthdayListName: this.properties.birthdayListName,
         NoOfItemDisplay: this.properties.NoOfItemDisplay,
-        DefaultGalleryUrl: this.properties.DefaultGalleryUrl
+        DefaultGalleryUrl: this.properties.DefaultGalleryUrl,
+        heading: this.properties.heading,
+        headingColor: this.properties.headingColor,
+        body: this.properties.body,
+        bodyColor: this.properties.bodyColor,
+        GreetingsListName: this.properties.GreetingsListName
       }
     );
 
@@ -115,6 +120,21 @@ export default class BirthdayCarouselWebPart extends BaseClientSideWebPart<IBirt
                 }),
                 PropertyPaneTextField('DefaultGalleryUrl', {
                   label: 'Default Gallery Url'
+                }),
+                PropertyPaneTextField('heading', {
+                  label: 'Mail Heading'
+                }),
+                PropertyPaneTextField('headingColor', {
+                  label: 'Mail Heading Color'
+                }),
+                PropertyPaneTextField('body', {
+                  label: 'Mail body'
+                }),
+                PropertyPaneTextField('bodyColor', {
+                  label: 'Mail body Color'
+                }),
+                PropertyPaneTextField('GreetingsListName', {
+                  label: 'Greetings List Name'
                 })
               ]
             }
