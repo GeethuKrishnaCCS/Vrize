@@ -124,6 +124,8 @@ export default class Birthday extends React.Component<IBirthdayProps, IBirthdayS
           bodyColor={this.props.bodyColor}
           GreetingsListName={this.props.GreetingsListName}
           Service={this.service}
+          buttonName={this.props.buttonName}
+          buttonColor={this.props.buttonColor}
         />}
         {this.state.employeesBirthday.length === 0 &&
           <div className={styles.nobirthday}>

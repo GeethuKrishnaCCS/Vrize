@@ -13,6 +13,8 @@ export interface IBirthdayProps {
   body: string;
   bodyColor: any;
   GreetingsListName: string;
+  buttonName: string;
+  buttonColor: any;
 }
 export interface IBirthdayState {
   currentUser: IUser;

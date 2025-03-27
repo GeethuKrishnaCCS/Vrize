@@ -39,7 +39,9 @@
         "body": "Wishing you a day filled with love and joy!",
         "bodyColor": "f11010",
         "GreetingsListName": "BirthdayGreetings",
-        "DefaultGalleryName": "DefaultGallery"
+        "DefaultGalleryName": "DefaultGallery",
+        "buttonName": "Let's Wish",
+        "buttonColor": "9e0d32"
       }
     }
   ]

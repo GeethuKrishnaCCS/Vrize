@@ -29,7 +29,8 @@ export default class StackStyle extends React.Component<
       heading: this.props.heading,
       headingColor: "#" + this.props.headingColor, // Default color for heading
       body: this.props.body,
-      bodyColor: "#" + this.props.bodyColor // Default color for message
+      bodyColor: "#" + this.props.bodyColor, // Default color for message
+      buttonColor: "#" + this.props.buttonColor // Default color for button
     };
     this.handleSendGreetings = this.handleSendGreetings.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -256,11 +257,11 @@ export default class StackStyle extends React.Component<
     };
     const customButtonStyles = {
       root: {
-        border: '1px solid black',
-        borderRadius: '2em',
-        backgroundColor: 'skyblue',
-        color: 'black',
-        minHeight: '25px'
+        backgroundColor: this.state.buttonColor,
+        color: 'whitesmoke',
+        minHeight: '25px',
+        boxSizing: 'unset',
+        border: `1px solid ${this.state.buttonColor}`,
       },
     };
     return (
@@ -321,10 +322,10 @@ export default class StackStyle extends React.Component<
                     </div>
                     {moment(emp.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
                       <div className={styles.greetbutton}>
-                        <PrimaryButton iconProps={{ iconName: 'Send' }}
-                          title="Send Greetings" onClick={() => this.handleSendGreetings(emp)}
+                        <PrimaryButton
+                          title={this.props.buttonName} onClick={() => this.handleSendGreetings(emp)}
                           styles={customButtonStyles} >
-                          Let's Wish</PrimaryButton>
+                          {this.props.buttonName}</PrimaryButton>
                       </div>}
                     <div >
 

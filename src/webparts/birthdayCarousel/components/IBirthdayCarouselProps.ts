@@ -11,6 +11,8 @@ export interface IBirthdayCarouselProps {
   body: string;
   bodyColor: any;
   GreetingsListName: string;
+  buttonName: string;
+  buttonColor: any;
 }
 export interface IBirthdayCarouselState {
   listItems: [];
@@ -25,4 +27,5 @@ export interface IBirthdayCarouselState {
   headingColor: any;
   body: string;
   bodyColor: any;
+  buttonColor: any;
 }

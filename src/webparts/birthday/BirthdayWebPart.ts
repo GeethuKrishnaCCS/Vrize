@@ -34,7 +34,9 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
         headingColor: this.properties.headingColor,
         body: this.properties.body,
         bodyColor: this.properties.bodyColor,
-        GreetingsListName: this.properties.GreetingsListName
+        GreetingsListName: this.properties.GreetingsListName,
+        buttonName: this.properties.buttonName,
+        buttonColor: this.properties.buttonColor
       }
     );
 
@@ -127,6 +129,9 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
                 PropertyPaneTextField('DefaultGalleryName', {
                   label: 'Default Gallery'
                 }),
+                PropertyPaneTextField('GreetingsListName', {
+                  label: 'Greetings List Name'
+                }),
                 PropertyPaneTextField('heading', {
                   label: 'Mail Heading'
                 }),
@@ -139,9 +144,13 @@ export default class BirthdayWebPart extends BaseClientSideWebPart<IBirthdayProp
                 PropertyPaneTextField('bodyColor', {
                   label: 'Mail body Color'
                 }),
-                PropertyPaneTextField('GreetingsListName', {
-                  label: 'Greetings List Name'
+                PropertyPaneTextField('buttonName', {
+                  label: 'Button Name'
+                }),
+                PropertyPaneTextField('buttonColor', {
+                  label: 'Button Color'
                 })
+
               ]
             }
           ]

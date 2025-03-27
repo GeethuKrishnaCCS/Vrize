@@ -14,7 +14,7 @@ export interface StylingState {
     headingColor: any;
     body: string;
     bodyColor: any;
-
+    buttonColor: any;
 }
 export interface StylingProps {
     employeesBirthday: any[];
@@ -29,4 +29,6 @@ export interface StylingProps {
     bodyColor: any;
     GreetingsListName: string;
     Service: any;
+    buttonName: string;
+    buttonColor: any;
 }

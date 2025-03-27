@@ -21,7 +21,8 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
       heading: this.props.heading,
       headingColor: "#" + this.props.headingColor, // Default color for heading
       body: this.props.body,
-      bodyColor: "#" + this.props.bodyColor // Default color for message
+      bodyColor: "#" + this.props.bodyColor, // Default color for message
+      buttonColor: "#" + this.props.buttonColor // Default color for button
 
     }
     const siteURL = window.location.protocol + "//" + window.location.hostname + this.props.context.pageContext.web.serverRelativeUrl;
@@ -225,11 +226,11 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
     };
     const customButtonStyles = {
       root: {
-        border: '1px solid black',
-        borderRadius: '2em',
-        backgroundColor: 'skyblue',
-        color: 'black',
-        minHeight: '25px'
+        backgroundColor: this.state.buttonColor,
+        color: 'whitesmoke',
+        minHeight: '25px',
+        boxSizing: 'unset',
+        border: `1px solid ${this.state.buttonColor}`,
       },
     };
     return (
@@ -275,10 +276,10 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
                         <div className={styles.secondarytextstyle}>{"Birthday on " + item.BirthdayText}</div>
                         {moment(item.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
                           <div className={styles.greetbutton}>
-                            <PrimaryButton iconProps={{ iconName: 'Send' }}
-                              title="Send Greetings" onClick={() => this.handleSendGreetings(item)}
+                            <PrimaryButton
+                              title={this.props.buttonName} onClick={() => this.handleSendGreetings(item)}
                               styles={customButtonStyles} >
-                              Let's Wish</PrimaryButton>
+                              {this.props.buttonName}</PrimaryButton>
                           </div>}
                       </div>
 
