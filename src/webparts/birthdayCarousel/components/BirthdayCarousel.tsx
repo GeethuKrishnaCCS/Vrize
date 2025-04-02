@@ -180,7 +180,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
         ],
       }
     };
-
+ 
     //Send Email uisng MS Graph  
 
     this.props.context.msGraphClientFactory
