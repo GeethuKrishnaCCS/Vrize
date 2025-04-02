@@ -28,14 +28,14 @@ export default class StackStyle extends React.Component<
       greetingsName: "",
       heading: this.props.heading,
       headingColor: "#" + this.props.headingColor, // Default color for heading
-      body: this.props.body,
+      body: this.props.body || '',
       bodyColor: "#" + this.props.bodyColor, // Default color for message
       buttonColor: "#" + this.props.buttonColor // Default color for button
     };
     this.handleSendGreetings = this.handleSendGreetings.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.onConfirmSend = this.onConfirmSend.bind(this);
     this.messageChange = this.messageChange.bind(this);
+    this.onConfirmSend = this.onConfirmSend.bind(this);
     this.sendmail = this.sendmail.bind(this);
   }
 
@@ -126,20 +126,25 @@ export default class StackStyle extends React.Component<
   }
   public handleSendGreetings(item: any) {
     console.log('item: ', item.EmployeeEmail);
-    this.setState({ showGreetingsModal: true, greetingsMail: item.EmployeeEmail, greetingsName: item.EmployeeName });
+    this.setState({ showGreetingsModal: true, greetingsMail: item.EmployeeEmail, greetingsName: item.EmployeeName, body: this.props.body });
   }
   private closeModal() {
     this.setState({ showGreetingsModal: false, body: '' });
   }
-  public messageChange = (ev: React.FormEvent<HTMLInputElement>, body?: string) => {
-    this.setState({ body: body || '', });
-  }
+  // public messageChange = (ev: React.FormEvent<HTMLInputElement>, body?: string) => {
+  //   this.setState({ body: body || '', });
+  // }
+  public messageChange = (ev: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>, newValue?: string) => {
+    console.log('New value:', newValue);
+    this.setState({ body: newValue || '' });
+  };
+
   public async onConfirmSend() {
-    this.setState({ showGreetingsModal: false, body: this.props.body });
-
+    // this.setState({ showGreetingsModal: false, body: this.props.body });
+    await this.setState({ showGreetingsModal: false, body: this.state.body });
     await this.sendmail();
-
   }
+
   // Function to get the birthday image URL
   public async getBirthdayImage() {
     try {
@@ -276,7 +281,7 @@ export default class StackStyle extends React.Component<
             </div>
             <div className={styles.BirthdayCard}>
               {this.state.RenderedEmployees.map((emp, key) => {
-                // console.log('emp: ', emp);
+                console.log('emp: ', emp);
                 i = i + 1;
                 return (
                   <div className={styles.card}>
@@ -320,18 +325,33 @@ export default class StackStyle extends React.Component<
                         {emp.Designation}
                       </div>
                     </div>
-                    {moment(emp.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
+
+                    {/* {moment(emp.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
                       <div className={styles.greetbutton}>
                         <PrimaryButton
                           title={this.props.buttonName} onClick={() => this.handleSendGreetings(emp)}
                           styles={customButtonStyles} >
                           {this.props.buttonName}</PrimaryButton>
-                      </div>}
-                    <div >
+                      </div>} */}
+
+
+                    {new Date(emp.BirthdayText).getDate() === new Date().getDate() &&
+                      new Date(emp.BirthdayText).getMonth() === new Date().getMonth() && (
+                        <div className={styles.greetbutton}>
+                          <PrimaryButton
+                            title={this.props.buttonName}
+                            onClick={() => this.handleSendGreetings(emp)}
+                            styles={customButtonStyles}
+                          >
+                            {this.props.buttonName}
+                          </PrimaryButton>
+                        </div>
+                      )}
+
+                    <div>
 
                       <Modal
                         isOpen={this.state.showGreetingsModal}
-                        isModeless={true}
                         containerClassName={contentStyles.container}>
                         <div style={{ padding: "18px" }}>
                           <div className={styles.modalHeading} style={{ display: "flex" }}>
@@ -344,8 +364,9 @@ export default class StackStyle extends React.Component<
                             />
                           </div>
 
-                          <TextField id="message" autoComplete='true' label="Message" value={this.state.body} multiline
+                          <TextField id="message2" autoComplete='true' label="Message" value={this.state.body} multiline
                             onChange={this.messageChange} />
+
                           <PrimaryButton style={{ float: "right", marginTop: "7px", marginBottom: "9px" }} className={styles.modalButton} id="b2" onClick={this.onConfirmSend}>SEND</PrimaryButton >
                         </div>
                       </Modal>
