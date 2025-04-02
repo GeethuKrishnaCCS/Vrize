@@ -3,7 +3,7 @@ import styles from './BirthdayCarousel.module.scss';
 import type { IBirthdayCarouselProps, IBirthdayCarouselState } from './IBirthdayCarouselProps';
 import { IIconProps, IconButton, Link, Modal, PrimaryButton, TextField, getTheme, mergeStyleSets } from '@fluentui/react';
 import { BaseService } from '../../../shared/services/BaseService';
-import * as moment from 'moment';
+// import * as moment from 'moment';
 import { MSGraphClientV3 } from '@microsoft/sp-http';
 export default class BirthdayCarousel extends React.Component<IBirthdayCarouselProps, IBirthdayCarouselState, {}> {
   private service: BaseService; /* To call the service file */
@@ -83,8 +83,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
     this.setState({ currentIndex: newIndex });
   }
   public getEmployeeDetail(name: string, email: string) {
-    const personImage = `${this.props.context.pageContext.web.absoluteUrl.replace(this.props.context.pageContext.web.serverRelativeUrl, '')}/_layouts/15/userphoto.aspx?size=L&accountname=${email}`
-      ;
+    const personImage = `${this.props.context.pageContext.web.absoluteUrl.replace(this.props.context.pageContext.web.serverRelativeUrl, '')}/_layouts/15/userphoto.aspx?size=L&accountname=${email}`;
 
     return {
       displayName: name,
@@ -94,7 +93,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
   }
   public handleSendGreetings(item: any) {
     console.log('item: ', item.Employee.EMail);
-    this.setState({ showGreetingsModal: true, greetingsMail: item.Employee.EMail, greetingsName: item.Employee.Title });
+    this.setState({ showGreetingsModal: true, greetingsMail: item.Employee.EMail, greetingsName: item.Employee.Title, body: this.props.body });
   }
   private closeModal() {
     this.setState({ showGreetingsModal: false, body: '' });
@@ -103,11 +102,11 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
     this.setState({ body: body || '', });
   }
   public async onConfirmSend() {
-    this.setState({ showGreetingsModal: false, body: this.props.body });
-
+    await this.setState({ showGreetingsModal: false, body: this.state.body });
+    // this.setState({ showGreetingsModal: false, body: this.props.body });
     await this.sendmail();
-
   }
+
   // Function to get the birthday image URL
   public async getBirthdayImage() {
     try {
@@ -258,34 +257,59 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
 
             <div className={styles.employee}>
               {displayedItems.length > 0 ? (
-                displayedItems.map((item: any, index: any) => (
-                  <div className={styles.persondiv} key={index}>
+                displayedItems.map((item: any, index: any) => {
 
-                    <div className={styles.Profilecard}>
-                      <div className={styles.ImgContainer}>
-                        <img
-                          // src={this.getEmployeeDetail(item.Employee.Title, item.Employee.EMail, item.ImageLink?.Url).personImage}
-                          src={this.getEmployeeDetail(item.Employee.Title, item.Employee.EMail).personImage}
-                          className={styles.Image}
-                          alt={`Profile picture of ${item.Employee.Title}`}
-                        />
-                      </div>
+                  const employeeDetail = this.getEmployeeDetail(item.Employee.Title, item.Employee.EMail)
+                  console.log('employeeDetail: ', employeeDetail);
 
-                      <div className={styles.secondarycard}>
-                        <div className={styles.Namecard}>{item.Employee.Title}</div>
-                        <div className={styles.secondarytextstyle}>{"Birthday on " + item.BirthdayText}</div>
-                        {moment(item.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
+
+                  return (
+                    <div className={styles.persondiv} key={index}>
+
+                      <div className={styles.Profilecard}>
+                        <div className={styles.ImgContainer}>
+                          <img
+                            // src={this.getEmployeeDetail(item.Employee.Title, item.Employee.EMail, item.ImageLink?.Url).personImage}
+                            src={employeeDetail.personImage || require('../assets/DefaultImage.png')}
+                            // src={
+                            //   this.getEmployeeDetail(item.Employee.Title, item.Employee.EMail)?.personImage || DefaultImage
+                            // }
+                            className={styles.Image}
+                          // alt={`${item.Employee.Title}`}
+                          // alt={require('../assets/DefaultImage.png')}
+                          />
+                        </div>
+
+                        <div className={styles.secondarycard}>
+                          <div className={styles.Namecard}>{item.Employee.Title}</div>
+                          <div className={styles.secondarytextstyle}>{"Birthday on " + item.BirthdayText}</div>
+                          {/* {moment(item.Birthday).format('DD-MMM') === moment(new Date()).format('DD-MMM') &&
                           <div className={styles.greetbutton}>
                             <PrimaryButton
                               title={this.props.buttonName} onClick={() => this.handleSendGreetings(item)}
                               styles={customButtonStyles} >
                               {this.props.buttonName}</PrimaryButton>
-                          </div>}
-                      </div>
+                          </div>} */}
 
+
+                          {new Date(item.BirthdayText).getDate() === new Date().getDate() &&
+                            new Date(item.BirthdayText).getMonth() === new Date().getMonth() && (
+                              <div className={styles.greetbutton}>
+                                <PrimaryButton
+                                  title={this.props.buttonName}
+                                  onClick={() => this.handleSendGreetings(item)}
+                                  styles={customButtonStyles}
+                                >
+                                  {this.props.buttonName}
+                                </PrimaryButton>
+                              </div>
+                            )}
+                        </div>
+
+                      </div>
                     </div>
-                  </div>
-                ))
+                  )
+                })
               ) : (
                 <div>{"No Birthday Today"}</div>
               )}
@@ -301,7 +325,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
               />
             </div>
           </div>
-          <div >
+          <div>
 
             <Modal
               isOpen={this.state.showGreetingsModal}
