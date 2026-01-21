@@ -141,7 +141,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
     let FinalBody = `
     <p> Dear ${this.state.greetingsName},</p>
   <div style="font-family: Arial, sans-serif; color: #333;">
-        <div style="background-image: url('${imageUrl}'); background-size: cover; padding: 20px; border-radius: 10px;">
+        <div style="background-image: url('${imageUrl}'); padding: 20px; border-radius: 10px;">
           <h1 style="color: ${this.state.headingColor};">${this.props.heading}</h1>
           <p style="color: ${this.state.bodyColor}; font-style: italic;">${this.state.body}</p>
         </div>
@@ -180,7 +180,7 @@ export default class BirthdayCarousel extends React.Component<IBirthdayCarouselP
         ],
       }
     };
- 
+
     //Send Email uisng MS Graph  
 
     this.props.context.msGraphClientFactory
